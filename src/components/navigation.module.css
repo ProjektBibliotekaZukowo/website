@@ -1,20 +1,11 @@
 .navigation {
-  display: flex;
-  justify-content: center;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  height: 20vh;
-  max-height: 100px;
-  font-size: 1.25em;
+  @apply flex justify-center list-none p-0 m-0 h-20 text-lg max-h-96;
 }
 
 .navigationItem {
-  display: inline-flex;
-  align-items: center;
-  margin: 0 1em;
+  @apply inline-flex items-center m-0 mx-4;
 }
 
 .navigationItem a {
-  color: currentColor;
+  @apply text-current
 }
