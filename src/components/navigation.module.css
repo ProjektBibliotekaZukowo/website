@@ -1,11 +1,19 @@
 .navigation {
-  @apply flex justify-center list-none p-0 m-0 h-20 text-lg max-h-96;
+  @apply flex text-left p-0 m-0 h-20 text-lg max-h-96;
+}
+
+.navigationLogo {
+  @apply w-full p-2;
+}
+
+.navigationLogoImg {
+  @apply max-h-full;
 }
 
 .navigationItem {
-  @apply inline-flex items-center m-0 mx-4;
+  @apply inline-flex items-center m-0 mx-4 whitespace-nowrap;
 }
 
 .navigationItem a {
-  @apply text-current
+  @apply text-current uppercase
 }
