@@ -4,7 +4,6 @@ import Img from "gatsby-image";
 import styles from "./navigation.module.css";
 
 export default ({ data }) => {
-  console.log("Radek", data);
   return (
     <>
       <div className={styles.navigation}>
