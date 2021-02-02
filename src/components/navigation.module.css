@@ -7,7 +7,7 @@
 }
 
 .navigationLogoImg {
-  @apply max-h-full;
+  @apply w-24 h-auto;
 }
 
 .navigationItem {
