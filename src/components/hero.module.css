@@ -1,8 +1,7 @@
 .hero {
-  position: relative;
-  background: #000;
-  color: #fff;
-  text-align: center;
+  @apply relative bg-black text-white items-center;
+  height: 61.8vh;
+  max-height: 400px;
 }
 
 .heroImage {
@@ -15,13 +14,7 @@
 }
 
 .heroDetails {
-  position: absolute;
-  background: rgba(0, 0, 0, 0.7);
-  left: 50%;
-  bottom: 0;
-  transform: translate(-50%, 0);
-  font-size: 14px;
-  padding: 0 0.5em;
+  @apply absolute bottom-1/2 bg-black bg-opacity-60;
 }
 
 @media(min-width: 600px) {
@@ -37,11 +30,5 @@
 }
 
 .heroHeadline {
-  margin: 0;
-}
-
-.heroTitle {
-  margin: 0;
-  font-size: 1.125em;
-  font-weight: bold;
+  @apply m-0 p-8 pl-28;
 }
