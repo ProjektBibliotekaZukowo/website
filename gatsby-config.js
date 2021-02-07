@@ -40,6 +40,12 @@ module.exports = {
   },
   pathPrefix: "/gatsby-contentful-starter",
   plugins: [
+    {
+      resolve: `gatsby-plugin-typography`,
+      options: {
+        pathToConfigModule: `src/utils/typography`,
+      },
+    },
     "gatsby-plugin-postcss",
     "gatsby-transformer-remark",
     "gatsby-transformer-sharp",

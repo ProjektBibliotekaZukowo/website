@@ -1,5 +1,5 @@
 .navigation {
-  @apply flex text-left p-0 m-0 h-20 text-lg max-h-96;
+  @apply flex text-left p-0 m-0 h-20 text-lg max-h-96 items-center;
 }
 
 .navigationLogo {
@@ -11,9 +11,9 @@
 }
 
 .navigationItem {
-  @apply inline-flex items-center m-0 mx-4 whitespace-nowrap;
+  @apply flex items-center m-0 mx-4 whitespace-nowrap;
 }
 
 .navigationItem a {
-  @apply text-current uppercase
+  @apply text-current h-10 p-0;
 }
