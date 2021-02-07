@@ -1,34 +1,18 @@
 .hero {
-  @apply relative bg-black text-white items-center;
-  height: 61.8vh;
-  max-height: 400px;
+  @apply relative bg-black text-white items-center max-h-screen;
 }
 
 .heroImage {
-  /*
-    Ensure golden ratio for the hero size while limiting it to some extend to
-    the viewport width
-  */
-  height: 61.8vh;
-  max-height: 400px;
+  @apply max-h-screen;
 }
 
 .heroDetails {
-  @apply absolute bottom-1/2 bg-black bg-opacity-60;
+  @apply absolute top-1/2 bg-black bg-opacity-60 transform -translate-y-1/2 align-middle;
 }
 
-@media(min-width: 600px) {
-  .heroDetails {
-    font-size: 16px;
-  }
+.wave {
+  @apply absolute bottom-0 h-24 w-full;
 }
-
-@media(min-width: 1000px) {
-  .heroDetails {
-    font-size: 20px;
-  }
-}
-
 .heroHeadline {
   @apply m-0 p-8 pl-28;
 }

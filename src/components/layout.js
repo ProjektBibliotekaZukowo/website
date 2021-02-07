@@ -5,7 +5,6 @@ import Navigation from "./navigation";
 
 class Template extends React.Component {
   render() {
-    console.log("Radek", this.props);
     const { children, data } = this.props;
 
     return (
