@@ -10,6 +10,6 @@ export default ({ data }) => (
     <div className={styles.heroDetails}>
       <h1 className={styles.heroHeadline}>{data.title}</h1>
     </div>
-    <img src={Wave} className={styles.wave} alt="wave" />
+    <img src={Wave} className={styles.wave} />
   </div>
 );

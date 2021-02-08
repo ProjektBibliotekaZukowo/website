@@ -1,18 +1,21 @@
 .hero {
-  @apply relative bg-black text-white items-center max-h-screen;
+  @apply relative items-center max-h-screen;
 }
 
 .heroImage {
-  @apply max-h-screen;
+  @apply max-h-screen overflow-hidden;
+  filter: blur(2px) brightness(1.2);
+
 }
 
 .heroDetails {
-  @apply absolute top-1/2 bg-black bg-opacity-60 transform -translate-y-1/2 align-middle;
+  @apply absolute top-1/2 bg-white bg-opacity-50 transform -translate-y-1/2 align-middle;
 }
 
 .wave {
-  @apply absolute bottom-0 h-24 w-full;
+  @apply absolute -bottom-10 h-24 w-full;
 }
+
 .heroHeadline {
   @apply m-0 p-8 pl-28;
 }
