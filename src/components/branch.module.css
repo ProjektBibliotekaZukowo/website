@@ -1,0 +1,15 @@
+.branch {
+    @apply text-center items-center mt-8 w-9/12 h-64; 
+}
+
+.title {
+    @apply text-red-900;
+}
+
+.frame {
+    @apply absolute w-1/2 h-96 rounded ml-4 bg-yellow-600 pb-2 pt-2 pl-10 -mr-px;
+}
+
+.info {
+    @apply absolute w-8/12 h-64 rounded bg-white ml-24 mt-10 mb-10 overflow-hidden shadow;
+}
