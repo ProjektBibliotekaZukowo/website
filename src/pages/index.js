@@ -43,12 +43,7 @@ export const pageQuery = graphql`
       nodes {
         title
         description
-        fluid(
-          maxWidth: 1180
-          maxHeight: 480
-          resizingBehavior: PAD
-          background: "rgb:8CA5C4"
-        ) {
+        fluid(maxWidth: 1180) {
           ...GatsbyContentfulFluid_tracedSVG
         }
       }
