@@ -6,6 +6,8 @@ import Hero from "../components/hero";
 import Layout from "../components/layout";
 import Branch from "../components/branch";
 
+import styles from "../components/index.module.css";
+
 class RootIndex extends React.Component {
   render() {
     const siteTitle = get(this, "props.data.site.siteMetadata.title");
@@ -18,9 +20,13 @@ class RootIndex extends React.Component {
         <div style={{ background: "#fff" }}>
           <Helmet title={siteTitle} />
           <Hero data={libraryImage} />
-          {branches.map((branch) => (
-            <Branch data={branch} />
-          ))}
+          <div className={styles.branches}>
+            {branches.map((branch) => (
+              <Branch data={branch} />
+            ))}
+
+            <Branch data={{ name: "Chwaszczyno" }} />
+          </div>
         </div>
       </Layout>
     );
