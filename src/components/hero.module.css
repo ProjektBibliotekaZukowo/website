@@ -4,10 +4,11 @@
 
 .heroImage {
   @apply max-w-screen-2xl overflow-hidden;
+  max-height: 500px;
 }
 
 .heroDetails {
-  @apply absolute top-1/2 bg-white transform -translate-y-1/2 align-middle;
+  @apply absolute top-1/2 bg-white transform -translate-y-1/2 align-middle shadow;
 }
 
 .wave {
