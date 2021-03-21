@@ -1,11 +1,57 @@
 .branch {
-    @apply relative w-3/4; 
+  width: 50%;
+  background-color: cadetblue;
+  border-radius: 10px;
+  height: 300px;
+  position: relative;
+}
+
+.branchWrapper {
+  width: 100%;
+  background-color: seagreen;
+  display: flex;
+}
+.branchWrapperOdd {
+  display: flex;
+  background-color: seagreen;
+  justify-content: flex-end;
+}
+
+.branchOdd {
+  width: 50%;
+  background-color: cadetblue;
+  border-radius: 10px;
+  height: 300px;
+  position: relative;
 }
 
 .frame {
-    @apply absolute transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 inset-0 rounded-2xl bg-yellow-600;
+  background: purple;
+  position: absolute;
+  width: 100%;
+  transform: translate(15%, 20%);
+  height: 70%;
+  border-radius: 10px;
+  display: flex;
+}
+
+.frameOdd {
+  background: purple;
+  position: absolute;
+  width: 100%;
+  transform: translate(-15%, 20%);
+  height: 70%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .info {
-    @apply relative bg-white px-4 py-10 rounded-2xl shadow-lg;
+  padding-left: 20px;
+}
+
+.map {
+  width: 30%;
+  height: 100%;
+  background-color: salmon;
 }

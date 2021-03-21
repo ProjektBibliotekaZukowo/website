@@ -1,31 +1,31 @@
-import React from "react";
-import { graphql } from "gatsby";
-import get from "lodash/get";
-import { Helmet } from "react-helmet";
-import Hero from "../components/hero";
-import Layout from "../components/layout";
-import Branch from "../components/branch";
+import React from 'react';
+import { graphql } from 'gatsby';
+import get from 'lodash/get';
+import { Helmet } from 'react-helmet';
+import Hero from '../components/hero';
+import Layout from '../components/layout';
+import Branch from '../components/branch';
 
-import styles from "../components/index.module.css";
+import styles from '../components/index.module.css';
 
 class RootIndex extends React.Component {
   render() {
-    const siteTitle = get(this, "props.data.site.siteMetadata.title");
-    const [libraryImage] = get(this, "props.data.libraryImage.nodes");
-    const [logoImage] = get(this, "props.data.logoImage.nodes");
-    const branches = get(this, "props.data.branches.nodes");
+    const siteTitle = get(this, 'props.data.site.siteMetadata.title');
+    const [libraryImage] = get(this, 'props.data.libraryImage.nodes');
+    const [logoImage] = get(this, 'props.data.logoImage.nodes');
+    const branches = get(this, 'props.data.branches.nodes');
 
     return (
       <Layout location={this.props.location} data={logoImage}>
-        <div style={{ background: "#fff" }}>
+        <div style={{ background: '#fff' }}>
           <Helmet title={siteTitle} />
           <Hero data={libraryImage} />
           <div className={styles.branches}>
-            {branches.map((branch) => (
-              <Branch data={branch} />
+            {branches.map((branch, index) => (
+              <Branch data={branch} isOdd={false} />
             ))}
 
-            <Branch data={{ name: "Chwaszczyno" }} />
+            <Branch data={{ name: 'Chwaszczyno' }} isOdd={true} />
           </div>
         </div>
       </Layout>
