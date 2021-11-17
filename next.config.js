@@ -15,4 +15,7 @@ module.exports = {
     CF_DELIVERY_ACCESS_TOKEN: process.env.CF_DELIVERY_ACCESS_TOKEN,
     CF_PREVIEW_ACCESS_TOKEN: process.env.CF_PREVIEW_ACCESS_TOKEN,
   },
+  images: {
+    domains: ['dummyimage.com', 'images.ctfassets.net'],
+  },
 };

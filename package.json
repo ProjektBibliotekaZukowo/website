@@ -23,10 +23,11 @@
     "date-fns": "^2.19.0",
     "fast-safe-stringify": "^2.0.8",
     "lodash": "^4.17.21",
-    "next": "^9.5.5",
+    "next": "^12.0.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "react-player": "^2.9.0"
+    "react-player": "^2.9.0",
+    "swr": "^1.0.1"
   },
   "devDependencies": {
     "@types/classnames": "^2.3.1",
@@ -50,7 +51,7 @@
     "prettier": "^2.2.1",
     "tailwindcss": "^1.9.6",
     "ts-node": "^9.1.1",
-    "typescript": "^3.9.9"
+    "typescript": "^4.4.4"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

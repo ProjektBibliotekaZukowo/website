@@ -1,8 +1,7 @@
-import { createClient } from 'contentful';
+import { Asset, createClient } from 'contentful';
 
 import { parsePage } from './pageParsers';
 import { PageContentType } from './constants';
-import { Locale } from './translations';
 
 const client = createClient({
   space: process.env.CF_SPACE_ID,
@@ -17,24 +16,33 @@ const previewClient = createClient({
 
 const getClient = (preview: boolean) => (preview ? previewClient : client);
 
-type GetPageParams = {
-  slug: string;
-  locale: Locale;
-  pageContentType: string;
+type PreviewParams = {
   preview?: boolean;
 };
 
-const getPageQuery = (params: GetPageParams) => ({
+type GetPageParams = {
+  slug: string;
+  pageContentType: string;
+} & PreviewParams;
+
+type AssetParams = {
+  id: string;
+} & PreviewParams;
+
+export async function logoFetcher(id: string): Promise<Asset> {
+  return await getClient(false).getAsset(id);
+}
+
+// FIXME: this should accept some parameters that's why it's function
+const getPageQuery = () => ({
   limit: 1,
   include: 10,
-  locale: params.locale,
-  'fields.slug': params.slug,
-  content_type: PageContentType,
-  'fields.content.sys.contentType.sys.id': params.pageContentType,
+  content_type: 'branch',
+  order: 'sys.createdAt',
 });
 
 export async function getPage(params: GetPageParams) {
-  const query = getPageQuery(params);
+  const query = getPageQuery();
   const {
     items: [page],
   } = await getClient(params.preview).getEntries(query);
@@ -43,18 +51,16 @@ export async function getPage(params: GetPageParams) {
 }
 
 type GetPagesOfTypeParams = {
-  locale: Locale;
   pageContentType: string;
   preview?: boolean;
 };
 
 export async function getPagesOfType(params: GetPagesOfTypeParams) {
-  const { pageContentType, preview, locale } = params;
+  const { pageContentType, preview } = params;
   const client = getClient(preview);
 
   const { items: pages } = await client.getEntries({
     limit: 100,
-    locale,
     content_type: PageContentType,
     'fields.content.sys.contentType.sys.id': pageContentType,
   });

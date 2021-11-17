@@ -3,30 +3,28 @@ import { useRouter } from 'next/router';
 import { TypePage } from './types';
 import { PageContentTypes } from './constants';
 import { isPreviewEnabled, withPreviewParam } from './preview';
-import { useLocaleContext } from './translations';
-import type { Locale } from './translations';
 
 export interface LinkProps {
   href: string;
   as: string;
 }
 
-function linkToPage(locale: Locale, page: TypePage, isPreview: boolean): LinkProps {
+function linkToPage(page: TypePage, isPreview: boolean): LinkProps {
   const slug = page.fields.slug;
-  const pageType = page.fields.content?.sys.contentType.sys.id;
+  const pageType = 'whatever';
 
   switch (pageType) {
     case PageContentTypes.HelpDeskArticle: {
       return {
-        href: withPreviewParam('/[locale]/articles/[slug]', isPreview),
-        as: withPreviewParam(`/${locale}/articles/${slug}`, isPreview),
+        href: withPreviewParam('/articles/[slug]', isPreview),
+        as: withPreviewParam(`/articles/${slug}`, isPreview),
       };
     }
 
     case PageContentTypes.LandingPage: {
       return {
-        href: withPreviewParam(`/[locale]/[slug]`, isPreview),
-        as: withPreviewParam(`/${locale}/${slug}`, isPreview),
+        href: withPreviewParam(`/[slug]`, isPreview),
+        as: withPreviewParam(`/${slug}`, isPreview),
       };
     }
 
@@ -43,17 +41,16 @@ function normalizePath(path: string) {
 
 export function useNavigation() {
   const { query, asPath: currentPath, route } = useRouter();
-  const locale = useLocaleContext();
   const isPreview = isPreviewEnabled(query);
 
   const linkTo = (page: TypePage) => {
-    return linkToPage(locale, page, isPreview);
+    return linkToPage(page, isPreview);
   };
 
   const linkToPath = (url: string): LinkProps => {
     return {
-      href: withPreviewParam(`/[locale]/${url}`, isPreview),
-      as: withPreviewParam(`/${locale}/${url}`, isPreview),
+      href: withPreviewParam(`/${url}`, isPreview),
+      as: withPreviewParam(`/${url}`, isPreview),
     };
   };
 
