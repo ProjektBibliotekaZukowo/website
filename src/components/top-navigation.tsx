@@ -6,17 +6,31 @@ import { SITE_NAME } from 'lib/constants';
 
 export function TopNavigation() {
   return (
-    <nav className="sticky w-full z-10 top-0 bg-white">
-      <div className="w-full container max-w-screen-xl  mx-auto flex flex-wrap justify-between mt-0 py-8 px-8">
-        <Link path="/">
-          <a className="text-gray-700 text-lg flex items-center">
-            <Logo />
-            <span className="h-full w-px mx-4 bg-gray-400"></span>
-            {SITE_NAME}
-          </a>
-        </Link>
+    <nav className="sticky w-full z-10 top-0 bg-gray-100">
+      <div className="max-w-6xl mx-auto border border-red-500">
+        <div className="flex justify-between">
+          <div>
+            <Link path="/">
+              <a className="text-gray-700 text-lg flex items-center">
+                <Logo />
+              </a>
+            </Link>
+          </div>
+          <div className="flex space-x-6">
+            <Link path="o-nas">
+              <a className="text-gray-700 text-lg flex items-center">o nas</a>
+            </Link>
+
+            <Link path="kontakt">
+              <a className="text-gray-700 text-lg flex items-center">kontakt</a>
+            </Link>
+
+            <Link path="aktualnosci">
+              <a className="text-gray-700 text-lg flex items-center">Aktualności</a>
+            </Link>
+          </div>
+        </div>
       </div>
-      <div className="w-full h-px bg-gray-300"></div>
     </nav>
   );
 }

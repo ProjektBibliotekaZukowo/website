@@ -10,7 +10,7 @@ export function Logo() {
     return <h1>No Logo</h1>;
   }
   if (!data) {
-    return 'loading ...';
+    return <>loading ...</>;
   }
   return <Image src={`https:${data.fields.file.url}`} width="208" height="150" />;
 }
