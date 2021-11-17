@@ -16,8 +16,6 @@ module.exports = {
     'plugin:import/warnings',
     'plugin:react/recommended',
     'prettier',
-    'prettier/@typescript-eslint',
-    'prettier/react',
   ],
   parserOptions: {
     ecmaVersion: 6,
@@ -40,7 +38,6 @@ module.exports = {
     },
   },
   rules: {
-    '@typescript-eslint/camelcase': ['error', { properties: 'never', ignoreDestructuring: true }],
     '@typescript-eslint/no-use-before-define': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     'react-hooks/rules-of-hooks': 'error',
