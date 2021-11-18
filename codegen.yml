@@ -1,0 +1,11 @@
+overwrite: true
+schema:
+  - https://graphql.contentful.com/content/v1/spaces/${CF_SPACE_ID}:
+      headers:
+        Authorization: 'Bearer ${CF_DELIVERY_ACCESS_TOKEN}'
+documents: 'src/graphql/**/*.ts'
+generates:
+  src/generated/types.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'

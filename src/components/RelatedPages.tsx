@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { BlockRenderer } from 'components/renderer/block-renderer';
+import { TypeBlogPost } from 'lib/types/TypeBlogPost';
 
 type RelatedPagesProps = {
   pages: Array<TypeBlogPost>;

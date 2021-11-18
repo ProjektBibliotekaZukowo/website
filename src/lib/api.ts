@@ -1,20 +1,6 @@
-import { Asset, createClient } from 'contentful';
-
-import { parsePage } from './pageParsers';
-import { PageContentType } from './constants';
-
-const client = createClient({
-  space: process.env.CF_SPACE_ID,
-  accessToken: process.env.CF_DELIVERY_ACCESS_TOKEN,
-});
-
-const previewClient = createClient({
-  space: process.env.CF_SPACE_ID,
-  accessToken: process.env.CF_PREVIEW_ACCESS_TOKEN,
-  host: 'preview.contentful.com',
-});
-
-const getClient = (preview: boolean) => (preview ? previewClient : client);
+import { getClient } from './contentfulApi';
+import { FetchAssetQuery, FetchAssetQueryVariables, FetchHomeQuery } from 'generated/types';
+import { ASSET_QUERY, HOME_QUERY } from 'graphql/queries';
 
 type PreviewParams = {
   preview?: boolean;
@@ -29,41 +15,19 @@ type AssetParams = {
   id: string;
 } & PreviewParams;
 
-export async function logoFetcher(id: string): Promise<Asset> {
-  return await getClient(false).getAsset(id);
-}
-
-// FIXME: this should accept some parameters that's why it's function
-const getPageQuery = () => ({
-  limit: 1,
-  include: 10,
-  content_type: 'branch',
-  order: 'sys.createdAt',
-});
-
-export async function getPage(params: GetPageParams) {
-  const query = getPageQuery();
-  const {
-    items: [page],
-  } = await getClient(params.preview).getEntries(query);
-
-  return page ? parsePage(page) : null;
-}
-
-type GetPagesOfTypeParams = {
-  pageContentType: string;
-  preview?: boolean;
-};
-
-export async function getPagesOfType(params: GetPagesOfTypeParams) {
-  const { pageContentType, preview } = params;
-  const client = getClient(preview);
-
-  const { items: pages } = await client.getEntries({
-    limit: 100,
-    content_type: PageContentType,
-    'fields.content.sys.contentType.sys.id': pageContentType,
+export async function logoFetcher(id: string) {
+  const client = getClient({ preview: false });
+  return await client.query<FetchAssetQuery, FetchAssetQueryVariables>({
+    query: ASSET_QUERY,
+    variables: {
+      asset_id: id,
+    },
   });
+}
 
-  return pages ? pages.map((page) => parsePage(page)) : [];
+export async function getHomePage(params: PreviewParams) {
+  const client = getClient(params);
+  return await client.query<FetchHomeQuery>({
+    query: HOME_QUERY,
+  });
 }

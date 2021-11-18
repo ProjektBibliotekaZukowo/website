@@ -1,16 +1,27 @@
 import * as React from 'react';
 import Image from 'next/image';
 import { logoFetcher } from '../lib/api';
-import useSWR from 'swr';
-import { LOGO_ID } from 'lib/constants';
+import { ASSETS } from 'lib/constants';
+import { useEffect, useState } from 'react';
+import { FetchAssetQuery } from 'generated/types';
 
+type LogoState = { data: FetchAssetQuery; loading: boolean };
 export function Logo() {
-  const { data, error } = useSWR(LOGO_ID, logoFetcher);
-  if (error) {
-    return <h1>No Logo</h1>;
-  }
-  if (!data) {
+  const [result, setResult] = useState<LogoState>({
+    data: undefined,
+    loading: true,
+  });
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await logoFetcher(ASSETS.logoId);
+      setResult({ ...result });
+    };
+
+    fetchData();
+  });
+  if (result.loading) {
     return <>loading ...</>;
   }
-  return <Image src={`https:${data.fields.file.url}`} width="208" height="150" />;
+
+  return <Image src={`${result.data.asset.url}`} width="208" height="150" />;
 }
