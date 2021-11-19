@@ -3,7 +3,10 @@ export const SITE_SEO_DESCRIPTION = 'opis SEO optymalizujący targetowanie';
 
 export const ASSETS = {
   logoId: '56AAvOmbPfhTt9GcpdCxXH',
+  heroImageId: '1kpr1kWAfJwZIp3nTm9jlc',
 };
+
+export const HOME_PAGE_ARTICLE_LIMIT = 1;
 
 export const PageContentType = 'page';
 

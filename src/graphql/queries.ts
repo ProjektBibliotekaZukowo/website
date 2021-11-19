@@ -1,8 +1,8 @@
 import { gql } from 'graphql-tag';
 
 export const ASSET_QUERY = gql`
-  query FetchAsset($asset_id: String!) {
-    asset(id: $asset_id) {
+  query FetchAsset($assetId: String!) {
+    asset(id: $assetId) {
       title
       description
       url
@@ -10,7 +10,26 @@ export const ASSET_QUERY = gql`
   }
 `;
 export const HOME_QUERY = gql`
-  query FetchHome {
+  query FetchHome($heroImageId: String!, $articlesLimit: Int!) {
+    heroImage: asset(id: $heroImageId) {
+      title
+      description
+      url
+    }
+    latestArticles: blogPostCollection(limit: $articlesLimit, order: publishDate_DESC) {
+      items {
+        title
+        slug
+        body
+        heroImage {
+          description
+          title
+          url
+        }
+        description
+        publishDate
+      }
+    }
     branches: branchCollection(order: name_DESC) {
       items {
         name

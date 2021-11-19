@@ -5,7 +5,9 @@ import 'styles/index.css';
 import { PreviewBanner } from 'components/preview-banner';
 import { TopNavigation } from 'components/top-navigation';
 import { SITE_NAME, SITE_SEO_DESCRIPTION } from 'lib/constants';
-function LibraryApp({ Component, pageProps }) {
+import { AppProps } from 'next/app';
+
+function LibraryApp({ Component, pageProps }: AppProps) {
   const { ...otherPageProps } = pageProps;
 
   return (

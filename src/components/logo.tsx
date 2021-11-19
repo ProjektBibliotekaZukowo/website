@@ -18,7 +18,7 @@ export function Logo() {
     };
 
     fetchData();
-  });
+  }, []);
   if (result.loading) {
     return <>loading ...</>;
   }

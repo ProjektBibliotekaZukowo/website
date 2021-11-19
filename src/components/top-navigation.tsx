@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'components/link';
 
 import { Logo } from 'components/logo';
-import { SITE_NAME } from 'lib/constants';
 
 export function TopNavigation() {
   return (

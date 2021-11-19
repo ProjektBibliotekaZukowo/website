@@ -1,18 +1,19 @@
 import { getClient } from './contentfulApi';
-import { FetchAssetQuery, FetchAssetQueryVariables, FetchHomeQuery } from 'generated/types';
+import {
+  FetchAssetQuery,
+  FetchAssetQueryVariables,
+  FetchHomeQuery,
+  FetchHomeQueryVariables,
+} from 'generated/types';
 import { ASSET_QUERY, HOME_QUERY } from 'graphql/queries';
 
 type PreviewParams = {
   preview?: boolean;
 };
 
-type GetPageParams = {
-  slug: string;
-  pageContentType: string;
-} & PreviewParams;
-
-type AssetParams = {
-  id: string;
+type GetHomePageParams = {
+  heroImageId: string;
+  articlesLimit: number;
 } & PreviewParams;
 
 export async function logoFetcher(id: string) {
@@ -20,14 +21,18 @@ export async function logoFetcher(id: string) {
   return await client.query<FetchAssetQuery, FetchAssetQueryVariables>({
     query: ASSET_QUERY,
     variables: {
-      asset_id: id,
+      assetId: id,
     },
   });
 }
 
-export async function getHomePage(params: PreviewParams) {
+export async function getHomePage(params: GetHomePageParams) {
   const client = getClient(params);
-  return await client.query<FetchHomeQuery>({
+  return await client.query<FetchHomeQuery, FetchHomeQueryVariables>({
     query: HOME_QUERY,
+    variables: {
+      heroImageId: params.heroImageId,
+      articlesLimit: 1,
+    },
   });
 }
