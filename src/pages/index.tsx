@@ -11,13 +11,18 @@ export default function Index({ branches, heroImage, latestArticles }: FetchHome
   return (
     <div className="w-full">
       <div className="max-w-6xl mx-auto">
-        <div className="flex border border-red-500">
+        <div className="flex border border-accent2-400 h-256">
           <div className="flex w-1/2 items-center">
             <h1>Biblioteka Samorządowa w Żukowie</h1>
           </div>
 
-          <div className="h-64 w-1/2 relative">
-            <Image src={heroImage.url} layout="fill" className="object-cover w-1/2 h-48" />
+          <div className="flex w-1/2 object-cover h-256">
+            <Image
+              src={heroImage.url}
+              height="256"
+              width="1080"
+              className="object-cover w-1/2 h-full"
+            />
           </div>
         </div>
         <div>

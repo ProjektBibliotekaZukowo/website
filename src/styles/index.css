@@ -52,7 +52,7 @@
   }
 
   .link {
-    @apply text-accent8-0 underline cursor-pointer;
+    @apply text-accent3-400 underline cursor-pointer;
   }
 
   strong {
@@ -64,7 +64,7 @@
   }
 
   mark {
-    @apply bg-accent8-3;
+    @apply bg-accent3-200;
   }
 
   .blur {

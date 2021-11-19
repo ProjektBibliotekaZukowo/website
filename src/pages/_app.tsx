@@ -11,12 +11,12 @@ function LibraryApp({ Component, pageProps }: AppProps) {
   const { ...otherPageProps } = pageProps;
 
   return (
-    <div className="flex flex-col bg-white">
+    <div className="bg-accent0-0 max-w-site mx-auto">
       <Head>
         <meta name={SITE_NAME} content={SITE_SEO_DESCRIPTION} key="description" />
       </Head>
       <PreviewBanner />
-      <div className="w-full flex flex-col relative">
+      <div className="relative max-w-site">
         <TopNavigation />
         <Component {...otherPageProps} />
       </div>

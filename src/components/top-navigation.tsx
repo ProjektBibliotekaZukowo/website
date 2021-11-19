@@ -5,27 +5,27 @@ import { Logo } from 'components/logo';
 
 export function TopNavigation() {
   return (
-    <nav className="sticky w-full z-10 top-0 bg-gray-100">
-      <div className="max-w-6xl mx-auto border border-red-500">
+    <nav className="sticky mx-auto z-10 top-0 bg-gray-100 w-full">
+      <div className="mx-auto border border-accent2-400">
         <div className="flex justify-between">
           <div>
             <Link path="/">
-              <a className="text-gray-700 text-lg flex items-center">
+              <a>
                 <Logo />
               </a>
             </Link>
           </div>
           <div className="flex space-x-6">
             <Link path="o-nas">
-              <a className="text-gray-700 text-lg flex items-center">o nas</a>
+              <a className="text-lg flex items-center link">o nas</a>
             </Link>
 
             <Link path="kontakt">
-              <a className="text-gray-700 text-lg flex items-center">kontakt</a>
+              <a className="text-lg flex items-center link">kontakt</a>
             </Link>
 
             <Link path="aktualnosci">
-              <a className="text-gray-700 text-lg flex items-center">Aktualności</a>
+              <a className="text-lg flex items-center link">Aktualności</a>
             </Link>
           </div>
         </div>
