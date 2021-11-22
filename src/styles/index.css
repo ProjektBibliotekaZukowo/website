@@ -52,7 +52,7 @@
   }
 
   .link {
-    @apply text-accent3-400 underline cursor-pointer;
+    @apply text-accent1-900 underline cursor-pointer;
   }
 
   strong {
@@ -85,5 +85,22 @@
   }
 }
 @tailwind components;
+
+@layer components {
+  .imageContainer {
+    width: 100px;
+  }
+
+  .imageContainer > span {
+    position: unset !important;
+  }
+
+  .image {
+    object-fit: contain;
+    width: 100% !important;
+    position: relative !important;
+    height: unset !important;
+  }
+}
 /* purgecss end ignore */
 @tailwind utilities;

@@ -16,7 +16,7 @@ export const HOME_QUERY = gql`
       description
       url
     }
-    latestArticles: blogPostCollection(limit: $articlesLimit, order: publishDate_DESC) {
+    latestArticles: articleCollection(limit: $articlesLimit, order: publishDate_DESC) {
       items {
         title
         slug
@@ -65,6 +65,17 @@ export const HOME_QUERY = gql`
           numerTelefonu
           email
         }
+      }
+    }
+    partners: partnerCollection(order: name_ASC) {
+      items {
+        name
+        logo {
+          title
+          description
+          url
+        }
+        description
       }
     }
   }

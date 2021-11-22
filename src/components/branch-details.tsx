@@ -9,7 +9,7 @@ type BranchProps = {
 
 export const BranchDetails = (branchItem: BranchProps) => {
   return (
-    <div className="flex border border-green-500">
+    <div className="flex">
       <h3>{branchItem.name}</h3>
       <p>{branchItem.shortDescription}</p>
     </div>

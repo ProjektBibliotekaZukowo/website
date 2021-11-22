@@ -6,7 +6,7 @@ import { Logo } from 'components/logo';
 export function TopNavigation() {
   return (
     <nav className="sticky mx-auto z-10 top-0 bg-gray-100 w-full">
-      <div className="mx-auto border border-accent2-400">
+      <div className="mx-auto">
         <div className="flex justify-between">
           <div>
             <Link path="/">
