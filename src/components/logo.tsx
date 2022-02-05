@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Image from 'next/image';
 import { logoFetcher } from '../lib/api';
 import { ASSETS } from 'lib/constants';
 import { useEffect, useState } from 'react';
 import { FetchAssetQuery } from 'generated/types';
+import { ChakraNextImage } from './ChakraNextImage';
 
 type LogoState = { data: FetchAssetQuery; loading: boolean };
 export function Logo() {
@@ -23,5 +23,5 @@ export function Logo() {
     return <>loading ...</>;
   }
 
-  return <Image src={`${result.data.asset.url}`} width="208" height="150" />;
+  return <ChakraNextImage src={`${result.data.asset.url}`} width="199" height="42" />;
 }

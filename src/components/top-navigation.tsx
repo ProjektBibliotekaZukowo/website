@@ -1,35 +1,83 @@
-import React from 'react';
-import { Link } from 'components/link';
+import {
+  Box,
+  Flex,
+  HStack,
+  Link,
+  IconButton,
+  useDisclosure,
+  useColorModeValue,
+  Stack,
+} from '@chakra-ui/react';
+import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { Logo } from './logo';
+import { BsFacebook, BsInstagram } from 'react-icons/bs';
 
-import { Logo } from 'components/logo';
+const Links = [
+  { title: 'O nas', href: 'o-nas' },
+  { title: 'Aktualności', href: 'aktualnosci' },
+  { title: 'Kontakt', href: 'kontakt' },
+];
 
-export function TopNavigation() {
+interface INavLink {
+  href: string;
+}
+const NavLink: React.FC<INavLink> = ({ children, href }) => (
+  <Link
+    px={2}
+    py={1}
+    rounded={'md'}
+    _hover={{
+      textDecoration: 'none',
+      bg: useColorModeValue('gray.200', 'gray.700'),
+    }}
+    href={href}
+  >
+    {children}
+  </Link>
+);
+
+export default function Simple() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
-    <nav className="sticky mx-auto z-10 top-0 bg-gray-100 w-full">
-      <div className="mx-auto">
-        <div className="flex justify-between">
-          <div>
-            <Link path="/">
-              <a>
-                <Logo />
-              </a>
-            </Link>
-          </div>
-          <div className="flex space-x-6">
-            <Link path="o-nas">
-              <a className="text-lg flex items-center link">o nas</a>
-            </Link>
+    <>
+      <Box bg={useColorModeValue('white', 'gray.900')} px={10}>
+        <Flex h={28} alignItems={'center'} justifyContent={'space-between'}>
+          <IconButton
+            size={'md'}
+            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+            aria-label={'Open Menu'}
+            display={{ md: 'none' }}
+            onClick={isOpen ? onClose : onOpen}
+          />
+          <HStack spacing={16} alignItems={'center'}>
+            <Logo />
+            <HStack as={'nav'} spacing={8} display={{ base: 'none', md: 'flex' }} fontWeight={800}>
+              {Links.map((link) => (
+                <NavLink key={link.href} href={link.href}>
+                  {link.title}
+                </NavLink>
+              ))}
+            </HStack>
+          </HStack>
+          <Flex>
+            <IconButton aria-label="Idź do instagram" icon={<BsInstagram />} variant="unstyled" />
+            <IconButton aria-label="Idź do facebook" icon={<BsFacebook />} variant="unstyled" />
+          </Flex>
+        </Flex>
 
-            <Link path="kontakt">
-              <a className="text-lg flex items-center link">kontakt</a>
-            </Link>
-
-            <Link path="aktualnosci">
-              <a className="text-lg flex items-center link">Aktualności</a>
-            </Link>
-          </div>
-        </div>
-      </div>
-    </nav>
+        {isOpen ? (
+          <Box pb={4} display={{ md: 'none' }}>
+            <Stack as={'nav'} spacing={4}>
+              {Links.map((link) => (
+                <NavLink key={link.href} href={link.href}>
+                  {link.title}
+                </NavLink>
+              ))}
+            </Stack>
+          </Box>
+        ) : null}
+      </Box>
+    </>
   );
 }
