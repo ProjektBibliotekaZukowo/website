@@ -34,4 +34,4 @@ to start the website on `http://localhost:3000`
 
 - [Next.js 12.x][nextjs]
 - [TypeScript 4.x][typescript]
-- [Tailwind CSS][tailwind]
+- [Chakra UI][tailwind]
