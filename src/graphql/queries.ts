@@ -32,6 +32,9 @@ export const HOME_QUERY = gql`
     }
     branches: branchCollection(order: name_DESC) {
       items {
+        sys {
+          id
+        }
         name
         shortDescription
         mainImage {

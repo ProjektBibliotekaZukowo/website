@@ -1,16 +1,13 @@
-import { BranchDetails } from 'components/branch-details';
-import { Link } from 'components/link';
-import { PartnerDetails } from 'components/partner-details';
+import { OpeningTimes } from 'components/OpeningTimes';
 import { FetchHomeQuery } from 'generated/types';
 import { getHomePage } from 'lib/api';
 import { ASSETS, HOME_PAGE_ARTICLE_LIMIT } from 'lib/constants';
 import { GetStaticProps } from 'next';
-import Image from 'next/image';
 import React from 'react';
 
-export default function Index({ branches, heroImage, latestArticles, partners }: FetchHomeQuery) {
-  const latestArticle = latestArticles.items[0];
-  return null;
+export default function Index({ branches }: FetchHomeQuery) {
+  // const latestArticle = latestArticles.items[0];
+  return <OpeningTimes branches={branches} />;
   // return (
   //   <div className="w-full">
   //     <div className="max-w-6xl mx-auto space-y-48">

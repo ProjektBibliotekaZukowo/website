@@ -6,6 +6,16 @@ const theme = extendTheme({
     heading: 'Montserrat',
     body: 'Montserrat',
   },
+  colors: {
+    brand: {
+      black: '#000021',
+      blue: '#015D96',
+      red: '#E22C3F',
+    },
+    gray: {
+      100: '#F5F5F5',
+    },
+  },
   components: {
     Button: {
       // 1. We can update the base styles

@@ -41,12 +41,17 @@ export default function Simple() {
 
   return (
     <>
-      <Box bg={useColorModeValue('white', 'gray.900')} px={10}>
+      <Box
+        bg={useColorModeValue('white', 'gray.900')}
+        px={10}
+        boxShadow={'0px 10px 20px #0000001A'}
+        fontSize="xl"
+      >
         <Flex h={28} alignItems={'center'} justifyContent={'space-between'}>
           <IconButton
-            size={'md'}
+            variant="unstyled"
             icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-            aria-label={'Open Menu'}
+            aria-label="Otwórz menu"
             display={{ md: 'none' }}
             onClick={isOpen ? onClose : onOpen}
           />
