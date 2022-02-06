@@ -32,7 +32,7 @@ export async function getHomePage(params: GetHomePageParams) {
     query: HOME_QUERY,
     variables: {
       heroImageId: params.heroImageId,
-      articlesLimit: 1,
+      articlesLimit: 3,
     },
   });
 }

@@ -8,32 +8,35 @@ import {
   useColorModeValue,
   Stack,
 } from '@chakra-ui/react';
+import NextLink from 'next/link';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { Logo } from './logo';
 import { BsFacebook, BsInstagram } from 'react-icons/bs';
 
 const Links = [
-  { title: 'O nas', href: 'o-nas' },
-  { title: 'Aktualności', href: 'aktualnosci' },
-  { title: 'Kontakt', href: 'kontakt' },
+  { title: 'O nas', href: '/o-nas' },
+  { title: 'Aktualności', href: '/aktualnosci' },
+  { title: 'Kontakt', href: '/kontakt' },
 ];
 
 interface INavLink {
   href: string;
 }
 const NavLink: React.FC<INavLink> = ({ children, href }) => (
-  <Link
-    px={2}
-    py={1}
-    rounded={'md'}
-    _hover={{
-      textDecoration: 'none',
-      bg: useColorModeValue('gray.200', 'gray.700'),
-    }}
-    href={href}
-  >
-    {children}
-  </Link>
+  <NextLink href={href} passHref>
+    <Link
+      px={2}
+      py={1}
+      rounded={'md'}
+      _hover={{
+        textDecoration: 'none',
+        bg: useColorModeValue('gray.200', 'gray.700'),
+      }}
+      href={href}
+    >
+      {children}
+    </Link>
+  </NextLink>
 );
 
 export default function Simple() {
