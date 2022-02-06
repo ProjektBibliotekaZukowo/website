@@ -1,3 +1,4 @@
+import { LibraryBranches } from 'components/LibraryBranches';
 import { OpeningTimes } from 'components/OpeningTimes';
 import { TopArticles } from 'components/TopArticles';
 import { FetchHomeQuery } from 'generated/types';
@@ -11,6 +12,7 @@ export default function Index({ branches, latestArticles }: FetchHomeQuery) {
     <>
       <OpeningTimes branches={branches} />
       <TopArticles latestArticles={latestArticles} />
+      <LibraryBranches branches={branches} />
     </>
   );
 }

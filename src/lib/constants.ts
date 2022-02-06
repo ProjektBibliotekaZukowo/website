@@ -8,6 +8,8 @@ export const ASSETS = {
 
 export const HOME_PAGE_ARTICLE_LIMIT = 3;
 
+export const MAIN_BRANCH_TAG = 'mainBranch';
+
 export const PageContentType = 'page';
 
 export const ComponentContentTypes = {
