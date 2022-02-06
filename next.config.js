@@ -11,9 +11,9 @@ module.exports = {
     ];
   },
   env: {
-    CF_SPACE_ID: process.env.CF_SPACE_ID,
-    CF_DELIVERY_ACCESS_TOKEN: process.env.CF_DELIVERY_ACCESS_TOKEN,
-    CF_PREVIEW_ACCESS_TOKEN: process.env.CF_PREVIEW_ACCESS_TOKEN,
+    CF_SPACE_ID: process.env.CONTENTFUL_SPACE_ID,
+    CF_DELIVERY_ACCESS_TOKEN: process.env.CONTENTFUL_DELIVERY_ACCESS_TOKEN,
+    CF_PREVIEW_ACCESS_TOKEN: process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN,
   },
   images: {
     domains: ['dummyimage.com', 'images.ctfassets.net'],

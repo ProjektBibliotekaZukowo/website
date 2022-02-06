@@ -18,9 +18,9 @@ yarn run dev
 
 Copy `.env.example` to `.env` and adapt the environment to your setup:
 
-- `CF_SPACE_ID`: The ID of a Compose compatible space to be used
-- `CF_DELIVERY_ACCESS_TOKEN`: A delivery API key for the space
-- `CF_PREVIEW_ACCESS_TOKEN`: A preview API key for the space
+- `CONTENTFUL_SPACE_ID`: The ID of a Compose compatible space to be used
+- `CONTENTFUL_DELIVERY_ACCESS_TOKEN`: A delivery API key for the space
+- `CONTENTFUL_PREVIEW_ACCESS_TOKEN`: A preview API key for the space
 
 and then
 
