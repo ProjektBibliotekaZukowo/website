@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, Text } from '@chakra-ui/react';
-import { Branch } from 'generated/types';
-import { m } from 'framer-motion';
+import { FetchHomeQuery } from 'generated/types';
 
+type Branch = FetchHomeQuery['branches']['items'][0];
 interface IBranchOpeningTime {
   branch: Branch;
 }

@@ -1,9 +1,9 @@
 import { Center, HStack, Text } from '@chakra-ui/react';
-import { BranchCollection } from 'generated/types';
+import { FetchHomeQuery } from 'generated/types';
 import { BranchOpeningTime } from './BranchOpeningTime';
 
 interface IOpeningTimes {
-  branches: BranchCollection;
+  branches: FetchHomeQuery['branches'];
 }
 
 export const OpeningTimes = ({ branches }: IOpeningTimes) => {

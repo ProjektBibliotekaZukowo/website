@@ -1,11 +1,8 @@
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions = {};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -350,13 +347,49 @@ export type Asset = {
 };
 
 /** Represents a binary file in a space. An asset can be any file type. */
+export type AssetContentTypeArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+/** Represents a binary file in a space. An asset can be any file type. */
+export type AssetDescriptionArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+/** Represents a binary file in a space. An asset can be any file type. */
+export type AssetFileNameArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+/** Represents a binary file in a space. An asset can be any file type. */
+export type AssetHeightArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+/** Represents a binary file in a space. An asset can be any file type. */
 export type AssetLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 /** Represents a binary file in a space. An asset can be any file type. */
+export type AssetSizeArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+/** Represents a binary file in a space. An asset can be any file type. */
+export type AssetTitleArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+/** Represents a binary file in a space. An asset can be any file type. */
 export type AssetUrlArgs = {
+  locale?: InputMaybe<Scalars['String']>;
   transform?: InputMaybe<ImageTransformOptions>;
+};
+
+/** Represents a binary file in a space. An asset can be any file type. */
+export type AssetWidthArgs = {
+  locale?: InputMaybe<Scalars['String']>;
 };
 
 export type AssetCollection = {
@@ -2098,6 +2131,7 @@ export type FetchHomeQuery = {
               __typename?: 'Branch';
               name?: string | null | undefined;
               shortDescription?: string | null | undefined;
+              sys: { __typename?: 'Sys'; id: string };
               mainImage?:
                 | { __typename?: 'Asset'; url?: string | null | undefined }
                 | null
@@ -2174,152 +2208,3 @@ export type FetchHomeQuery = {
     | null
     | undefined;
 };
-
-export const FetchAssetDocument = gql`
-  query FetchAsset($assetId: String!) {
-    asset(id: $assetId) {
-      title
-      description
-      url
-    }
-  }
-`;
-
-/**
- * __useFetchAssetQuery__
- *
- * To run a query within a React component, call `useFetchAssetQuery` and pass it any options that fit your needs.
- * When your component renders, `useFetchAssetQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useFetchAssetQuery({
- *   variables: {
- *      assetId: // value for 'assetId'
- *   },
- * });
- */
-export function useFetchAssetQuery(
-  baseOptions: Apollo.QueryHookOptions<FetchAssetQuery, FetchAssetQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<FetchAssetQuery, FetchAssetQueryVariables>(FetchAssetDocument, options);
-}
-export function useFetchAssetLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<FetchAssetQuery, FetchAssetQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<FetchAssetQuery, FetchAssetQueryVariables>(
-    FetchAssetDocument,
-    options
-  );
-}
-export type FetchAssetQueryHookResult = ReturnType<typeof useFetchAssetQuery>;
-export type FetchAssetLazyQueryHookResult = ReturnType<typeof useFetchAssetLazyQuery>;
-export type FetchAssetQueryResult = Apollo.QueryResult<FetchAssetQuery, FetchAssetQueryVariables>;
-export const FetchHomeDocument = gql`
-  query FetchHome($heroImageId: String!, $articlesLimit: Int!) {
-    heroImage: asset(id: $heroImageId) {
-      title
-      description
-      url
-    }
-    latestArticles: articleCollection(limit: $articlesLimit, order: publishDate_DESC) {
-      items {
-        title
-        slug
-        body
-        heroImage {
-          description
-          title
-          url
-        }
-        description
-        publishDate
-      }
-    }
-    branches: branchCollection(order: name_DESC) {
-      items {
-        name
-        shortDescription
-        mainImage {
-          url
-        }
-        openingTimes {
-          mondayTo
-          mondayFrom
-          tuesdayTo
-          tuesdayFrom
-          wednesdayTo
-          wednesdayFrom
-          thursdayTo
-          thursdayFrom
-          fridayTo
-          fridayFrom
-          saturdayFrom
-          saturdayTo
-          sundayTo
-          sundayFrom
-        }
-        address {
-          miejscowosc
-          kodPocztowy
-          ulica
-          numer
-          lokalizacja {
-            lat
-            lon
-          }
-          numerTelefonu
-          email
-        }
-      }
-    }
-    partners: partnerCollection(order: name_ASC) {
-      items {
-        name
-        logo {
-          title
-          description
-          url
-        }
-        description
-      }
-    }
-  }
-`;
-
-/**
- * __useFetchHomeQuery__
- *
- * To run a query within a React component, call `useFetchHomeQuery` and pass it any options that fit your needs.
- * When your component renders, `useFetchHomeQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useFetchHomeQuery({
- *   variables: {
- *      heroImageId: // value for 'heroImageId'
- *      articlesLimit: // value for 'articlesLimit'
- *   },
- * });
- */
-export function useFetchHomeQuery(
-  baseOptions: Apollo.QueryHookOptions<FetchHomeQuery, FetchHomeQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<FetchHomeQuery, FetchHomeQueryVariables>(FetchHomeDocument, options);
-}
-export function useFetchHomeLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<FetchHomeQuery, FetchHomeQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<FetchHomeQuery, FetchHomeQueryVariables>(FetchHomeDocument, options);
-}
-export type FetchHomeQueryHookResult = ReturnType<typeof useFetchHomeQuery>;
-export type FetchHomeLazyQueryHookResult = ReturnType<typeof useFetchHomeLazyQuery>;
-export type FetchHomeQueryResult = Apollo.QueryResult<FetchHomeQuery, FetchHomeQueryVariables>;
