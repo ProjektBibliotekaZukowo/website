@@ -24,7 +24,7 @@ export const HOME_QUERY = gql`
         heroImage {
           description
           title
-          url
+          url(transform: { width: 576, height: 448 })
         }
         description
         publishDate

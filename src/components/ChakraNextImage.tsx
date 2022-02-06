@@ -9,7 +9,7 @@ const ChakraNextUnwrappedImage = chakra(NextImage, {
 });
 
 const myLoader = (resolverProps: ImageLoaderProps): string => {
-  return `${resolverProps.src}?w=${resolverProps.width}&q=${resolverProps.quality}`;
+  return `${resolverProps.src}`;
 };
 
 const shimmer = (w: number, h: number) => `
@@ -41,7 +41,7 @@ export const ChakraNextImage = (props: ImageProps) => {
         quality={quality}
         height={height}
         placeholder="blur"
-        blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
+        blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(576, 448))}`}
         src={src}
         alt={alt}
         transition="all 0.2s"

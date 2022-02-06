@@ -6,7 +6,7 @@ export const ASSETS = {
   heroImageId: '1kpr1kWAfJwZIp3nTm9jlc',
 };
 
-export const HOME_PAGE_ARTICLE_LIMIT = 1;
+export const HOME_PAGE_ARTICLE_LIMIT = 3;
 
 export const PageContentType = 'page';
 
