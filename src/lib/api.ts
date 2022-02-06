@@ -6,6 +6,7 @@ import {
   FetchHomeQueryVariables,
 } from 'generated/types';
 import { ASSET_QUERY, HOME_QUERY } from 'graphql/queries';
+import { HOME_PAGE_ARTICLE_LIMIT } from './constants';
 
 type PreviewParams = {
   preview?: boolean;
@@ -32,7 +33,7 @@ export async function getHomePage(params: GetHomePageParams) {
     query: HOME_QUERY,
     variables: {
       heroImageId: params.heroImageId,
-      articlesLimit: 3,
+      articlesLimit: HOME_PAGE_ARTICLE_LIMIT,
     },
   });
 }

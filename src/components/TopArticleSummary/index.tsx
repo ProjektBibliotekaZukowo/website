@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Heading, Icon, Link, Text, VStack } from '@chakra-ui/react';
+import { Box, Flex, Heading, Icon, Link, Text, VStack } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { ChakraNextImage } from 'components/ChakraNextImage';
 import { FetchHomeQuery } from 'generated/types';
@@ -13,7 +13,7 @@ export const TopArticleSummary = ({ article }: ITopArticleSummary) => {
     <Box>
       <Flex justifyContent="space-between">
         <VStack h="lg" align="stretch" spacing={8} maxW={'md'}>
-          <Box h={20}></Box>
+          <Box h={12}></Box>
           <Heading>{article.title}</Heading>
           <Text as="p" textAlign="start">
             {article.description}
