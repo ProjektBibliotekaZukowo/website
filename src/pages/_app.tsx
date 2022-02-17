@@ -1,5 +1,6 @@
 import '@fontsource/montserrat/400.css';
 import '@fontsource/montserrat/600.css';
+import '@fontsource/montserrat/900.css';
 
 import React from 'react';
 import Head from 'next/head';
