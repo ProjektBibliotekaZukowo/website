@@ -14,7 +14,7 @@ export const TopArticleSummary = ({ article }: ITopArticleSummary) => {
       <Flex justifyContent="space-between">
         <VStack h="lg" align="stretch" spacing={8} maxW={'md'}>
           <Box h={12}></Box>
-          <Heading>{article.title}</Heading>
+          <Heading as="h3">{article.title}</Heading>
           <Text as="p" textAlign="start">
             {article.description}
           </Text>

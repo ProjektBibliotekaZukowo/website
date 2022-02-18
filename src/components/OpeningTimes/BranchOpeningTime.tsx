@@ -35,7 +35,7 @@ export const BranchOpeningTime = ({ branch }: IBranchOpeningTime) => {
       display="flex"
       alignItems="baseline"
     >
-      {branch.name}:
+      {branch.address.miejscowosc}:
       <Text color={closed ? 'brand.red' : 'brand.blue'} ml={2}>
         {closed ? 'nieczynne' : parseAndFormat(openFrom, openTo)}
       </Text>
