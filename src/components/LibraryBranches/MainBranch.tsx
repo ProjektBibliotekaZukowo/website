@@ -24,7 +24,9 @@ export const MainBranch = ({ branch }: IMainBranch) => {
     <Box w="6xl">
       <Flex justifyContent="space-between">
         <VStack as="address" align="stretch" spacing={8} maxW={'md'}>
-          <Heading as="h3">{branch.name}</Heading>
+          <Heading as="h3" size="md">
+            {branch.name}
+          </Heading>
 
           <Stack spacing={1} textAlign="start">
             <Text>{branch.shortDescription}</Text>
