@@ -49,6 +49,26 @@ const theme = extendTheme({
             textDecoration,
           },
         }),
+
+        topNavigation: {
+          fontWeight: '600',
+          fontSize: '18px',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          padding: '0 20px',
+          backgroundImage: 'linear-gradient(#015D96, #015D96)',
+          backgroundPosition: '50% 50%',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '100% 0%',
+
+          _hover: {
+            transition: '.3s ease-out',
+            color: 'white',
+            textDecoration: 'underline',
+            backgroundSize: '100% 100%',
+          },
+        },
       },
       defaultProps: {
         // you can name it whatever you want
