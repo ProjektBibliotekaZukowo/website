@@ -69,13 +69,13 @@ export default function Simple() {
               aria-label="Idź do facebook"
               fontSize="24px"
               icon={<BsFacebook />}
-              variant="iconButton"
+              variant="unstyled"
             />
             <IconButton
               aria-label="Idź do instagram"
               fontSize="24px"
               icon={<BsInstagram />}
-              variant="iconButton"
+              variant="unstyled"
             />
           </Flex>
         </Flex>
