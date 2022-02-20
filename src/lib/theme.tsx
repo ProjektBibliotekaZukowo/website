@@ -75,6 +75,23 @@ const theme = extendTheme({
         variant: 'primary',
       },
     },
+    Button: {
+      variants: {
+        openingHours: {
+          color: 'brand.black',
+          height: 'auto',
+          width: '226px',
+          border: '1px solid #082100',
+          borderRadius: '5px',
+          padding: '10px 15px',
+          fontSize: '18px',
+          fontWeight: '600',
+          display: 'flex',
+          alignItems: 'center',
+          textAlign: 'center',
+        },
+      },
+    },
   },
 });
 

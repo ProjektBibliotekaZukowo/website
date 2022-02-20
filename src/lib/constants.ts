@@ -37,3 +37,11 @@ export const routes = {
   KATALOG_ONLINE: '/katalog-online',
   KONTAKT: '/kontakt',
 };
+
+export const workingWeek = [
+  { pl: 'Poniedziałek', en: 'monday' },
+  { pl: 'Wtorek', en: 'tuesday' },
+  { pl: 'Sroda', en: 'wednesday' },
+  { pl: 'Czwartek', en: 'thursday' },
+  { pl: 'Piątek', en: 'friday' },
+];

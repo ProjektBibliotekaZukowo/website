@@ -1,20 +1,13 @@
 import React from 'react';
 import { Box, Text } from '@chakra-ui/react';
 import { FetchHomeQuery } from 'generated/types';
+import { parseAndFormatOpenings } from '../../lib/utils/parseAndFormatOpenings';
 
 type Branch = FetchHomeQuery['branches']['items'][0];
 interface IBranchOpeningTime {
   branch: Branch;
 }
 
-const parseAndFormat = (openFrom: string, openTo: string) => {
-  const from = new Date(openFrom);
-  const to = new Date(openTo);
-
-  const timeFrom = from.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' });
-  const timeTo = to.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' });
-  return `${timeFrom}-${timeTo}`;
-};
 export const BranchOpeningTime = ({ branch }: IBranchOpeningTime) => {
   const d = new Date();
   const weekday = d.toLocaleDateString('en-us', { weekday: 'long' }).toLowerCase();
@@ -39,7 +32,7 @@ export const BranchOpeningTime = ({ branch }: IBranchOpeningTime) => {
     >
       {branch.address.miejscowosc}:
       <Text color={closed ? 'brand.red' : 'brand.blue'} ml={2}>
-        {closed ? 'nieczynne' : parseAndFormat(openFrom, openTo)}
+        {closed ? 'nieczynne' : parseAndFormatOpenings(openFrom, openTo)}
       </Text>
     </Box>
   );
