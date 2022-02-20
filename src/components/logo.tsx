@@ -4,7 +4,6 @@ import { ASSETS } from 'lib/constants';
 import { useEffect, useState } from 'react';
 import { FetchAssetQuery } from 'generated/types';
 import { ChakraNextImage } from './ChakraNextImage';
-import NextLink from 'next/link';
 
 type LogoState = { data: FetchAssetQuery; loading: boolean };
 export function Logo() {

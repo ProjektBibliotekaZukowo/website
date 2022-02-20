@@ -2,42 +2,22 @@ import {
   Box,
   Flex,
   HStack,
-  Link,
   IconButton,
   useDisclosure,
   useColorModeValue,
   Stack,
 } from '@chakra-ui/react';
-import NextLink from 'next/link';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { Logo } from './logo';
 import { BsFacebook, BsInstagram } from 'react-icons/bs';
+import { routes } from '../lib/constants';
+import { NextLink } from 'lib/NextLink';
 
 const Links = [
-  { title: 'O nas', href: '/o-nas' },
-  { title: 'Aktualności', href: '/aktualnosci' },
-  { title: 'Kontakt', href: '/kontakt' },
+  { title: 'O nas', href: routes.O_NAS },
+  { title: 'Aktualności', href: routes.AKTUALNOSCI },
+  { title: 'Kontakt', href: routes.KONTAKT },
 ];
-
-interface INavLink {
-  href: string;
-}
-const NavLink: React.FC<INavLink> = ({ children, href }) => (
-  <NextLink href={href} passHref>
-    <Link
-      px={2}
-      py={1}
-      rounded={'md'}
-      _hover={{
-        textDecoration: 'none',
-        bg: useColorModeValue('gray.200', 'gray.700'),
-      }}
-      href={href}
-    >
-      {children}
-    </Link>
-  </NextLink>
-);
 
 export default function Simple() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -50,7 +30,7 @@ export default function Simple() {
         boxShadow={'0px 10px 20px #0000001A'}
         fontSize="xl"
       >
-        <Flex h={28} alignItems={'center'} justifyContent={'space-between'}>
+        <Flex h={'100px'} alignItems={'center'} justifyContent={'space-between'}>
           <IconButton
             variant="unstyled"
             icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
@@ -58,19 +38,31 @@ export default function Simple() {
             display={{ md: 'none' }}
             onClick={isOpen ? onClose : onOpen}
           />
-          <HStack spacing={16} alignItems={'center'}>
-            <Logo />
-            <HStack as={'nav'} spacing={8} display={{ base: 'none', md: 'flex' }} fontWeight={800}>
+          <HStack height={'100%'} spacing={16} alignItems={'center'}>
+            <NextLink href={routes.MAIN}>
+              <Logo />
+            </NextLink>
+            <HStack as={'nav'} height={'100%'} spacing={0} display={{ base: 'none', md: 'flex' }}>
               {Links.map((link) => (
-                <NavLink key={link.href} href={link.href}>
+                <NextLink key={link.href} href={link.href} variant="topNavigation">
                   {link.title}
-                </NavLink>
+                </NextLink>
               ))}
             </HStack>
           </HStack>
           <Flex>
-            <IconButton aria-label="Idź do instagram" icon={<BsInstagram />} variant="unstyled" />
-            <IconButton aria-label="Idź do facebook" icon={<BsFacebook />} variant="unstyled" />
+            <IconButton
+              aria-label="Idź do facebook"
+              fontSize="24px"
+              icon={<BsFacebook />}
+              variant="unstyled"
+            />
+            <IconButton
+              aria-label="Idź do instagram"
+              fontSize="24px"
+              icon={<BsInstagram />}
+              variant="unstyled"
+            />
           </Flex>
         </Flex>
 
@@ -78,9 +70,9 @@ export default function Simple() {
           <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4}>
               {Links.map((link) => (
-                <NavLink key={link.href} href={link.href}>
+                <NextLink key={link.href} href={link.href} variant="topNavigation">
                   {link.title}
-                </NavLink>
+                </NextLink>
               ))}
             </Stack>
           </Box>

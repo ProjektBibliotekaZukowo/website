@@ -29,3 +29,11 @@ export const fallbackImage = {
   title: 'Thumbnail placeholder',
   url: 'https://dummyimage.com/720x400',
 };
+
+export const routes = {
+  MAIN: '/',
+  O_NAS: '/o-nas',
+  AKTUALNOSCI: '/aktualnosci',
+  KATALOG_ONLINE: '/katalog-online',
+  KONTAKT: '/kontakt',
+};
