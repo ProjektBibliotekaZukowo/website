@@ -34,6 +34,8 @@ export const BranchOpeningTime = ({ branch }: IBranchOpeningTime) => {
       borderRadius="md"
       display="flex"
       alignItems="baseline"
+      backgroundColor="white"
+      fontSize="sm"
     >
       {branch.address.miejscowosc}:
       <Text color={closed ? 'brand.red' : 'brand.blue'} ml={2}>
