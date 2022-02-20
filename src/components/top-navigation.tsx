@@ -16,7 +16,6 @@ import { NextLink } from 'lib/NextLink';
 const Links = [
   { title: 'O nas', href: routes.O_NAS },
   { title: 'Aktualności', href: routes.AKTUALNOSCI },
-  { title: 'Katalog online', href: routes.KATALOG_ONLINE },
   { title: 'Kontakt', href: routes.KONTAKT },
 ];
 
