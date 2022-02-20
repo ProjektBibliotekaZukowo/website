@@ -16,6 +16,7 @@ export const Carousel = ({ elements }: ICarousel) => {
           <HStack position="absolute">
             {indices.map((i) => (
               <Circle
+                as="button"
                 size={5}
                 key={i}
                 border="3px solid"

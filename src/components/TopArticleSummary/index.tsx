@@ -14,13 +14,15 @@ export const TopArticleSummary = ({ article }: ITopArticleSummary) => {
       <Flex justifyContent="space-between">
         <VStack h="lg" align="stretch" spacing={8} maxW={'md'}>
           <Box h={12}></Box>
-          <Heading as="h3">{article.title}</Heading>
-          <Text as="p" textAlign="start">
+          <Heading as="h3" noOfLines={4}>
+            {article.title}
+          </Heading>
+          <Text as="p" textAlign="start" noOfLines={5} fontSize="lg">
             {article.description}
           </Text>
           <NextLink href={`/aritcles/${article.slug}`} passHref>
             <Link display="flex" alignItems="center" whiteSpace={'nowrap'}>
-              <Text as="span" mr={2}>
+              <Text as="span" mr={2} fontSize="lg">
                 Czytaj dalej
               </Text>
               <Icon as={BsArrowRight} boxSize={3} />
