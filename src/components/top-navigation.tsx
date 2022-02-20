@@ -2,17 +2,16 @@ import {
   Box,
   Flex,
   HStack,
-  Link,
   IconButton,
   useDisclosure,
   useColorModeValue,
   Stack,
 } from '@chakra-ui/react';
-import NextLink from 'next/link';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { Logo } from './logo';
 import { BsFacebook, BsInstagram } from 'react-icons/bs';
 import { routes } from '../lib/constants';
+import { NextLink } from 'lib/NextLink';
 
 const Links = [
   { title: 'O nas', href: routes.O_NAS },
@@ -20,18 +19,6 @@ const Links = [
   { title: 'Katalog online', href: routes.KATALOG_ONLINE },
   { title: 'Kontakt', href: routes.KONTAKT },
 ];
-
-interface INavLink {
-  href: string;
-}
-
-const NavLink: React.FC<INavLink> = ({ children, href }) => (
-  <NextLink href={href} passHref>
-    <Link href={href} variant="topNavigation">
-      {children}
-    </Link>
-  </NextLink>
-);
 
 export default function Simple() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -53,14 +40,14 @@ export default function Simple() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack height={'100%'} spacing={16} alignItems={'center'}>
-            <Link href={routes.MAIN}>
+            <NextLink href={routes.MAIN}>
               <Logo />
-            </Link>
+            </NextLink>
             <HStack as={'nav'} height={'100%'} spacing={0} display={{ base: 'none', md: 'flex' }}>
               {Links.map((link) => (
-                <NavLink key={link.href} href={link.href}>
+                <NextLink key={link.href} href={link.href} variant="topNavigation">
                   {link.title}
-                </NavLink>
+                </NextLink>
               ))}
             </HStack>
           </HStack>
@@ -84,9 +71,9 @@ export default function Simple() {
           <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4}>
               {Links.map((link) => (
-                <NavLink key={link.href} href={link.href}>
+                <NextLink key={link.href} href={link.href} variant="topNavigation">
                   {link.title}
-                </NavLink>
+                </NextLink>
               ))}
             </Stack>
           </Box>
