@@ -41,7 +41,7 @@ export const routes = {
 export const workingWeek = [
   { pl: 'Poniedziałek', en: 'monday' },
   { pl: 'Wtorek', en: 'tuesday' },
-  { pl: 'Sroda', en: 'wednesday' },
+  { pl: 'Środa', en: 'wednesday' },
   { pl: 'Czwartek', en: 'thursday' },
   { pl: 'Piątek', en: 'friday' },
 ];
