@@ -1,5 +1,7 @@
-import { Box, Text } from '@chakra-ui/react';
+import { SimpleGrid } from '@chakra-ui/react';
 import { FetchHomeQuery } from '../../generated/types';
+
+import { Branch } from './Branch';
 
 type Branches = FetchHomeQuery['branches']['items'];
 
@@ -8,17 +10,11 @@ interface AllBranches {
 }
 
 export const OtherBranches = ({ branches }: AllBranches) => {
-  console.log(branches);
-
   return (
-    <Box w="6xl" pt="50px">
+    <SimpleGrid columns={[1, null, null, 2]} spacing="50px">
       {branches.map((branch) => {
-        return (
-          <Box key={branch.name}>
-            <Text>{branch.name}</Text>
-          </Box>
-        );
+        return <Branch key={branch.name} branch={branch} />;
       })}
-    </Box>
+    </SimpleGrid>
   );
 };
