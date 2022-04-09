@@ -1,7 +1,19 @@
-import { Box, Flex, Heading, Link, VStack, Text, Stack, useDisclosure } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Heading,
+  Icon,
+  Link,
+  VStack,
+  Text,
+  Stack,
+  Divider,
+  Button,
+} from '@chakra-ui/react';
 import { FetchHomeQuery } from 'generated/types';
 import { AddressMap } from './AddressMap';
 import { OpeningHoursButton } from '../OpeningHoursButton';
+import { useState } from 'react';
 import { OpeningTimesSchedule } from './OpeningTimesSchedule';
 
 type Branch = FetchHomeQuery['branches']['items'][0];
@@ -13,15 +25,22 @@ interface IMainBranch {
 export const MainBranch = ({ branch }: IMainBranch) => {
   const { miejscowosc, kodPocztowy, ulica, numer, numerTelefonu, email } = branch.address;
 
-  const { isOpen, onClose, onOpen } = useDisclosure();
+  const [showOpeningHours, setShowOpeningHours] = useState<boolean>(false);
+
+  const toggleShowOpeningHours = () => {
+    setShowOpeningHours(!showOpeningHours);
+  };
 
   return (
     <Box w="6xl">
       <Flex justifyContent="space-between">
-        {isOpen ? (
-          <OpeningTimesSchedule branch={branch} toggle={onClose}></OpeningTimesSchedule>
+        {showOpeningHours ? (
+          <OpeningTimesSchedule
+            branch={branch}
+            toggle={toggleShowOpeningHours}
+          ></OpeningTimesSchedule>
         ) : (
-          <VStack as="address" align="stretch" spacing={8} maxW="md">
+          <VStack as="address" align="stretch" spacing={8} maxW={'md'}>
             <Heading as="h3" fontSize="22px">
               {branch.name}
             </Heading>
@@ -53,7 +72,11 @@ export const MainBranch = ({ branch }: IMainBranch) => {
                 );
               })}
             </Stack>
-            <OpeningHoursButton text="Godziny otwarcia" tabIndex={2} onClick={onOpen} />
+            <OpeningHoursButton
+              text={'Godziny otwarcia'}
+              tabIndex={2}
+              onClick={toggleShowOpeningHours}
+            />
           </VStack>
         )}
         <Box w="xl">

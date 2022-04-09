@@ -78,11 +78,10 @@ const theme = extendTheme({
     Button: {
       variants: {
         openingHours: {
-          color: 'brand.blue',
+          color: 'brand.black',
           height: 'auto',
           width: '226px',
-          border: '1px solid',
-          borderColor: 'brand.blue',
+          border: '1px solid #082100',
           borderRadius: '5px',
           padding: '10px 15px',
           fontSize: '18px',
