@@ -45,3 +45,6 @@ export const workingWeek = [
   { pl: 'Czwartek', en: 'thursday' },
   { pl: 'Piątek', en: 'friday' },
 ];
+
+export const LATEST_ARTICLES_TAG_ID = 'homePageArticle';
+export const HOME_PAGE_NEWS_LIMIT = 3;

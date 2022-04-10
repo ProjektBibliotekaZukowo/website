@@ -2083,6 +2083,8 @@ export type FetchAssetQuery = {
 export type FetchHomeQueryVariables = Exact<{
   heroImageId: Scalars['String'];
   articlesLimit: Scalars['Int'];
+  newsLimit: Scalars['Int'];
+  latestArticlesTagName: Scalars['String'];
 }>;
 
 export type FetchHomeQuery = {
@@ -2123,6 +2125,33 @@ export type FetchHomeQuery = {
       }
     | null
     | undefined;
+  newsArticles?:
+    | {
+        __typename?: 'ArticleCollection';
+        items: Array<
+          | {
+              __typename?: 'Article';
+              title?: string | null | undefined;
+              slug?: string | null | undefined;
+              body?: string | null | undefined;
+              description?: string | null | undefined;
+              publishDate?: any | null | undefined;
+              heroImage?:
+                | {
+                    __typename?: 'Asset';
+                    description?: string | null | undefined;
+                    title?: string | null | undefined;
+                    url?: string | null | undefined;
+                  }
+                | null
+                | undefined;
+            }
+          | null
+          | undefined
+        >;
+      }
+    | null
+    | undefined;
   branches?:
     | {
         __typename?: 'BranchCollection';
@@ -2132,14 +2161,6 @@ export type FetchHomeQuery = {
               name?: string | null | undefined;
               shortDescription?: string | null | undefined;
               sys: { __typename?: 'Sys'; id: string };
-              contentfulMetadata: {
-                __typename?: 'ContentfulMetadata';
-                tags: Array<
-                  | { __typename?: 'ContentfulTag'; id?: string | null | undefined }
-                  | null
-                  | undefined
-                >;
-              };
               mainImage?:
                 | { __typename?: 'Asset'; url?: string | null | undefined }
                 | null
