@@ -30,11 +30,7 @@ export const TopArticleSummary = ({ article }: ITopArticleSummary) => {
           </NextLink>
         </VStack>
         <Box w="xl" h="lg">
-          <ChakraNextImage
-            src={article.heroImage.url}
-            width="576px"
-            height="448px"
-          ></ChakraNextImage>
+          <ChakraNextImage src={article.heroImage.url} width={576} height={448}></ChakraNextImage>
         </Box>
       </Flex>
     </Box>
