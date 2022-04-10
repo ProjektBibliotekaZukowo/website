@@ -37,7 +37,7 @@ export const MainBranch = ({ branch }: IMainBranch) => {
                 {kodPocztowy} {miejscowosc}
               </Text>
 
-              {numerTelefonu.map((num) => {
+              {(numerTelefonu || []).map((num) => {
                 return (
                   <Link key={num} href={`tel:${num}`} isExternal>
                     {num}
@@ -45,7 +45,7 @@ export const MainBranch = ({ branch }: IMainBranch) => {
                 );
               })}
 
-              {email.map((mail) => {
+              {(email || []).map((mail) => {
                 return (
                   <Link key={mail} href={`email:${mail}`} isExternal>
                     {mail}
