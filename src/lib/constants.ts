@@ -1,6 +1,7 @@
 export const SITE_NAME = 'Biblioteka Samorządowa w Żukowie';
 export const SITE_SEO_DESCRIPTION = 'opis SEO optymalizujący targetowanie';
 export const SITE_NEWS_SECTION_TITLE = 'Najnowsze wiadomości';
+export const SITE_NEWS_MORE_NEWS = 'Więcej aktualności';
 
 export const ASSETS = {
   logoId: '56AAvOmbPfhTt9GcpdCxXH',

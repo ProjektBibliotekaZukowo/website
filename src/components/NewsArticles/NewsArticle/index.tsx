@@ -12,7 +12,7 @@ interface INewsArticle {
 }
 export const NewsArticle = ({ title, slug, description, heroImage }: INewsArticle) => {
   return (
-    <VStack align="stretch" w="md" minH="max" role="group" shadow="md" verticalAlign="center">
+    <VStack align="stretch" w="xs" minH="max" role="group" shadow="2xl" verticalAlign="center">
       <ChakraNextImage
         src={heroImage.url}
         width={356}
@@ -29,16 +29,14 @@ export const NewsArticle = ({ title, slug, description, heroImage }: INewsArticl
         </Text>
         <NextLink href={`/aritcles/${slug}`}>
           <Link display="flex" whiteSpace="nowrap" alignItems="center">
-            <Text
-              as="span"
-              mr={2}
-              fontSize="lg"
-              transition="0.3s ease-in-out"
-              _groupHover={{ mr: 5, transition: '0.3s ease-in-out' }}
-            >
+            <Text as="span" mr={2} fontSize="lg" transition="0.1s ease-in-out">
               Czytaj dalej
             </Text>
-            <Icon as={BsArrowRight} boxSize={3} />
+            <Icon
+              as={BsArrowRight}
+              boxSize={3}
+              _groupHover={{ transform: 'translate(5px)', transition: '0.1s ease-in-out' }}
+            />
           </Link>
         </NextLink>
       </VStack>
