@@ -1,5 +1,7 @@
 export const SITE_NAME = 'Biblioteka Samorządowa w Żukowie';
 export const SITE_SEO_DESCRIPTION = 'opis SEO optymalizujący targetowanie';
+export const SITE_NEWS_SECTION_TITLE = 'Najnowsze wiadomości';
+export const SITE_NEWS_MORE_NEWS = 'Więcej aktualności';
 
 export const ASSETS = {
   logoId: '56AAvOmbPfhTt9GcpdCxXH',
@@ -11,24 +13,6 @@ export const HOME_PAGE_ARTICLE_LIMIT = 3;
 export const MAIN_BRANCH_TAG = 'mainBranch';
 
 export const PageContentType = 'page';
-
-export const ComponentContentTypes = {
-  Section: 'component_section',
-  Hero: 'component_hero',
-  Text: 'component_text',
-  Image: 'component_image',
-  Video: 'component_video',
-};
-
-export const PageContentTypes = {
-  HelpDeskArticle: 'page_help_center_article',
-  LandingPage: 'page_landing',
-};
-
-export const fallbackImage = {
-  title: 'Thumbnail placeholder',
-  url: 'https://dummyimage.com/720x400',
-};
 
 export const routes = {
   MAIN: '/',
@@ -45,3 +29,6 @@ export const workingWeek = [
   { pl: 'Czwartek', en: 'thursday' },
   { pl: 'Piątek', en: 'friday' },
 ];
+
+export const LATEST_ARTICLES_TAG_ID = 'homePageArticle';
+export const HOME_PAGE_NEWS_LIMIT = 3;

@@ -1,18 +1,19 @@
 import { LibraryBranches } from 'components/LibraryBranches';
+import { NewsArticles } from 'components/NewsArticles';
 import { OpeningTimes } from 'components/OpeningTimes';
 import { TopArticles } from 'components/TopArticles';
 import { FetchHomeQuery } from 'generated/types';
 import { getHomePage } from 'lib/api';
-import { ASSETS, HOME_PAGE_ARTICLE_LIMIT } from 'lib/constants';
 import { GetStaticProps } from 'next';
 import React from 'react';
 
-export default function Index({ branches, latestArticles }: FetchHomeQuery) {
+export default function Index({ branches, latestArticles, newsArticles }: FetchHomeQuery) {
   return (
     <>
       <OpeningTimes branches={branches} />
       <TopArticles latestArticles={latestArticles} />
       <LibraryBranches branches={branches} />
+      <NewsArticles newsArticles={newsArticles} />
     </>
   );
 }
@@ -20,8 +21,6 @@ export default function Index({ branches, latestArticles }: FetchHomeQuery) {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { data } = await getHomePage({
     preview: params ? params.preview != undefined : false,
-    heroImageId: ASSETS.heroImageId,
-    articlesLimit: HOME_PAGE_ARTICLE_LIMIT,
   });
 
   return {
