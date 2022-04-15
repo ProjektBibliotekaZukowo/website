@@ -1,5 +1,15 @@
 import { FetchHomeQuery } from '../../generated/types';
-import { Box, Button, Table, Tbody, Tr, Td, Stack, IconButton } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Table,
+  Tbody,
+  Tr,
+  Td,
+  Stack,
+  IconButton,
+  useStyleConfig,
+} from '@chakra-ui/react';
 import { parseAndFormatOpenings } from '../../lib/utils/parseAndFormatOpenings';
 import { workingWeek } from '../../lib/constants';
 import { BsX } from 'react-icons/bs';
@@ -9,9 +19,14 @@ type Branch = FetchHomeQuery['branches']['items'][0];
 interface OpeningTimesScheduleProps {
   branch: Branch;
   toggle: () => void;
+  cover?: boolean;
 }
 
-export const OpeningTimesSchedule = ({ branch, toggle }: OpeningTimesScheduleProps) => {
+export const OpeningTimesSchedule = ({
+  branch,
+  toggle,
+  cover = false,
+}: OpeningTimesScheduleProps) => {
   const openFrom = (weekday: string): string => {
     return branch.openingTimes[`${weekday}From`];
   };
@@ -19,10 +34,11 @@ export const OpeningTimesSchedule = ({ branch, toggle }: OpeningTimesSchedulePro
   const openTo = (weekday: string): string => {
     return branch.openingTimes[`${weekday}To`];
   };
-
+  const baseStyle = useStyleConfig('OpeningTimeSchedule', { variant: 'default' });
+  const coverStyle = useStyleConfig('OpeningTimeSchedule', { variant: 'cover' });
   const closed = (openFrom: string, openTo: string) => Boolean(!(openFrom || openTo));
   return (
-    <Box w="50%" h="auto" pr="16px">
+    <Box __css={cover ? coverStyle : baseStyle}>
       <Stack
         position="relative"
         border="1px solid #015D96"

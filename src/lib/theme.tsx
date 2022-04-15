@@ -93,7 +93,22 @@ const theme = extendTheme({
         },
       },
     },
+    OpeningTimeSchedule: {
+      variants: {
+        default: {
+          pr: '16px',
+          w: '50%',
+          h: 'auto',
+        },
+        cover: {
+          pr: '0',
+          w: '100%',
+          h: '100%',
+          position: 'absolute',
+          backgroundColor: 'white',
+        },
+      },
+    },
   },
 });
-
 export default theme;

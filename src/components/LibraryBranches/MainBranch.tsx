@@ -3,7 +3,7 @@ import { FetchHomeQuery } from 'generated/types';
 import { AddressMap } from './AddressMap';
 import { OpeningHoursButton } from '../OpeningHoursButton';
 import { OpeningTimesSchedule } from './OpeningTimesSchedule';
-import { LibraryContactDetails } from './LibraryContactDetails';
+import { BranchContactDetails } from './BranchContactDetails';
 
 type Branch = FetchHomeQuery['branches']['items'][0];
 
@@ -20,11 +20,11 @@ export const MainBranch = ({ branch }: IMainBranch) => {
         {isOpen ? (
           <OpeningTimesSchedule branch={branch} toggle={onClose} />
         ) : (
-          <VStack as="address" align="stretch" spacing={8} maxW="md">
+          <VStack as="address" align="stretch" maxW="md">
             <Heading as="h3" fontSize="22px">
               {branch.name}
             </Heading>
-            <LibraryContactDetails branch={branch} textAlign="start" spacing={1} fontSize="lg" />
+            <BranchContactDetails branch={branch} textAlign="start" spacing={1} fontSize="lg" />
             <OpeningHoursButton text="Godziny otwarcia" tabIndex={2} onClick={onOpen} />
           </VStack>
         )}
