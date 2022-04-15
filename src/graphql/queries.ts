@@ -10,13 +10,22 @@ export const ASSET_QUERY = gql`
   }
 `;
 export const HOME_QUERY = gql`
-  query FetchHome($heroImageId: String!, $articlesLimit: Int!) {
+  query FetchHome(
+    $heroImageId: String!
+    $articlesLimit: Int!
+    $newsLimit: Int!
+    $latestArticlesTagName: String!
+  ) {
     heroImage: asset(id: $heroImageId) {
       title
       description
       url
     }
-    latestArticles: articleCollection(limit: $articlesLimit, order: publishDate_DESC) {
+    latestArticles: articleCollection(
+      limit: $articlesLimit
+      order: publishDate_DESC
+      where: { contentfulMetadata: { tags: { id_contains_some: [$latestArticlesTagName] } } }
+    ) {
       items {
         title
         slug
@@ -25,6 +34,24 @@ export const HOME_QUERY = gql`
           description
           title
           url(transform: { width: 576, height: 448 })
+        }
+        description
+        publishDate
+      }
+    }
+    newsArticles: articleCollection(
+      limit: $newsLimit
+      order: publishDate_DESC
+      where: { contentfulMetadata: { tags: { id_contains_none: [$latestArticlesTagName] } } }
+    ) {
+      items {
+        title
+        slug
+        body
+        heroImage {
+          description
+          title
+          url(transform: { width: 356, height: 160 })
         }
         description
         publishDate

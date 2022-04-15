@@ -77,6 +77,11 @@ const theme = extendTheme({
     },
     Button: {
       variants: {
+        primary: {
+          bg: 'brand.blue',
+          color: 'white',
+          padding: 7,
+        },
         openingHours: {
           color: 'brand.blue',
           height: 'auto',

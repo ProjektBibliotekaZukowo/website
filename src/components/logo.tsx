@@ -23,5 +23,5 @@ export function Logo() {
     return <>loading ...</>;
   }
 
-  return <ChakraNextImage src={`${result.data.asset.url}`} width="199" height="42" />;
+  return <ChakraNextImage src={`${result.data.asset.url}`} width={199} height={42} />;
 }

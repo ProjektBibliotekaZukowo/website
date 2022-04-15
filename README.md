@@ -8,7 +8,7 @@
 $ yarn
 ```
 
-### Uruchomienie
+### Start
 
 ```
 yarn run dev
@@ -29,6 +29,12 @@ yarn run dev
 ```
 
 to start the website on `http://localhost:3000`
+
+## Generate types
+
+```
+yarn codegen
+```
 
 ## Tech used
 
