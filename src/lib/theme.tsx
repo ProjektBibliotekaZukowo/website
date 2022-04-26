@@ -83,10 +83,11 @@ const theme = extendTheme({
           padding: 7,
         },
         openingHours: {
-          color: 'brand.black',
+          color: 'brand.blue',
           height: 'auto',
           width: '226px',
-          border: '1px solid #082100',
+          border: '1px solid',
+          borderColor: 'brand.blue',
           borderRadius: '5px',
           padding: '10px 15px',
           fontSize: '18px',
@@ -97,7 +98,22 @@ const theme = extendTheme({
         },
       },
     },
+    OpeningTimeSchedule: {
+      variants: {
+        default: {
+          pr: '16px',
+          w: '50%',
+          h: 'auto',
+        },
+        cover: {
+          pr: '0',
+          w: '100%',
+          h: '100%',
+          position: 'absolute',
+          backgroundColor: 'white',
+        },
+      },
+    },
   },
 });
-
 export default theme;
