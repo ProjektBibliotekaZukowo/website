@@ -1,12 +1,14 @@
 import { Box } from '@chakra-ui/react';
 import { Logo } from '../logo';
 import { FooterSignatureDetails } from './FooterSignatureDetails';
+import { FooterSignatureSocialMedia } from './FooterSignatureSocialMedia';
 
-export const FooterSignature = () => {
+export const FooterSignature = ({ branches }) => {
   return (
     <Box>
       <Logo />
-      <FooterSignatureDetails />
+      <FooterSignatureDetails branches={branches} />
+      <FooterSignatureSocialMedia />
     </Box>
   );
 };

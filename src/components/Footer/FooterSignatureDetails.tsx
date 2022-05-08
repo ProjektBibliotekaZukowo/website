@@ -1,9 +1,27 @@
-import { ListItem, UnorderedList } from '@chakra-ui/react';
+import { FetchHomeQuery } from '../../generated/types';
+import { ListItem, Stack, Text, UnorderedList } from '@chakra-ui/react';
 
-export const FooterSignatureDetails = () => {
+interface ILibraryBranches {
+  branches: FetchHomeQuery['branches'];
+}
+
+export const FooterSignatureDetails = ({ branches }: ILibraryBranches) => {
+  const branchDetails = branches['items'][0];
+  const { address, shortDescription } = branchDetails;
+
   return (
-    <UnorderedList>
-      <ListItem>test</ListItem>
-    </UnorderedList>
+    <Stack fontSize="13px" fontWeight={600} color="#000021" spacing={2} mt="14px">
+      <Text>{shortDescription}</Text>
+      <Text>{address.ulica}</Text>
+      <Text>
+        {address.kodPocztowy} {address.miejscowosc}
+      </Text>
+      <Text>{address.numerTelefonu}</Text>
+      <UnorderedList spacing={2} styleType="none">
+        {address.email?.map((email, index) => {
+          return <ListItem key={email + index}>{email}</ListItem>;
+        })}
+      </UnorderedList>
+    </Stack>
   );
 };

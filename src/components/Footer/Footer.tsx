@@ -20,14 +20,14 @@ const Links = [
   { title: 'Kontakt', href: routes.KONTAKT },
 ];
 
-export const Footer = () => {
+export const Footer = ({ branches }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
       <Box bgColor="#EBEBEA" py="50px">
         <Flex justify="space-between">
-          <FooterSignature />
+          {branches.items?.length && <FooterSignature branches={branches} />}
           <Box>test2</Box>
           <Box>test3</Box>
           <Box>test4</Box>

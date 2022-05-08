@@ -25,7 +25,7 @@ const LibraryApp = ({ Component, pageProps }: AppProps) => {
         <div>
           <TopNavigation />
           <Component {...otherPageProps} />
-          <Footer />
+          <Footer branches={pageProps.branches} />
         </div>
       </Box>
     </ChakraProvider>
