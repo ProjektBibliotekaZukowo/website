@@ -5,7 +5,7 @@ import { FooterSignatureSocialMedia } from './FooterSignatureSocialMedia';
 
 export const FooterSignature = ({ branches }) => {
   return (
-    <Box>
+    <Box mx="20px">
       <Logo />
       <FooterSignatureDetails branches={branches} />
       <FooterSignatureSocialMedia />

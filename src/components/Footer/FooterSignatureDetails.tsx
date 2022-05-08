@@ -10,14 +10,14 @@ export const FooterSignatureDetails = ({ branches }: ILibraryBranches) => {
   const { address, shortDescription } = branchDetails;
 
   return (
-    <Stack fontSize="13px" fontWeight={600} color="#000021" spacing={2} mt="14px">
+    <Stack fontSize="13px" fontWeight={600} color="#000021" spacing={1} mt="14px">
       <Text>{shortDescription}</Text>
       <Text>{address.ulica}</Text>
       <Text>
         {address.kodPocztowy} {address.miejscowosc}
       </Text>
       <Text>{address.numerTelefonu}</Text>
-      <UnorderedList spacing={2} styleType="none">
+      <UnorderedList spacing={1} styleType="none">
         {address.email?.map((email, index) => {
           return <ListItem key={email + index}>{email}</ListItem>;
         })}

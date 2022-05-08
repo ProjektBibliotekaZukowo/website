@@ -22,6 +22,12 @@ export const routes = {
   KONTAKT: '/kontakt',
 };
 
+export const links = [
+  { title: 'O nas', href: routes.O_NAS },
+  { title: 'Aktualności', href: routes.AKTUALNOSCI },
+  { title: 'Kontakt', href: routes.KONTAKT },
+];
+
 export const workingWeek = [
   { pl: 'Poniedziałek', en: 'monday' },
   { pl: 'Wtorek', en: 'tuesday' },
