@@ -6,6 +6,7 @@ import { FetchHomeQuery } from 'generated/types';
 import { getHomePage } from 'lib/api';
 import { GetStaticProps } from 'next';
 import React from 'react';
+import { Footer } from '../components/Footer/Footer';
 
 export default function Index({ branches, latestArticles, newsArticles }: FetchHomeQuery) {
   return (

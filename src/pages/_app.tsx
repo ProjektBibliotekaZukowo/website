@@ -10,6 +10,8 @@ import { SITE_NAME, SITE_SEO_DESCRIPTION } from 'lib/constants';
 import { AppProps } from 'next/app';
 import { Box, ChakraProvider, CSSReset } from '@chakra-ui/react';
 import theme from '../lib/theme';
+import { Footer } from '../components/Footer/Footer';
+
 const LibraryApp = ({ Component, pageProps }: AppProps) => {
   const { ...otherPageProps } = pageProps;
 
@@ -23,6 +25,7 @@ const LibraryApp = ({ Component, pageProps }: AppProps) => {
         <div>
           <TopNavigation />
           <Component {...otherPageProps} />
+          <Footer />
         </div>
       </Box>
     </ChakraProvider>
