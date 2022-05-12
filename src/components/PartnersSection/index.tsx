@@ -19,7 +19,7 @@ export const PartnersSection = ({ partners }: IPartnersSection) => {
         <BsArrowLeft />
         {partners.items.map((partner, index) => {
           if (!partner.logo.url) return null;
-          return <ChakraNextImage src={partner.logo.url} key={index} />;
+          return <ChakraNextImage src={partner.logo.url} key={index} width={263} height={140} />;
         })}
         <BsArrowRight />
       </HStack>
