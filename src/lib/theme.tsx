@@ -81,7 +81,6 @@ const theme = extendTheme({
         },
       },
       defaultProps: {
-        // you can name it whatever you want
         variant: 'primary',
       },
     },
