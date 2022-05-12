@@ -11,6 +11,7 @@ import {
   HOME_PAGE_ARTICLE_LIMIT,
   HOME_PAGE_NEWS_LIMIT,
   LATEST_ARTICLES_TAG_ID,
+  MAIN_BRANCH_TAG,
 } from './constants';
 
 type PreviewParams = {
@@ -38,6 +39,7 @@ export async function getHomePage(params: GetHomePageParams) {
       articlesLimit: HOME_PAGE_ARTICLE_LIMIT,
       newsLimit: HOME_PAGE_NEWS_LIMIT,
       latestArticlesTagName: LATEST_ARTICLES_TAG_ID,
+      mainBranchTagName: MAIN_BRANCH_TAG,
     },
   });
 }

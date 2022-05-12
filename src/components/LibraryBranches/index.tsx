@@ -5,17 +5,18 @@ import { OtherBranches } from './OtherBranches';
 
 interface ILibraryBranches {
   branches: FetchHomeQuery['branches'];
+  mainBranch: FetchHomeQuery['mainBranch'];
 }
 
-export const LibraryBranches = ({ branches }: ILibraryBranches) => {
-  const mainBranch = branches.items[0];
-  const otherBranches = branches.items.slice(1);
+export const LibraryBranches = ({ branches, mainBranch }: ILibraryBranches) => {
+  const otherBranches = branches.items;
+  const theMainBranch = mainBranch.items[0];
   return (
     <VStack alignContent={'center'} alignItems="center" justifyContent={'center'}>
       <Heading as="h2" py={12}>
         Filie Biblioteki Samorządowej w Żukowie
       </Heading>
-      <MainBranch branch={mainBranch} />
+      <MainBranch branch={theMainBranch} />
       <OtherBranches branches={otherBranches} />
     </VStack>
   );
