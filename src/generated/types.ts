@@ -2279,14 +2279,16 @@ export type FetchHomeQuery = {
         items: Array<
           | {
               __typename?: 'Partner';
-              name?: string | null | undefined;
               description?: string | null | undefined;
+              name?: string | null | undefined;
               logo?:
                 | {
                     __typename?: 'Asset';
+                    url?: string | null | undefined;
                     title?: string | null | undefined;
                     description?: string | null | undefined;
-                    url?: string | null | undefined;
+                    width?: number | null | undefined;
+                    height?: number | null | undefined;
                   }
                 | null
                 | undefined;

@@ -146,13 +146,15 @@ export const HOME_QUERY = gql`
     }
     partners: partnerCollection(order: name_ASC) {
       items {
-        name
         logo {
+          url(transform: { width: 263, height: 140 })
           title
           description
-          url
+          width
+          height
         }
         description
+        name
       }
     }
   }

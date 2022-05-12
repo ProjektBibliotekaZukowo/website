@@ -2,6 +2,7 @@ import { LibraryBranches } from 'components/LibraryBranches';
 import { NewsArticles } from 'components/NewsArticles';
 import { OpeningTimes } from 'components/OpeningTimes';
 import { TopArticles } from 'components/TopArticles';
+import { PartnersSection } from 'components/PartnersSection';
 import { FetchHomeQuery } from 'generated/types';
 import { getHomePage } from 'lib/api';
 import { GetStaticProps } from 'next';
@@ -12,6 +13,7 @@ export default function Index({
   latestArticles,
   newsArticles,
   mainBranch,
+  partners,
 }: FetchHomeQuery) {
   return (
     <>
@@ -19,6 +21,7 @@ export default function Index({
       <TopArticles latestArticles={latestArticles} />
       <LibraryBranches branches={branches} mainBranch={mainBranch} />
       <NewsArticles newsArticles={newsArticles} />
+      <PartnersSection partners={partners} />
     </>
   );
 }
