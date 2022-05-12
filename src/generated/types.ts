@@ -2085,6 +2085,7 @@ export type FetchHomeQueryVariables = Exact<{
   articlesLimit: Scalars['Int'];
   newsLimit: Scalars['Int'];
   latestArticlesTagName: Scalars['String'];
+  mainBranchTagName: Scalars['String'];
 }>;
 
 export type FetchHomeQuery = {
@@ -2142,6 +2143,66 @@ export type FetchHomeQuery = {
                     description?: string | null | undefined;
                     title?: string | null | undefined;
                     url?: string | null | undefined;
+                  }
+                | null
+                | undefined;
+            }
+          | null
+          | undefined
+        >;
+      }
+    | null
+    | undefined;
+  mainBranch?:
+    | {
+        __typename?: 'BranchCollection';
+        items: Array<
+          | {
+              __typename?: 'Branch';
+              name?: string | null | undefined;
+              shortDescription?: string | null | undefined;
+              sys: { __typename?: 'Sys'; id: string };
+              mainImage?:
+                | { __typename?: 'Asset'; url?: string | null | undefined }
+                | null
+                | undefined;
+              openingTimes?:
+                | {
+                    __typename?: 'OpeningTimes';
+                    mondayTo?: any | null | undefined;
+                    mondayFrom?: any | null | undefined;
+                    tuesdayTo?: any | null | undefined;
+                    tuesdayFrom?: any | null | undefined;
+                    wednesdayTo?: any | null | undefined;
+                    wednesdayFrom?: any | null | undefined;
+                    thursdayTo?: any | null | undefined;
+                    thursdayFrom?: any | null | undefined;
+                    fridayTo?: any | null | undefined;
+                    fridayFrom?: any | null | undefined;
+                    saturdayFrom?: any | null | undefined;
+                    saturdayTo?: any | null | undefined;
+                    sundayTo?: any | null | undefined;
+                    sundayFrom?: any | null | undefined;
+                  }
+                | null
+                | undefined;
+              address?:
+                | {
+                    __typename?: 'Address';
+                    miejscowosc?: string | null | undefined;
+                    kodPocztowy?: string | null | undefined;
+                    ulica?: string | null | undefined;
+                    numer?: string | null | undefined;
+                    numerTelefonu?: Array<string | null | undefined> | null | undefined;
+                    email?: Array<string | null | undefined> | null | undefined;
+                    lokalizacja?:
+                      | {
+                          __typename?: 'Location';
+                          lat?: number | null | undefined;
+                          lon?: number | null | undefined;
+                        }
+                      | null
+                      | undefined;
                   }
                 | null
                 | undefined;

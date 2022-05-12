@@ -15,6 +15,7 @@ export const HOME_QUERY = gql`
     $articlesLimit: Int!
     $newsLimit: Int!
     $latestArticlesTagName: String!
+    $mainBranchTagName: String!
   ) {
     heroImage: asset(id: $heroImageId) {
       title
@@ -57,7 +58,53 @@ export const HOME_QUERY = gql`
         publishDate
       }
     }
-    branches: branchCollection(order: name_DESC) {
+    mainBranch: branchCollection(
+      order: name_DESC
+      where: { contentfulMetadata: { tags: { id_contains_some: [$mainBranchTagName] } } }
+    ) {
+      items {
+        sys {
+          id
+        }
+        name
+        shortDescription
+        mainImage {
+          url
+        }
+        openingTimes {
+          mondayTo
+          mondayFrom
+          tuesdayTo
+          tuesdayFrom
+          wednesdayTo
+          wednesdayFrom
+          thursdayTo
+          thursdayFrom
+          fridayTo
+          fridayFrom
+          saturdayFrom
+          saturdayTo
+          sundayTo
+          sundayFrom
+        }
+        address {
+          miejscowosc
+          kodPocztowy
+          ulica
+          numer
+          lokalizacja {
+            lat
+            lon
+          }
+          numerTelefonu
+          email
+        }
+      }
+    }
+    branches: branchCollection(
+      order: name_DESC
+      where: { contentfulMetadata: { tags: { id_contains_none: [$mainBranchTagName] } } }
+    ) {
       items {
         sys {
           id

@@ -1,11 +1,11 @@
-import { Box, Flex, Heading, Link, VStack, Text, Stack, useDisclosure } from '@chakra-ui/react';
+import { Box, Flex, Heading, VStack, useDisclosure } from '@chakra-ui/react';
 import { FetchHomeQuery } from 'generated/types';
 import { AddressMap } from './AddressMap';
 import { OpeningHoursButton } from '../OpeningHoursButton';
 import { OpeningTimesSchedule } from './OpeningTimesSchedule';
 import { BranchContactDetails } from './BranchContactDetails';
 
-type Branch = FetchHomeQuery['branches']['items'][0];
+type Branch = FetchHomeQuery['mainBranch']['items'][0];
 
 interface IMainBranch {
   branch: Branch;
