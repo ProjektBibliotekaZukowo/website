@@ -8,7 +8,7 @@ export const Footer = ({ branches }) => {
   return (
     <>
       <Box bgColor="#EBEBEA" py="50px">
-        <Flex justify="space-between" flexWrap="wrap">
+        <Flex justify="space-between" flexWrap="wrap" maxWidth={'container.xl'} margin="auto">
           {branches?.items?.length && <FooterSignature branches={branches} />}
           <FooterNavigation />
           <FooterQuickLinks />

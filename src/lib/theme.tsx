@@ -61,11 +61,13 @@ const theme = extendTheme({
           backgroundPosition: '50% 50%',
           backgroundRepeat: 'no-repeat',
           backgroundSize: '100% 0%',
-          _hover: {
-            transition: '.3s ease-out',
-            color: 'white',
-            textDecoration: 'underline',
-            backgroundSize: '100% 100%',
+          '@media screen and (min-width: 48em)': {
+            _hover: {
+              transition: '.3s ease-out',
+              color: 'white',
+              textDecoration: 'underline',
+              backgroundSize: '100% 100%',
+            },
           },
         },
         footerNavigation: {
