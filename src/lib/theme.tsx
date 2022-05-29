@@ -107,6 +107,7 @@ const theme = extendTheme({
           display: 'flex',
           alignItems: 'center',
           textAlign: 'center',
+          outline: 'none',
         },
       },
     },

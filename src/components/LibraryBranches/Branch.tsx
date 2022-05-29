@@ -9,7 +9,7 @@ export const Branch = ({ branch }) => {
   return (
     <Box
       key={branch.name}
-      w={[300, 350, 330, 400, 450]}
+      w={[400, 400, 400, 400, 450]}
       m="25px"
       boxShadow="0px 0px 20px #00000019"
       position="relative"
