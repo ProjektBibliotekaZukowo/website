@@ -19,7 +19,7 @@ export default function Index({
   return (
     <>
       <OpeningTimes branches={branches} />
-      <Box maxWidth={'container.xl'} margin="auto">
+      <Box maxWidth={'container.xl'} margin="auto" px="20px">
         <TopArticles latestArticles={latestArticles} />
         <LibraryBranches branches={branches} mainBranch={mainBranch} />
         <NewsArticles newsArticles={newsArticles} />
