@@ -99,6 +99,7 @@ const theme = extendTheme({
           width: '226px',
           border: '1px solid',
           borderColor: 'brand.blue',
+          backgroundColor: 'white',
           borderRadius: '5px',
           padding: '10px 15px',
           fontSize: '18px',

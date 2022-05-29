@@ -7,6 +7,7 @@ import { FetchHomeQuery } from 'generated/types';
 import { getHomePage } from 'lib/api';
 import { GetStaticProps } from 'next';
 import React from 'react';
+import { Box } from '@chakra-ui/react';
 
 export default function Index({
   branches,
@@ -18,10 +19,12 @@ export default function Index({
   return (
     <>
       <OpeningTimes branches={branches} />
-      <TopArticles latestArticles={latestArticles} />
-      <LibraryBranches branches={branches} mainBranch={mainBranch} />
-      <NewsArticles newsArticles={newsArticles} />
-      <PartnersSection partners={partners} />
+      <Box maxWidth={'container.xl'} margin="auto">
+        <TopArticles latestArticles={latestArticles} />
+        <LibraryBranches branches={branches} mainBranch={mainBranch} />
+        <NewsArticles newsArticles={newsArticles} />
+        <PartnersSection partners={partners} />
+      </Box>
     </>
   );
 }

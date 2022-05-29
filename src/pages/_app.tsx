@@ -23,9 +23,7 @@ const LibraryApp = ({ Component, pageProps }: AppProps) => {
       </Head>
       <div>
         <TopNavigation />
-        <Box maxWidth={'container.xl'} margin="auto" pt="100px">
-          <Component {...otherPageProps} />
-        </Box>
+        <Component {...otherPageProps} />
         <Footer branches={pageProps.branches} />
       </div>
     </ChakraProvider>
