@@ -21,7 +21,6 @@ export const Carousel = ({ elements }: ICarousel) => {
           >
             {indices.map((i) => (
               <Circle
-                className="circle-button"
                 as="button"
                 size={5}
                 key={i}
