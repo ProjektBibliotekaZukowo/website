@@ -1,6 +1,6 @@
 # Instalacja
 
-1. Wejdź na [contentful](https://app.contentful.com/spaces/uptjwx8hy2jg/api/keys/1tToU2WLSCcibaDHlmDAAe) i zapisz odpowiednie klucze w pliku `.env`
+1. Wejdź tu [contentful](https://app.contentful.com/spaces/uptjwx8hy2jg/api/keys/1tToU2WLSCcibaDHlmDAAe) i zapisz odpowiednie klucze w pliku `.env`
 
 2. zainstaluj biblioteki
 
