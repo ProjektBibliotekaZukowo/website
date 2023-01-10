@@ -11,7 +11,7 @@ interface INewsArticles {
 
 export const NewsArticles = ({ newsArticles }: INewsArticles) => {
   return (
-    <Box w="6xl" margin="auto">
+    <Box margin="auto">
       <VStack alignContent="center" alignItems="center" justifyContent="center">
         <Heading as="h2" my={50}>
           {SITE_NEWS_SECTION_TITLE}

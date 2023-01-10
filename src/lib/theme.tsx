@@ -61,11 +61,13 @@ const theme = extendTheme({
           backgroundPosition: '50% 50%',
           backgroundRepeat: 'no-repeat',
           backgroundSize: '100% 0%',
-          _hover: {
-            transition: '.3s ease-out',
-            color: 'white',
-            textDecoration: 'underline',
-            backgroundSize: '100% 100%',
+          '@media screen and (min-width: 48em)': {
+            _hover: {
+              transition: '.3s ease-out',
+              color: 'white',
+              textDecoration: 'underline',
+              backgroundSize: '100% 100%',
+            },
           },
         },
         footerNavigation: {
@@ -97,6 +99,7 @@ const theme = extendTheme({
           width: '226px',
           border: '1px solid',
           borderColor: 'brand.blue',
+          backgroundColor: 'white',
           borderRadius: '5px',
           padding: '10px 15px',
           fontSize: '18px',
@@ -104,6 +107,7 @@ const theme = extendTheme({
           display: 'flex',
           alignItems: 'center',
           textAlign: 'center',
+          outline: 'none',
         },
       },
     },

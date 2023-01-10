@@ -20,11 +20,21 @@ export default function Simple() {
     <>
       <Box
         bg={useColorModeValue('white', 'gray.900')}
-        px={10}
+        px={{ base: 4, lg: 10 }}
         boxShadow={'0px 10px 20px #0000001A'}
         fontSize="xl"
+        as="header"
+        w="100%"
+        position="fixed"
+        zIndex={1}
       >
-        <Flex h={'100px'} alignItems={'center'} justifyContent={'space-between'}>
+        <Flex
+          h={'100px'}
+          alignItems={'center'}
+          justifyContent={'space-between'}
+          maxWidth={'container.xl'}
+          margin="auto"
+        >
           <IconButton
             variant="unstyled"
             icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
@@ -32,7 +42,7 @@ export default function Simple() {
             display={{ md: 'none' }}
             onClick={isOpen ? onClose : onOpen}
           />
-          <HStack height={'100%'} spacing={16} alignItems={'center'}>
+          <HStack height={'100%'} spacing={{ base: 8, lg: 16 }} alignItems={'center'}>
             <NextLink href={routes.MAIN}>
               <Logo />
             </NextLink>

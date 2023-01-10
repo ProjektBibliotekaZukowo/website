@@ -12,8 +12,13 @@ export const Carousel = ({ elements }: ICarousel) => {
   return (
     <>
       {elements.length && (
-        <Box position="relative" top={8}>
-          <HStack position="absolute">
+        <Box position="relative">
+          <HStack
+            position="absolute"
+            pt="20px"
+            bottom={{ base: '20px', lg: 'unset' }}
+            left={{ base: 'calc(50% - 38px)', lg: 'unset' }}
+          >
             {indices.map((i) => (
               <Circle
                 as="button"
@@ -26,13 +31,12 @@ export const Carousel = ({ elements }: ICarousel) => {
                 }}
                 bgColor={i === slide ? 'transparent' : 'brand.blue'}
                 _hover={{ cursor: 'pointer' }}
-              ></Circle>
+              />
             ))}
           </HStack>
+          {elements[slide]}
         </Box>
       )}
-
-      {elements[slide]}
     </>
   );
 };
