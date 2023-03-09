@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Icon, Link, SimpleGrid, Text, VStack } from '@chakra-ui/react';
+import { Flex, Heading, Icon, Link, SimpleGrid, Text, VStack, Wrap } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { ChakraNextImage } from 'components/ChakraNextImage';
 import { FetchHomeQuery } from 'generated/types';
