@@ -42,7 +42,8 @@ export const TopArticleSummary = ({ article }: ITopArticleSummary) => {
           src={article.heroImage.url}
           width={576}
           height={448}
-          alt={article.heroImage.description}></ChakraNextImage>
+          alt={article.heroImage.description}
+        />
       </Flex>
     </SimpleGrid>
   );

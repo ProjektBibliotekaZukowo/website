@@ -19,7 +19,6 @@ export const NewsArticle = ({ title, slug, description, heroImage }: INewsArticl
         height={160}
         opacity="0.7"
         _groupHover={{ opacity: 1 }}
-        // TODO: fixme
         alt={heroImage.description}
       />
       <VStack p={10} spacing={4} alignItems="start">
