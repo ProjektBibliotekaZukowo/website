@@ -1,6 +1,6 @@
-import { Heading, Icon, Link, VStack, Text, Box } from '@chakra-ui/react';
+import { Heading, Icon, VStack, Text } from '@chakra-ui/react';
 import { ChakraNextImage } from 'components/ChakraNextImage';
-import { NextLink } from 'lib/NextLink';
+import { Link } from '@chakra-ui/next-js';
 import { BsArrowRight } from 'react-icons/bs';
 
 interface INewsArticle {
@@ -19,6 +19,7 @@ export const NewsArticle = ({ title, slug, description, heroImage }: INewsArticl
         height={160}
         opacity="0.7"
         _groupHover={{ opacity: 1 }}
+        alt={heroImage.description}
       />
       <VStack p={10} spacing={4} alignItems="start">
         <Heading as="h4" noOfLines={4} width="100%">
@@ -27,18 +28,16 @@ export const NewsArticle = ({ title, slug, description, heroImage }: INewsArticl
         <Text as="p" textAlign="start" noOfLines={5} fontSize="lg" width="100%">
           {description}
         </Text>
-        <NextLink href={`/aritcles/${slug}`}>
-          <Link display="flex" whiteSpace="nowrap" alignItems="center">
-            <Text as="span" mr={2} fontSize="lg" transition="0.1s ease-in-out">
-              Czytaj dalej
-            </Text>
-            <Icon
-              as={BsArrowRight}
-              boxSize={3}
-              _groupHover={{ transform: 'translate(5px)', transition: '0.1s ease-in-out' }}
-            />
-          </Link>
-        </NextLink>
+        <Link href={`/aritcles/${slug}`} display="flex" whiteSpace="nowrap" alignItems="center">
+          <Text as="span" mr={2} fontSize="lg" transition="0.1s ease-in-out">
+            Czytaj dalej
+          </Text>
+          <Icon
+            as={BsArrowRight}
+            boxSize={3}
+            _groupHover={{ transform: 'translate(5px)', transition: '0.1s ease-in-out' }}
+          />
+        </Link>
       </VStack>
     </VStack>
   );

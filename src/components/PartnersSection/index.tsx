@@ -60,6 +60,7 @@ export const PartnersSection = ({ partners }: IPartnersSection) => {
                   src={partner.logo.url}
                   width={263}
                   height={140}
+                  alt={partner.logo.description}
                   key={index + slide * numberOfItems}
                 />
               </Box>
@@ -95,8 +96,7 @@ export const PartnersSection = ({ partners }: IPartnersSection) => {
                   setSlide(i);
                 }}
                 bgColor={i === slide ? 'brand.blue' : 'transparent'}
-                _hover={{ cursor: 'pointer' }}
-              ></Circle>
+                _hover={{ cursor: 'pointer' }}></Circle>
             ))}
           </HStack>
         )}

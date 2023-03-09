@@ -1,5 +1,5 @@
 import { Box, ListItem, Stack, UnorderedList } from '@chakra-ui/react';
-import { NextLink } from '../../lib/NextLink';
+import { Link } from '@chakra-ui/next-js';
 
 const qickLinks = [
   { title: 'Polityka prywatności', href: '/' },
@@ -25,9 +25,10 @@ export const FooterQuickLinks = () => {
               if (index < 5) {
                 return (
                   <ListItem key={link.href + link.title}>
-                    <NextLink href={link.href} variant="footerQuickLinks">
+                    <Link href={link.href}>
+                      {/* <NextLink href={link.href} variant="footerQuickLinks"> */}
                       {link.title}
-                    </NextLink>
+                    </Link>
                   </ListItem>
                 );
               }
@@ -42,9 +43,10 @@ export const FooterQuickLinks = () => {
               if (index > 4 && index < 10) {
                 return (
                   <ListItem key={link.href + link.title}>
-                    <NextLink href={link.href} variant="footerQuickLinks">
+                    <Link href={link.href}>
+                      {/* <NextLink href={link.href} variant="footerQuickLinks"> */}
                       {link.title}
-                    </NextLink>
+                    </Link>
                   </ListItem>
                 );
               }
