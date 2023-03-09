@@ -1,13 +1,12 @@
 // theme.js
 import { extendTheme, ThemeConfig } from '@chakra-ui/react';
-import { JSXElementStyles } from '@chakra-ui/theme-tools/src/component';
 
 const config: ThemeConfig = {
   initialColorMode: 'light',
   useSystemColorMode: false,
 };
 
-const globalStyles: JSXElementStyles = {
+const globalStyles = {
   address: {
     fontStyle: 'normal',
   },
