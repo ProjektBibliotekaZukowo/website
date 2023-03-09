@@ -1,3 +1,6 @@
+'use client';
+
+import NextLink from 'next/link';
 import {
   Box,
   Flex,
@@ -6,12 +9,12 @@ import {
   useDisclosure,
   useColorModeValue,
   Stack,
+  Link,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { Logo } from './logo';
 import { BsFacebook, BsInstagram } from 'react-icons/bs';
 import { routes, links } from '../lib/constants';
-import { NextLink } from 'lib/NextLink';
 
 export default function Simple() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -26,15 +29,13 @@ export default function Simple() {
         as="header"
         w="100%"
         position="fixed"
-        zIndex={1}
-      >
+        zIndex={1}>
         <Flex
           h={'100px'}
           alignItems={'center'}
           justifyContent={'space-between'}
           maxWidth={'container.xl'}
-          margin="auto"
-        >
+          margin="auto">
           <IconButton
             variant="unstyled"
             icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
@@ -43,14 +44,14 @@ export default function Simple() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack height={'100%'} spacing={{ base: 8, lg: 16 }} alignItems={'center'}>
-            <NextLink href={routes.MAIN}>
+            <Link href={routes.MAIN}>
               <Logo />
-            </NextLink>
+            </Link>
             <HStack as={'nav'} height={'100%'} spacing={0} display={{ base: 'none', md: 'flex' }}>
               {links.map((link) => (
-                <NextLink key={link.href} href={link.href} variant="topNavigation">
+                <Link as={NextLink} key={link.href} href={link.href} variant="topNavigation">
                   {link.title}
-                </NextLink>
+                </Link>
               ))}
             </HStack>
           </HStack>
@@ -74,9 +75,10 @@ export default function Simple() {
           <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4}>
               {links.map((link) => (
-                <NextLink key={link.href} href={link.href} variant="topNavigation">
+                <Link key={link.href} href={link.href}>
+                  {/* <NextLink key={link.href} href={link.href} variant="topNavigation"> */}
                   {link.title}
-                </NextLink>
+                </Link>
               ))}
             </Stack>
           </Box>

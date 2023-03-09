@@ -1,7 +1,7 @@
 import { Box, Button, Heading, HStack, VStack, Text, Icon } from '@chakra-ui/react';
 import { FetchHomeQuery } from 'generated/types';
 import { routes, SITE_NEWS_MORE_NEWS, SITE_NEWS_SECTION_TITLE } from 'lib/constants';
-import { NextLink } from 'lib/NextLink';
+import { Link } from '@chakra-ui/next-js';
 import { BsArrowRight } from 'react-icons/bs';
 import { NewsArticle } from './NewsArticle';
 
@@ -22,7 +22,7 @@ export const NewsArticles = ({ newsArticles }: INewsArticles) => {
           ))}
         </HStack>
         <Box>
-          <NextLink href={routes.AKTUALNOSCI}>
+          <Link href={routes.AKTUALNOSCI}>
             <Button size="lg" role="group" mt={30} variant="primary">
               <Text as="span" mr={2} fontSize="lg">
                 {SITE_NEWS_MORE_NEWS}
@@ -33,7 +33,7 @@ export const NewsArticles = ({ newsArticles }: INewsArticles) => {
                 _groupHover={{ transform: 'translate(5px)', transition: '0.1s ease-in-out' }}
               />
             </Button>
-          </NextLink>
+          </Link>
         </Box>
       </VStack>
     </Box>

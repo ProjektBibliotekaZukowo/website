@@ -18,4 +18,7 @@ module.exports = {
   images: {
     domains: ['dummyimage.com', 'images.ctfassets.net'],
   },
+  experimental: {
+    esmExternals: false,
+  },
 };

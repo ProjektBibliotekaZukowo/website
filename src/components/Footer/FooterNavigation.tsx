@@ -1,6 +1,6 @@
 import { links } from '../../lib/constants';
-import { NextLink } from '../../lib/NextLink';
-import { Box, ListItem, Stack, UnorderedList, VStack } from '@chakra-ui/react';
+import NextLink from 'next/link';
+import { Box, ListItem, Stack, UnorderedList, Link } from '@chakra-ui/react';
 
 export const FooterNavigation = () => {
   return (
@@ -9,9 +9,9 @@ export const FooterNavigation = () => {
         <Stack>
           {links.map((link) => (
             <ListItem key={link.href + link.title}>
-              <NextLink href={link.href} variant="footerNavigation">
+              <Link as={NextLink} href={link.href} variant="footerNavigation">
                 {link.title}
-              </NextLink>
+              </Link>
             </ListItem>
           ))}
         </Stack>
