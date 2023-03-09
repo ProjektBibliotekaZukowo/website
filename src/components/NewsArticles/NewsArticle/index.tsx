@@ -21,10 +21,10 @@ export const NewsArticle = ({ title, slug, description, heroImage }: INewsArticl
         _groupHover={{ opacity: 1 }}
       />
       <VStack p={10} spacing={4} alignItems="start">
-        <Heading as="h4" noOfLines={4}>
+        <Heading as="h4" noOfLines={4} width="100%">
           {title}
         </Heading>
-        <Text as="p" textAlign="start" noOfLines={5} fontSize="lg">
+        <Text as="p" textAlign="start" noOfLines={5} fontSize="lg" width="100%">
           {description}
         </Text>
         <NextLink href={`/aritcles/${slug}`}>
