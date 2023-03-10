@@ -3,19 +3,19 @@ import { NewsArticles } from 'components/NewsArticles';
 import { OpeningTimes } from 'components/OpeningTimes';
 import { TopArticles } from 'components/TopArticles';
 import { PartnersSection } from 'components/PartnersSection';
-import { FetchHomeQuery } from 'generated/types';
 import { getHomePage } from 'lib/api';
-import { GetStaticProps } from 'next';
 import React from 'react';
 import { Box } from '@chakra-ui/react';
+import { useSearchParams } from 'next/navigation';
 
-export default function Index({
-  branches,
-  latestArticles,
-  newsArticles,
-  mainBranch,
-  partners,
-}: FetchHomeQuery) {
+export default async function Page() {
+  const searchParams = useSearchParams();
+  const preview = searchParams?.get('preview');
+
+  const { data } = await getHomePage({ preview: preview != undefined });
+
+  const { branches, latestArticles, mainBranch, newsArticles, partners } = data;
+
   return (
     <>
       <OpeningTimes branches={branches} />
@@ -28,13 +28,3 @@ export default function Index({
     </>
   );
 }
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { data } = await getHomePage({
-    preview: params ? params.preview != undefined : false,
-  });
-
-  return {
-    props: { ...data },
-  };
-};

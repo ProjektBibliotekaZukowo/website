@@ -44,7 +44,7 @@ export default function Simple() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack height={'100%'} spacing={{ base: 8, lg: 16 }} alignItems={'center'}>
-            <Link href={routes.MAIN}>
+            <Link as={NextLink} href={routes.MAIN}>
               <Logo />
             </Link>
             <HStack as={'nav'} height={'100%'} spacing={0} display={{ base: 'none', md: 'flex' }}>

@@ -23,6 +23,7 @@ interface IOpeningTimes {
 export const OpeningTimes = ({ branches }: IOpeningTimes) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  console.log({ branches });
   function getBranches() {
     return (
       <>
@@ -42,8 +43,7 @@ export const OpeningTimes = ({ branches }: IOpeningTimes) => {
           position="relative"
           verticalAlign={'middle'}
           display="flex"
-          flexWrap="wrap"
-        >
+          flexWrap="wrap">
           <Text as="span" fontSize="lg" fontWeight="600">
             Dziś jesteśmy otwarci:
           </Text>
