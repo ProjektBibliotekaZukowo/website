@@ -22,11 +22,9 @@ const LibraryApp = ({ Component, pageProps }: AppProps) => {
       <Head>
         <meta name={SITE_NAME} content={SITE_SEO_DESCRIPTION} key="description" />
       </Head>
-      <div>
-        <TopNavigation />
-        <Component {...otherPageProps} />
-        <Footer branches={pageProps.branches} />
-      </div>
+      <TopNavigation />
+      <Component {...otherPageProps} />
+      <Footer branches={pageProps.branches} />
     </ChakraProvider>
   );
 };

@@ -1,6 +1,7 @@
 import { Heading, Icon, VStack, Text } from '@chakra-ui/react';
 import { ChakraNextImage } from 'components/ChakraNextImage';
 import { Link } from '@chakra-ui/next-js';
+import NextLink from 'next/link';
 import { BsArrowRight } from 'react-icons/bs';
 
 interface INewsArticle {
@@ -28,7 +29,12 @@ export const NewsArticle = ({ title, slug, description, heroImage }: INewsArticl
         <Text as="p" textAlign="start" noOfLines={5} fontSize="lg" width="100%">
           {description}
         </Text>
-        <Link href={`/aritcles/${slug}`} display="flex" whiteSpace="nowrap" alignItems="center">
+        <Link
+          as={NextLink}
+          href={`/articles/${slug}`}
+          display="flex"
+          whiteSpace="nowrap"
+          alignItems="center">
           <Text as="span" mr={2} fontSize="lg" transition="0.1s ease-in-out">
             Czytaj dalej
           </Text>

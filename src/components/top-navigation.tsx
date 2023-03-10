@@ -1,5 +1,3 @@
-'use client';
-
 import NextLink from 'next/link';
 import {
   Box,
@@ -44,7 +42,7 @@ export default function Simple() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack height={'100%'} spacing={{ base: 8, lg: 16 }} alignItems={'center'}>
-            <Link href={routes.MAIN}>
+            <Link as={NextLink} href={routes.MAIN}>
               <Logo />
             </Link>
             <HStack as={'nav'} height={'100%'} spacing={0} display={{ base: 'none', md: 'flex' }}>
@@ -75,8 +73,7 @@ export default function Simple() {
           <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4}>
               {links.map((link) => (
-                <Link key={link.href} href={link.href}>
-                  {/* <NextLink key={link.href} href={link.href} variant="topNavigation"> */}
+                <Link as={NextLink} key={link.href} href={link.href} variant="topNavigation">
                   {link.title}
                 </Link>
               ))}

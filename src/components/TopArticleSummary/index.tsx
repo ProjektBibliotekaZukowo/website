@@ -1,5 +1,6 @@
 import { Flex, Heading, Icon, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 import { Link } from '@chakra-ui/next-js';
+import NextLink from 'next/link';
 import { ChakraNextImage } from 'components/ChakraNextImage';
 import { FetchHomeQuery } from 'generated/types';
 import { BsArrowRight } from 'react-icons/bs';
@@ -27,7 +28,8 @@ export const TopArticleSummary = ({ article }: ITopArticleSummary) => {
           {article.description}
         </Text>
         <Link
-          href={`/aritcles/${article.slug}`}
+          as={NextLink}
+          href={`/articles/${article.slug}`}
           display="flex"
           alignItems="center"
           whiteSpace="nowrap">
