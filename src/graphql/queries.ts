@@ -9,6 +9,7 @@ export const ASSET_QUERY = gql`
     }
   }
 `;
+
 export const HOME_QUERY = gql`
   query FetchHome(
     $heroImageId: String!
@@ -45,6 +46,7 @@ export const HOME_QUERY = gql`
       order: publishDate_DESC
       where: { contentfulMetadata: { tags: { id_contains_none: [$latestArticlesTagName] } } }
     ) {
+      total
       items {
         title
         slug
@@ -155,6 +157,67 @@ export const HOME_QUERY = gql`
         }
         description
         name
+      }
+    }
+  }
+`;
+
+export const ARTICLES_HOME_QUERY = gql`
+  query FetchArticles($articlesLimit: Int!) {
+    articles: articleCollection(limit: $articlesLimit, order: publishDate_DESC) {
+      total
+      items {
+        sys {
+          id
+        }
+        title
+        slug
+        body
+        heroImage {
+          description
+          title
+          url(transform: { width: 576, height: 448 })
+        }
+        description
+        publishDate
+      }
+    }
+  }
+`;
+
+export const ARTICLE_QUERY = gql`
+  query FetchArticle($slug: String!) {
+    article: articleCollection(where: { slug: $slug }, order: publishDate_DESC) {
+      items {
+        sys {
+          id
+        }
+        title
+        slug
+        body
+        heroImage {
+          description
+          title
+          url(transform: { width: 576, height: 448 })
+        }
+        description
+        publishDate
+        author {
+          name
+        }
+      }
+    }
+  }
+`;
+
+export const ARTICLES_SLUGS_QUERY = gql`
+  query FetchArticlesSlugs($skip: Int!) {
+    slugs: articleCollection(skip: $skip, order: publishDate_DESC) {
+      total
+      skip
+      limit
+      items {
+        slug
       }
     }
   }

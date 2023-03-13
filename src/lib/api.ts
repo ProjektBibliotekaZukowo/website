@@ -1,11 +1,23 @@
 import { getClient } from './contentfulApi';
 import {
+  FetchArticleQuery,
+  FetchArticleQueryVariables,
+  FetchArticlesQuery,
+  FetchArticlesQueryVariables,
+  FetchArticlesSlugsQuery,
+  FetchArticlesSlugsQueryVariables,
   FetchAssetQuery,
   FetchAssetQueryVariables,
   FetchHomeQuery,
   FetchHomeQueryVariables,
 } from 'generated/types';
-import { ASSET_QUERY, HOME_QUERY } from 'graphql/queries';
+import {
+  ARTICLES_HOME_QUERY,
+  ARTICLES_SLUGS_QUERY,
+  ARTICLE_QUERY,
+  ASSET_QUERY,
+  HOME_QUERY,
+} from 'graphql/queries';
 import {
   ASSETS,
   HOME_PAGE_ARTICLE_LIMIT,
@@ -19,6 +31,9 @@ type PreviewParams = {
 };
 
 type GetHomePageParams = PreviewParams;
+type GetArticlesPageParams = PreviewParams;
+type GetArticleParams = { preview?: boolean; slug: string };
+type GetArticlesSlugsParams = { skip: number };
 
 export async function logoFetcher(id: string) {
   const client = getClient({ preview: false });
@@ -40,6 +55,36 @@ export async function getHomePage(params: GetHomePageParams) {
       newsLimit: HOME_PAGE_NEWS_LIMIT,
       latestArticlesTagName: LATEST_ARTICLES_TAG_ID,
       mainBranchTagName: MAIN_BRANCH_TAG,
+    },
+  });
+}
+
+export async function getArticlesPage(params: GetArticlesPageParams) {
+  const client = getClient(params);
+  return await client.query<FetchArticlesQuery, FetchArticlesQueryVariables>({
+    query: ARTICLES_HOME_QUERY,
+    variables: {
+      articlesLimit: HOME_PAGE_ARTICLE_LIMIT,
+    },
+  });
+}
+
+export async function getArticle(params: GetArticleParams) {
+  const client = getClient(params);
+  return await client.query<FetchArticleQuery, FetchArticleQueryVariables>({
+    query: ARTICLE_QUERY,
+    variables: {
+      slug: params.slug,
+    },
+  });
+}
+
+export async function getArticlesSlugs(params: GetArticlesSlugsParams) {
+  const client = getClient({ preview: false });
+  return await client.query<FetchArticlesSlugsQuery, FetchArticlesSlugsQueryVariables>({
+    query: ARTICLES_SLUGS_QUERY,
+    variables: {
+      skip: params.skip,
     },
   });
 }

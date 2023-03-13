@@ -35,15 +35,14 @@ export const OpeningTimes = ({ branches }: IOpeningTimes) => {
 
   return (
     <>
-      <Stack display={{ base: 'none', md: 'block' }} pt="100px">
+      <Stack display={{ base: 'none', md: 'block' }}>
         <Center
           p="20px"
           bgColor="gray.100"
           position="relative"
           verticalAlign={'middle'}
           display="flex"
-          flexWrap="wrap"
-        >
+          flexWrap="wrap">
           <Text as="span" fontSize="lg" fontWeight="600">
             Dziś jesteśmy otwarci:
           </Text>
@@ -52,7 +51,7 @@ export const OpeningTimes = ({ branches }: IOpeningTimes) => {
           </HStack>
         </Center>
       </Stack>
-      <Stack display={{ base: 'block', md: 'none' }} pt="100px">
+      <Stack display={{ base: 'block', md: 'none' }}>
         <Center h={20} bgColor="gray.100" position="relative" verticalAlign={'middle'}>
           <OpeningHoursButton text="Godziny otwarcia" tabIndex={2} onClick={onOpen} />
         </Center>

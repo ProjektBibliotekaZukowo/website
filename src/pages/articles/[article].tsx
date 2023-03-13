@@ -1,31 +1,50 @@
 import { Heading } from '@chakra-ui/react';
-import { GetStaticProps } from 'next';
-import { useRouter } from 'next/router';
+import { FetchArticleQuery } from 'generated/types';
+import { getArticle, getArticlesSlugs } from 'lib/api';
+import { GetStaticPaths, GetStaticProps } from 'next';
 
-export default function Article() {
-  const router = useRouter();
-  const { article } = router.query;
-
-  return <Heading as="h1">Article {article}</Heading>;
+export default function Article({ article }: FetchArticleQuery) {
+  const post = article['items'][0];
+  return <Heading as="h1">{post.title}</Heading>;
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  return {
-    props: { article: context.params.article },
-  };
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  try {
+    const { data } = await getArticle({
+      preview: params ? params.preview != undefined : false,
+      slug: params.article as string,
+    });
+    return {
+      props: { ...data },
+    };
+  } catch (e) {
+    console.log(e.networkError.result.errors);
+    throw e;
+  }
 };
 
-export async function getStaticPaths() {
-  return {
-    paths: [
-      {
-        params: {
-          article: 'ocalic-od-zapomnienia-palace-w-leznie-malkowie-pepowie-i-przyjazni-we',
-        },
+export const getStaticPaths: GetStaticPaths = async () => {
+  let slugs: Array<{ params: { article: string } }> = [];
+  let nextSkip = 0;
+  const { data } = await getArticlesSlugs({ skip: 0 });
+  const { total, items, skip, limit } = data.slugs;
+  slugs = slugs.concat(items.map((i) => ({ params: { article: i.slug } })));
+  nextSkip = skip + limit;
+  while (nextSkip < total) {
+    const {
+      data: {
+        slugs: { items, skip, limit },
       },
-      { params: { article: 'jakas-aktualnosc' } },
-      { params: { article: 'kolejna-aktualnosc' } },
-    ],
-    fallback: false, // can also be true or 'blocking'
+    } = await getArticlesSlugs({ skip: nextSkip });
+    if (typeof skip === 'undefined') {
+      break;
+    }
+    nextSkip = skip + limit;
+    slugs = slugs.concat(items.map((i) => ({ params: { article: i.slug } })));
+  }
+
+  return {
+    paths: slugs,
+    fallback: false,
   };
-}
+};

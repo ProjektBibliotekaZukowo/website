@@ -36,5 +36,7 @@ export const workingWeek = [
   { pl: 'Piątek', en: 'friday' },
 ];
 
+// TODO: Should be 10 or something
+export const ARTICLE_PAGINATION_PAGE_SIZE = 3;
 export const LATEST_ARTICLES_TAG_ID = 'homePageArticle';
 export const HOME_PAGE_NEWS_LIMIT = 3;
