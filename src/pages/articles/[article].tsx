@@ -1,11 +1,50 @@
-import { Heading } from '@chakra-ui/react';
+import { Box, Heading, Text, VStack } from '@chakra-ui/react';
+import { ArticleBreadcrumb } from 'components/ArticleBreadcrumb';
 import { FetchArticleQuery } from 'generated/types';
 import { getArticle, getArticlesSlugs } from 'lib/api';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
 export default function Article({ article }: FetchArticleQuery) {
   const post = article['items'][0];
-  return <Heading as="h1">{post.title}</Heading>;
+
+  const navItems = [
+    {
+      alt: 'Strona Domowa',
+      href: '/',
+      title: 'Strona Domowa',
+      isCurrentPage: false,
+      isTruncated: false,
+    },
+    {
+      alt: 'Artykuły',
+      href: '/articles',
+      title: 'Artykuły',
+      isCurrentPage: false,
+      isTruncated: false,
+    },
+    {
+      alt: post.title,
+      href: `/articles/${post.slug}`,
+      title: post.title,
+      isCurrentPage: false,
+      isTruncated: true,
+    },
+  ];
+  return (
+    <Box maxWidth={'container.xl'} margin="auto" px="20px">
+      <Box my={3}>
+        <ArticleBreadcrumb navItems={navItems} />
+      </Box>
+      <Box as="article">
+        <Heading as="h1">{post.title}</Heading>
+        <VStack mt={5} spacing={5} textAlign="left">
+          <Text>{post.description}</Text>
+          <Text>{post.body}</Text>
+          <Text>autor: {post?.author?.name || 'nieznany'}</Text>
+        </VStack>
+      </Box>
+    </Box>
+  );
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
