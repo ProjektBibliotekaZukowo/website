@@ -220,8 +220,8 @@ export const HOME_QUERY = gql`
 export const ARTICLES_HOME_QUERY = gql`
   ${ARTICLE_CORE}
   ${ARTICLE_BODY_CORE}
-  query FetchArticles($articlesLimit: Int!) {
-    articles: articleCollection(limit: $articlesLimit, order: publishDate_DESC) {
+  query FetchArticles($articlesLimit: Int!, $skip: Int!) {
+    articles: articleCollection(limit: $articlesLimit, skip: $skip, order: publishDate_DESC) {
       total
       items {
         ...CoreFields
@@ -253,6 +253,14 @@ export const ARTICLES_SLUGS_QUERY = gql`
       items {
         slug
       }
+    }
+  }
+`;
+
+export const TOTAL_NUMBER_OF_ARTICLES = gql`
+  query FetchArticlesTotal {
+    articlesTotal: articleCollection {
+      total
     }
   }
 `;

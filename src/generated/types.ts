@@ -2225,6 +2225,7 @@ export type FetchHomeQuery = { __typename?: 'Query', heroImage?: { __typename?: 
 
 export type FetchArticlesQueryVariables = Exact<{
   articlesLimit: Scalars['Int'];
+  skip: Scalars['Int'];
 }>;
 
 
@@ -2243,3 +2244,8 @@ export type FetchArticlesSlugsQueryVariables = Exact<{
 
 
 export type FetchArticlesSlugsQuery = { __typename?: 'Query', slugs?: { __typename?: 'ArticleCollection', total: number, skip: number, limit: number, items: Array<{ __typename?: 'Article', slug?: string | null } | null> } | null };
+
+export type FetchArticlesTotalQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FetchArticlesTotalQuery = { __typename?: 'Query', articlesTotal?: { __typename?: 'ArticleCollection', total: number } | null };

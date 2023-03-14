@@ -6,6 +6,8 @@ import {
   FetchArticlesQueryVariables,
   FetchArticlesSlugsQuery,
   FetchArticlesSlugsQueryVariables,
+  FetchArticlesTotalQuery,
+  FetchArticlesTotalQueryVariables,
   FetchAssetQuery,
   FetchAssetQueryVariables,
   FetchHomeQuery,
@@ -17,6 +19,7 @@ import {
   ARTICLE_QUERY,
   ASSET_QUERY,
   HOME_QUERY,
+  TOTAL_NUMBER_OF_ARTICLES,
 } from 'graphql/queries';
 import {
   ASSETS,
@@ -31,7 +34,7 @@ type PreviewParams = {
 };
 
 type GetHomePageParams = PreviewParams;
-type GetArticlesPageParams = PreviewParams;
+type GetArticlesPageParams = PreviewParams & { page: number };
 type GetArticleParams = { preview?: boolean; slug: string };
 type GetArticlesSlugsParams = { skip: number };
 
@@ -79,6 +82,7 @@ export async function getArticlesPage(params: GetArticlesPageParams) {
       query: ARTICLES_HOME_QUERY,
       variables: {
         articlesLimit: HOME_PAGE_ARTICLE_LIMIT,
+        skip: (params.page - 1) * HOME_PAGE_ARTICLE_LIMIT,
       },
     });
   });
@@ -104,6 +108,15 @@ export async function getArticlesSlugs(params: GetArticlesSlugsParams) {
       variables: {
         skip: params.skip,
       },
+    });
+  });
+}
+
+export async function getTotalNumberOfArticles() {
+  const client = getClient({ preview: false });
+  return showErrors(async () => {
+    return await client.query<FetchArticlesTotalQuery, FetchArticlesTotalQueryVariables>({
+      query: TOTAL_NUMBER_OF_ARTICLES,
     });
   });
 }
