@@ -9,7 +9,7 @@ interface INewsArticle {
   title?: string;
   slug?: string;
   body?: string;
-  description?: string;
+  description?: any;
   heroImage?: { description?: string; title?: string; url?: string };
 }
 export const NewsArticle = ({ title, slug, description, heroImage }: INewsArticle) => {

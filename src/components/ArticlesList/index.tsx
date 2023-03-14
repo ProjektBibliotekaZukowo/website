@@ -3,7 +3,6 @@ import { Link, List, ListItem, Box } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { ArticleBreadcrumb } from 'components/ArticleBreadcrumb';
 import { ARTICLE_PAGINATION_PAGE_SIZE } from 'lib/constants';
-import { ceil } from 'lodash';
 
 export type PaginationInfo = {
   currentPage: number;
@@ -27,10 +26,10 @@ const navItems = [
 ];
 export default function ArticlesList({
   articles,
-  currentPage,
-}: FetchArticlesQuery & PaginationInfo) {
+}: // currentPage,
+FetchArticlesQuery & PaginationInfo) {
   const pagesCollection: number[] = [];
-  const totalPages = ceil(articles.total / ARTICLE_PAGINATION_PAGE_SIZE);
+  const totalPages = Math.ceil(articles.total / ARTICLE_PAGINATION_PAGE_SIZE);
   for (let i = 0; i < totalPages; i++) {
     pagesCollection.push(i + 1);
   }
