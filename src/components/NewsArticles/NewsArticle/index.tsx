@@ -1,13 +1,15 @@
 import { Heading, Icon, VStack, Text } from '@chakra-ui/react';
 import { ChakraNextImage } from 'components/ChakraNextImage';
 import { Link } from '@chakra-ui/next-js';
+import NextLink from 'next/link';
 import { BsArrowRight } from 'react-icons/bs';
+import RichTextResponse from 'components/RichTextResponse';
 
 interface INewsArticle {
   title?: string;
   slug?: string;
   body?: string;
-  description?: string;
+  description?: any;
   heroImage?: { description?: string; title?: string; url?: string };
 }
 export const NewsArticle = ({ title, slug, description, heroImage }: INewsArticle) => {
@@ -25,10 +27,16 @@ export const NewsArticle = ({ title, slug, description, heroImage }: INewsArticl
         <Heading as="h4" noOfLines={4} width="100%">
           {title}
         </Heading>
-        <Text as="p" textAlign="start" noOfLines={5} fontSize="lg" width="100%">
+        <RichTextResponse richTextResponse={description}></RichTextResponse>
+        {/* <Text as="p" textAlign="start" noOfLines={5} fontSize="lg" width="100%">
           {description}
-        </Text>
-        <Link href={`/aritcles/${slug}`} display="flex" whiteSpace="nowrap" alignItems="center">
+        </Text> */}
+        <Link
+          as={NextLink}
+          href={`/articles/${slug}`}
+          display="flex"
+          whiteSpace="nowrap"
+          alignItems="center">
           <Text as="span" mr={2} fontSize="lg" transition="0.1s ease-in-out">
             Czytaj dalej
           </Text>

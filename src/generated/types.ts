@@ -10,24 +10,12 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** The Circle scalar type represents a circle, defined by the coordinates of its center and a radius. The Circle type is used to represent a searchable area together with the '_within_circle' filter. */
   Circle: any;
-  /**
-   * A date-time string at UTC, such as 2007-12-03T10:15:30Z,
-   *     compliant with the 'date-time' format outlined in section 5.6 of
-   *     the RFC 3339 profile of the ISO 8601 standard for representation
-   *     of dates and times using the Gregorian calendar.
-   */
   DateTime: any;
-  /** The 'Dimension' type represents dimensions as whole numeric values between `1` and `4000`. */
   Dimension: any;
-  /** The 'HexColor' type represents color in `rgb:ffffff` string format. */
   HexColor: any;
-  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
-  /** The 'Quality' type represents quality as whole numeric values between `1` and `100`. */
   Quality: any;
-  /** The Rectangle scalar type represents a rectangle, defined by the coordinates of its top left and bottom right corners. The Rectangle type is used to represent a searchable area together with the '_within_rectangle' filter. */
   Rectangle: any;
 };
 
@@ -46,40 +34,48 @@ export type Address = Entry & {
   ulica?: Maybe<Scalars['String']>;
 };
 
+
 /** Dane adresowe [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/address) */
 export type AddressEmailArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
+
 
 /** Dane adresowe [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/address) */
 export type AddressKodPocztowyArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+
 /** Dane adresowe [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/address) */
 export type AddressLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
+
 
 /** Dane adresowe [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/address) */
 export type AddressLokalizacjaArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+
 /** Dane adresowe [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/address) */
 export type AddressMiejscowoscArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
+
 
 /** Dane adresowe [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/address) */
 export type AddressNumerArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+
 /** Dane adresowe [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/address) */
 export type AddressNumerTelefonuArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
+
 
 /** Dane adresowe [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/address) */
 export type AddressUlicaArgs = {
@@ -146,12 +142,14 @@ export type AddressLinkingCollections = {
   entryCollection?: Maybe<EntryCollection>;
 };
 
+
 export type AddressLinkingCollectionsBranchCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type AddressLinkingCollectionsEntryCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
@@ -176,16 +174,16 @@ export enum AddressOrder {
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
   UlicaAsc = 'ulica_ASC',
-  UlicaDesc = 'ulica_DESC',
+  UlicaDesc = 'ulica_DESC'
 }
 
 /** Aktualności [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/article) */
 export type Article = Entry & {
   __typename?: 'Article';
   author?: Maybe<Person>;
-  body?: Maybe<Scalars['String']>;
+  body?: Maybe<ArticleBody>;
   contentfulMetadata: ContentfulMetadata;
-  description?: Maybe<Scalars['String']>;
+  description?: Maybe<ArticleDescription>;
   heroImage?: Maybe<Asset>;
   linkedFrom?: Maybe<ArticleLinkingCollections>;
   publishDate?: Maybe<Scalars['DateTime']>;
@@ -195,21 +193,25 @@ export type Article = Entry & {
   title?: Maybe<Scalars['String']>;
 };
 
+
 /** Aktualności [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/article) */
 export type ArticleAuthorArgs = {
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
 };
 
+
 /** Aktualności [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/article) */
 export type ArticleBodyArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+
 /** Aktualności [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/article) */
 export type ArticleDescriptionArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
+
 
 /** Aktualności [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/article) */
 export type ArticleHeroImageArgs = {
@@ -217,29 +219,59 @@ export type ArticleHeroImageArgs = {
   preview?: InputMaybe<Scalars['Boolean']>;
 };
 
+
 /** Aktualności [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/article) */
 export type ArticleLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
+
 
 /** Aktualności [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/article) */
 export type ArticlePublishDateArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+
 /** Aktualności [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/article) */
 export type ArticleSlugArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
+
 
 /** Aktualności [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/article) */
 export type ArticleTagsArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+
 /** Aktualności [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/article) */
 export type ArticleTitleArgs = {
   locale?: InputMaybe<Scalars['String']>;
+};
+
+export type ArticleBody = {
+  __typename?: 'ArticleBody';
+  json: Scalars['JSON'];
+  links: ArticleBodyLinks;
+};
+
+export type ArticleBodyAssets = {
+  __typename?: 'ArticleBodyAssets';
+  block: Array<Maybe<Asset>>;
+  hyperlink: Array<Maybe<Asset>>;
+};
+
+export type ArticleBodyEntries = {
+  __typename?: 'ArticleBodyEntries';
+  block: Array<Maybe<Entry>>;
+  hyperlink: Array<Maybe<Entry>>;
+  inline: Array<Maybe<Entry>>;
+};
+
+export type ArticleBodyLinks = {
+  __typename?: 'ArticleBodyLinks';
+  assets: ArticleBodyAssets;
+  entries: ArticleBodyEntries;
 };
 
 export type ArticleCollection = {
@@ -250,26 +282,43 @@ export type ArticleCollection = {
   total: Scalars['Int'];
 };
 
+export type ArticleDescription = {
+  __typename?: 'ArticleDescription';
+  json: Scalars['JSON'];
+  links: ArticleDescriptionLinks;
+};
+
+export type ArticleDescriptionAssets = {
+  __typename?: 'ArticleDescriptionAssets';
+  block: Array<Maybe<Asset>>;
+  hyperlink: Array<Maybe<Asset>>;
+};
+
+export type ArticleDescriptionEntries = {
+  __typename?: 'ArticleDescriptionEntries';
+  block: Array<Maybe<Entry>>;
+  hyperlink: Array<Maybe<Entry>>;
+  inline: Array<Maybe<Entry>>;
+};
+
+export type ArticleDescriptionLinks = {
+  __typename?: 'ArticleDescriptionLinks';
+  assets: ArticleDescriptionAssets;
+  entries: ArticleDescriptionEntries;
+};
+
 export type ArticleFilter = {
   AND?: InputMaybe<Array<InputMaybe<ArticleFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ArticleFilter>>>;
   author?: InputMaybe<CfPersonNestedFilter>;
   author_exists?: InputMaybe<Scalars['Boolean']>;
-  body?: InputMaybe<Scalars['String']>;
   body_contains?: InputMaybe<Scalars['String']>;
   body_exists?: InputMaybe<Scalars['Boolean']>;
-  body_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  body_not?: InputMaybe<Scalars['String']>;
   body_not_contains?: InputMaybe<Scalars['String']>;
-  body_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  description?: InputMaybe<Scalars['String']>;
   description_contains?: InputMaybe<Scalars['String']>;
   description_exists?: InputMaybe<Scalars['Boolean']>;
-  description_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  description_not?: InputMaybe<Scalars['String']>;
   description_not_contains?: InputMaybe<Scalars['String']>;
-  description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   heroImage_exists?: InputMaybe<Scalars['Boolean']>;
   publishDate?: InputMaybe<Scalars['DateTime']>;
   publishDate_exists?: InputMaybe<Scalars['Boolean']>;
@@ -306,6 +355,7 @@ export type ArticleLinkingCollections = {
   entryCollection?: Maybe<EntryCollection>;
 };
 
+
 export type ArticleLinkingCollectionsEntryCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
@@ -327,7 +377,7 @@ export enum ArticleOrder {
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
   TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC',
+  TitleDesc = 'title_DESC'
 }
 
 /** Represents a binary file in a space. An asset can be any file type. */
@@ -346,46 +396,55 @@ export type Asset = {
   width?: Maybe<Scalars['Int']>;
 };
 
+
 /** Represents a binary file in a space. An asset can be any file type. */
 export type AssetContentTypeArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
+
 
 /** Represents a binary file in a space. An asset can be any file type. */
 export type AssetDescriptionArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+
 /** Represents a binary file in a space. An asset can be any file type. */
 export type AssetFileNameArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
+
 
 /** Represents a binary file in a space. An asset can be any file type. */
 export type AssetHeightArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+
 /** Represents a binary file in a space. An asset can be any file type. */
 export type AssetLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
+
 
 /** Represents a binary file in a space. An asset can be any file type. */
 export type AssetSizeArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+
 /** Represents a binary file in a space. An asset can be any file type. */
 export type AssetTitleArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
+
 
 /** Represents a binary file in a space. An asset can be any file type. */
 export type AssetUrlArgs = {
   locale?: InputMaybe<Scalars['String']>;
   transform?: InputMaybe<ImageTransformOptions>;
 };
+
 
 /** Represents a binary file in a space. An asset can be any file type. */
 export type AssetWidthArgs = {
@@ -479,12 +538,14 @@ export type AssetLinkingCollections = {
   personCollection?: Maybe<PersonCollection>;
 };
 
+
 export type AssetLinkingCollectionsArticleCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type AssetLinkingCollectionsBlogPostCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
@@ -493,12 +554,14 @@ export type AssetLinkingCollectionsBlogPostCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type AssetLinkingCollectionsBranchCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type AssetLinkingCollectionsEntryCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
@@ -507,12 +570,14 @@ export type AssetLinkingCollectionsEntryCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type AssetLinkingCollectionsPartnerCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type AssetLinkingCollectionsPersonCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
@@ -541,7 +606,7 @@ export enum AssetOrder {
   UrlAsc = 'url_ASC',
   UrlDesc = 'url_DESC',
   WidthAsc = 'width_ASC',
-  WidthDesc = 'width_DESC',
+  WidthDesc = 'width_DESC'
 }
 
 /** [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/blogPost) */
@@ -560,21 +625,25 @@ export type BlogPost = Entry & {
   title?: Maybe<Scalars['String']>;
 };
 
+
 /** [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/blogPost) */
 export type BlogPostAuthorArgs = {
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
 };
 
+
 /** [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/blogPost) */
 export type BlogPostBodyArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+
 /** [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/blogPost) */
 export type BlogPostDescriptionArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
+
 
 /** [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/blogPost) */
 export type BlogPostHeroImageArgs = {
@@ -582,25 +651,30 @@ export type BlogPostHeroImageArgs = {
   preview?: InputMaybe<Scalars['Boolean']>;
 };
 
+
 /** [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/blogPost) */
 export type BlogPostLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
+
 
 /** [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/blogPost) */
 export type BlogPostPublishDateArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+
 /** [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/blogPost) */
 export type BlogPostSlugArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+
 /** [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/blogPost) */
 export type BlogPostTagsArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
+
 
 /** [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/blogPost) */
 export type BlogPostTitleArgs = {
@@ -671,6 +745,7 @@ export type BlogPostLinkingCollections = {
   entryCollection?: Maybe<EntryCollection>;
 };
 
+
 export type BlogPostLinkingCollectionsEntryCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
@@ -692,7 +767,7 @@ export enum BlogPostOrder {
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
   TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC',
+  TitleDesc = 'title_DESC'
 }
 
 /** Branch details [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/branch) */
@@ -710,11 +785,13 @@ export type Branch = Entry & {
   sys: Sys;
 };
 
+
 /** Branch details [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/branch) */
 export type BranchAddressArgs = {
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
 };
+
 
 /** Branch details [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/branch) */
 export type BranchGalleryCollectionArgs = {
@@ -724,15 +801,18 @@ export type BranchGalleryCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
 };
 
+
 /** Branch details [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/branch) */
 export type BranchLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
+
 /** Branch details [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/branch) */
 export type BranchLongDescriptionArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
+
 
 /** Branch details [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/branch) */
 export type BranchMainImageArgs = {
@@ -740,16 +820,19 @@ export type BranchMainImageArgs = {
   preview?: InputMaybe<Scalars['Boolean']>;
 };
 
+
 /** Branch details [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/branch) */
 export type BranchNameArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
+
 
 /** Branch details [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/branch) */
 export type BranchOpeningTimesArgs = {
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
 };
+
 
 /** Branch details [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/branch) */
 export type BranchShortDescriptionArgs = {
@@ -799,6 +882,7 @@ export type BranchLinkingCollections = {
   entryCollection?: Maybe<EntryCollection>;
 };
 
+
 export type BranchLinkingCollectionsEntryCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
@@ -841,7 +925,7 @@ export enum BranchOrder {
   SysPublishedAtAsc = 'sys_publishedAt_ASC',
   SysPublishedAtDesc = 'sys_publishedAt_DESC',
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
 export type ContentfulMetadata = {
@@ -898,7 +982,7 @@ export enum EntryOrder {
   SysPublishedAtAsc = 'sys_publishedAt_ASC',
   SysPublishedAtDesc = 'sys_publishedAt_DESC',
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
 export enum ImageFormat {
@@ -920,7 +1004,7 @@ export enum ImageFormat {
    */
   Png8 = 'PNG8',
   /** WebP image format. */
-  Webp = 'WEBP',
+  Webp = 'WEBP'
 }
 
 export enum ImageResizeFocus {
@@ -945,7 +1029,7 @@ export enum ImageResizeFocus {
   /** Focus the resizing on the top left. */
   TopLeft = 'TOP_LEFT',
   /** Focus the resizing on the top right. */
-  TopRight = 'TOP_RIGHT',
+  TopRight = 'TOP_RIGHT'
 }
 
 export enum ImageResizeStrategy {
@@ -963,7 +1047,7 @@ export enum ImageResizeStrategy {
   /** Resizes the image to the specified dimensions, changing the original aspect ratio if needed. */
   Scale = 'SCALE',
   /** Creates a thumbnail from the image. */
-  Thumb = 'THUMB',
+  Thumb = 'THUMB'
 }
 
 export type ImageTransformOptions = {
@@ -1025,80 +1109,96 @@ export type OpeningTimes = Entry & {
   wednesdayTo?: Maybe<Scalars['DateTime']>;
 };
 
+
 /** Godziny otwarcia biblioteki [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/openingTimes) */
 export type OpeningTimesFridayFromArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
+
 
 /** Godziny otwarcia biblioteki [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/openingTimes) */
 export type OpeningTimesFridayToArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+
 /** Godziny otwarcia biblioteki [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/openingTimes) */
 export type OpeningTimesLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
+
 
 /** Godziny otwarcia biblioteki [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/openingTimes) */
 export type OpeningTimesMondayFromArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+
 /** Godziny otwarcia biblioteki [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/openingTimes) */
 export type OpeningTimesMondayToArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
+
 
 /** Godziny otwarcia biblioteki [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/openingTimes) */
 export type OpeningTimesSaturdayFromArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+
 /** Godziny otwarcia biblioteki [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/openingTimes) */
 export type OpeningTimesSaturdayToArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
+
 
 /** Godziny otwarcia biblioteki [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/openingTimes) */
 export type OpeningTimesSundayFromArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+
 /** Godziny otwarcia biblioteki [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/openingTimes) */
 export type OpeningTimesSundayToArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
+
 
 /** Godziny otwarcia biblioteki [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/openingTimes) */
 export type OpeningTimesThursdayFromArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+
 /** Godziny otwarcia biblioteki [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/openingTimes) */
 export type OpeningTimesThursdayToArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
+
 
 /** Godziny otwarcia biblioteki [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/openingTimes) */
 export type OpeningTimesTuesdayFromArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+
 /** Godziny otwarcia biblioteki [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/openingTimes) */
 export type OpeningTimesTuesdayToArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
+
 
 /** Godziny otwarcia biblioteki [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/openingTimes) */
 export type OpeningTimesTytulArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+
 /** Godziny otwarcia biblioteki [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/openingTimes) */
 export type OpeningTimesWednesdayFromArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
+
 
 /** Godziny otwarcia biblioteki [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/openingTimes) */
 export type OpeningTimesWednesdayToArgs = {
@@ -1259,12 +1359,14 @@ export type OpeningTimesLinkingCollections = {
   entryCollection?: Maybe<EntryCollection>;
 };
 
+
 export type OpeningTimesLinkingCollectionsBranchCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type OpeningTimesLinkingCollectionsEntryCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
@@ -1311,7 +1413,7 @@ export enum OpeningTimesOrder {
   WednesdayFromAsc = 'wednesdayFrom_ASC',
   WednesdayFromDesc = 'wednesdayFrom_DESC',
   WednesdayToAsc = 'wednesdayTo_ASC',
-  WednesdayToDesc = 'wednesdayTo_DESC',
+  WednesdayToDesc = 'wednesdayTo_DESC'
 }
 
 /** Lista partnerów biblioteki [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/partner) */
@@ -1325,21 +1427,25 @@ export type Partner = Entry & {
   sys: Sys;
 };
 
+
 /** Lista partnerów biblioteki [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/partner) */
 export type PartnerDescriptionArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
+
 
 /** Lista partnerów biblioteki [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/partner) */
 export type PartnerLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
+
 /** Lista partnerów biblioteki [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/partner) */
 export type PartnerLogoArgs = {
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
 };
+
 
 /** Lista partnerów biblioteki [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/partner) */
 export type PartnerNameArgs = {
@@ -1381,6 +1487,7 @@ export type PartnerLinkingCollections = {
   entryCollection?: Maybe<EntryCollection>;
 };
 
+
 export type PartnerLinkingCollectionsEntryCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
@@ -1398,7 +1505,7 @@ export enum PartnerOrder {
   SysPublishedAtAsc = 'sys_publishedAt_ASC',
   SysPublishedAtDesc = 'sys_publishedAt_DESC',
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
 /** [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/person) */
@@ -1419,25 +1526,30 @@ export type Person = Entry & {
   twitter?: Maybe<Scalars['String']>;
 };
 
+
 /** [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/person) */
 export type PersonCompanyArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
+
 
 /** [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/person) */
 export type PersonEmailArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+
 /** [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/person) */
 export type PersonFacebookArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+
 /** [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/person) */
 export type PersonGithubArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
+
 
 /** [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/person) */
 export type PersonImageArgs = {
@@ -1445,30 +1557,36 @@ export type PersonImageArgs = {
   preview?: InputMaybe<Scalars['Boolean']>;
 };
 
+
 /** [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/person) */
 export type PersonLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
+
 
 /** [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/person) */
 export type PersonNameArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+
 /** [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/person) */
 export type PersonPhoneArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
+
 
 /** [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/person) */
 export type PersonShortBioArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+
 /** [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/person) */
 export type PersonTitleArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
+
 
 /** [See type definition](https://app.contentful.com/spaces/uptjwx8hy2jg/content_types/person) */
 export type PersonTwitterArgs = {
@@ -1561,6 +1679,7 @@ export type PersonLinkingCollections = {
   entryCollection?: Maybe<EntryCollection>;
 };
 
+
 export type PersonLinkingCollectionsArticleCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
@@ -1568,12 +1687,14 @@ export type PersonLinkingCollectionsArticleCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type PersonLinkingCollectionsBlogPostCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
 };
+
 
 export type PersonLinkingCollectionsEntryCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
@@ -1606,7 +1727,7 @@ export enum PersonOrder {
   TitleAsc = 'title_ASC',
   TitleDesc = 'title_DESC',
   TwitterAsc = 'twitter_ASC',
-  TwitterDesc = 'twitter_DESC',
+  TwitterDesc = 'twitter_DESC'
 }
 
 export type Query = {
@@ -1630,11 +1751,13 @@ export type Query = {
   personCollection?: Maybe<PersonCollection>;
 };
 
+
 export type QueryAddressArgs = {
   id: Scalars['String'];
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
 };
+
 
 export type QueryAddressCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
@@ -1645,11 +1768,13 @@ export type QueryAddressCollectionArgs = {
   where?: InputMaybe<AddressFilter>;
 };
 
+
 export type QueryArticleArgs = {
   id: Scalars['String'];
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
 };
+
 
 export type QueryArticleCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
@@ -1660,11 +1785,13 @@ export type QueryArticleCollectionArgs = {
   where?: InputMaybe<ArticleFilter>;
 };
 
+
 export type QueryAssetArgs = {
   id: Scalars['String'];
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
 };
+
 
 export type QueryAssetCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
@@ -1675,11 +1802,13 @@ export type QueryAssetCollectionArgs = {
   where?: InputMaybe<AssetFilter>;
 };
 
+
 export type QueryBlogPostArgs = {
   id: Scalars['String'];
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
 };
+
 
 export type QueryBlogPostCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
@@ -1690,11 +1819,13 @@ export type QueryBlogPostCollectionArgs = {
   where?: InputMaybe<BlogPostFilter>;
 };
 
+
 export type QueryBranchArgs = {
   id: Scalars['String'];
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
 };
+
 
 export type QueryBranchCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
@@ -1705,6 +1836,7 @@ export type QueryBranchCollectionArgs = {
   where?: InputMaybe<BranchFilter>;
 };
 
+
 export type QueryEntryCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
@@ -1714,11 +1846,13 @@ export type QueryEntryCollectionArgs = {
   where?: InputMaybe<EntryFilter>;
 };
 
+
 export type QueryOpeningTimesArgs = {
   id: Scalars['String'];
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
 };
+
 
 export type QueryOpeningTimesCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
@@ -1729,11 +1863,13 @@ export type QueryOpeningTimesCollectionArgs = {
   where?: InputMaybe<OpeningTimesFilter>;
 };
 
+
 export type QueryPartnerArgs = {
   id: Scalars['String'];
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
 };
+
 
 export type QueryPartnerCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
@@ -1744,11 +1880,13 @@ export type QueryPartnerCollectionArgs = {
   where?: InputMaybe<PartnerFilter>;
 };
 
+
 export type QueryPersonArgs = {
   id: Scalars['String'];
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
 };
+
 
 export type QueryPersonCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
@@ -2063,22 +2201,16 @@ export type CfPersonNestedFilter = {
   twitter_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
+export type CoreFieldsFragment = { __typename?: 'Article', title?: string | null, slug?: string | null, publishDate?: any | null, sys: { __typename?: 'Sys', id: string }, heroImage?: { __typename?: 'Asset', description?: string | null, title?: string | null, url?: string | null } | null, description?: { __typename?: 'ArticleDescription', json: any, links: { __typename?: 'ArticleDescriptionLinks', entries: { __typename?: 'ArticleDescriptionEntries', block: Array<{ __typename?: 'Address', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Article', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'BlogPost', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Branch', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'OpeningTimes', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Partner', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Person', sys: { __typename?: 'Sys', id: string } } | null> }, assets: { __typename?: 'ArticleDescriptionAssets', block: Array<{ __typename?: 'Asset', url?: string | null, title?: string | null, width?: number | null, height?: number | null, description?: string | null, contentType?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null };
+
+export type CoreBodyFieldsFragment = { __typename?: 'Article', body?: { __typename?: 'ArticleBody', json: any, links: { __typename?: 'ArticleBodyLinks', entries: { __typename?: 'ArticleBodyEntries', block: Array<{ __typename?: 'Address', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Article', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'BlogPost', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Branch', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'OpeningTimes', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Partner', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Person', sys: { __typename?: 'Sys', id: string } } | null> }, assets: { __typename?: 'ArticleBodyAssets', block: Array<{ __typename?: 'Asset', url?: string | null, title?: string | null, width?: number | null, height?: number | null, description?: string | null, contentType?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null };
+
 export type FetchAssetQueryVariables = Exact<{
   assetId: Scalars['String'];
 }>;
 
-export type FetchAssetQuery = {
-  __typename?: 'Query';
-  asset?:
-    | {
-        __typename?: 'Asset';
-        title?: string | null | undefined;
-        description?: string | null | undefined;
-        url?: string | null | undefined;
-      }
-    | null
-    | undefined;
-};
+
+export type FetchAssetQuery = { __typename?: 'Query', asset?: { __typename?: 'Asset', title?: string | null, description?: string | null, url?: string | null } | null };
 
 export type FetchHomeQueryVariables = Exact<{
   heroImageId: Scalars['String'];
@@ -2088,215 +2220,32 @@ export type FetchHomeQueryVariables = Exact<{
   mainBranchTagName: Scalars['String'];
 }>;
 
-export type FetchHomeQuery = {
-  __typename?: 'Query';
-  heroImage?:
-    | {
-        __typename?: 'Asset';
-        title?: string | null | undefined;
-        description?: string | null | undefined;
-        url?: string | null | undefined;
-      }
-    | null
-    | undefined;
-  latestArticles?:
-    | {
-        __typename?: 'ArticleCollection';
-        items: Array<
-          | {
-              __typename?: 'Article';
-              title?: string | null | undefined;
-              slug?: string | null | undefined;
-              body?: string | null | undefined;
-              description?: string | null | undefined;
-              publishDate?: any | null | undefined;
-              heroImage?:
-                | {
-                    __typename?: 'Asset';
-                    description?: string | null | undefined;
-                    title?: string | null | undefined;
-                    url?: string | null | undefined;
-                  }
-                | null
-                | undefined;
-            }
-          | null
-          | undefined
-        >;
-      }
-    | null
-    | undefined;
-  newsArticles?:
-    | {
-        __typename?: 'ArticleCollection';
-        items: Array<
-          | {
-              __typename?: 'Article';
-              title?: string | null | undefined;
-              slug?: string | null | undefined;
-              body?: string | null | undefined;
-              description?: string | null | undefined;
-              publishDate?: any | null | undefined;
-              heroImage?:
-                | {
-                    __typename?: 'Asset';
-                    description?: string | null | undefined;
-                    title?: string | null | undefined;
-                    url?: string | null | undefined;
-                  }
-                | null
-                | undefined;
-            }
-          | null
-          | undefined
-        >;
-      }
-    | null
-    | undefined;
-  mainBranch?:
-    | {
-        __typename?: 'BranchCollection';
-        items: Array<
-          | {
-              __typename?: 'Branch';
-              name?: string | null | undefined;
-              shortDescription?: string | null | undefined;
-              sys: { __typename?: 'Sys'; id: string };
-              mainImage?:
-                | { __typename?: 'Asset'; url?: string | null | undefined }
-                | null
-                | undefined;
-              openingTimes?:
-                | {
-                    __typename?: 'OpeningTimes';
-                    mondayTo?: any | null | undefined;
-                    mondayFrom?: any | null | undefined;
-                    tuesdayTo?: any | null | undefined;
-                    tuesdayFrom?: any | null | undefined;
-                    wednesdayTo?: any | null | undefined;
-                    wednesdayFrom?: any | null | undefined;
-                    thursdayTo?: any | null | undefined;
-                    thursdayFrom?: any | null | undefined;
-                    fridayTo?: any | null | undefined;
-                    fridayFrom?: any | null | undefined;
-                    saturdayFrom?: any | null | undefined;
-                    saturdayTo?: any | null | undefined;
-                    sundayTo?: any | null | undefined;
-                    sundayFrom?: any | null | undefined;
-                  }
-                | null
-                | undefined;
-              address?:
-                | {
-                    __typename?: 'Address';
-                    miejscowosc?: string | null | undefined;
-                    kodPocztowy?: string | null | undefined;
-                    ulica?: string | null | undefined;
-                    numer?: string | null | undefined;
-                    numerTelefonu?: Array<string | null | undefined> | null | undefined;
-                    email?: Array<string | null | undefined> | null | undefined;
-                    lokalizacja?:
-                      | {
-                          __typename?: 'Location';
-                          lat?: number | null | undefined;
-                          lon?: number | null | undefined;
-                        }
-                      | null
-                      | undefined;
-                  }
-                | null
-                | undefined;
-            }
-          | null
-          | undefined
-        >;
-      }
-    | null
-    | undefined;
-  branches?:
-    | {
-        __typename?: 'BranchCollection';
-        items: Array<
-          | {
-              __typename?: 'Branch';
-              name?: string | null | undefined;
-              shortDescription?: string | null | undefined;
-              sys: { __typename?: 'Sys'; id: string };
-              mainImage?:
-                | { __typename?: 'Asset'; url?: string | null | undefined }
-                | null
-                | undefined;
-              openingTimes?:
-                | {
-                    __typename?: 'OpeningTimes';
-                    mondayTo?: any | null | undefined;
-                    mondayFrom?: any | null | undefined;
-                    tuesdayTo?: any | null | undefined;
-                    tuesdayFrom?: any | null | undefined;
-                    wednesdayTo?: any | null | undefined;
-                    wednesdayFrom?: any | null | undefined;
-                    thursdayTo?: any | null | undefined;
-                    thursdayFrom?: any | null | undefined;
-                    fridayTo?: any | null | undefined;
-                    fridayFrom?: any | null | undefined;
-                    saturdayFrom?: any | null | undefined;
-                    saturdayTo?: any | null | undefined;
-                    sundayTo?: any | null | undefined;
-                    sundayFrom?: any | null | undefined;
-                  }
-                | null
-                | undefined;
-              address?:
-                | {
-                    __typename?: 'Address';
-                    miejscowosc?: string | null | undefined;
-                    kodPocztowy?: string | null | undefined;
-                    ulica?: string | null | undefined;
-                    numer?: string | null | undefined;
-                    numerTelefonu?: Array<string | null | undefined> | null | undefined;
-                    email?: Array<string | null | undefined> | null | undefined;
-                    lokalizacja?:
-                      | {
-                          __typename?: 'Location';
-                          lat?: number | null | undefined;
-                          lon?: number | null | undefined;
-                        }
-                      | null
-                      | undefined;
-                  }
-                | null
-                | undefined;
-            }
-          | null
-          | undefined
-        >;
-      }
-    | null
-    | undefined;
-  partners?:
-    | {
-        __typename?: 'PartnerCollection';
-        items: Array<
-          | {
-              __typename?: 'Partner';
-              description?: string | null | undefined;
-              name?: string | null | undefined;
-              logo?:
-                | {
-                    __typename?: 'Asset';
-                    url?: string | null | undefined;
-                    title?: string | null | undefined;
-                    description?: string | null | undefined;
-                    width?: number | null | undefined;
-                    height?: number | null | undefined;
-                  }
-                | null
-                | undefined;
-            }
-          | null
-          | undefined
-        >;
-      }
-    | null
-    | undefined;
-};
+
+export type FetchHomeQuery = { __typename?: 'Query', heroImage?: { __typename?: 'Asset', title?: string | null, description?: string | null, url?: string | null } | null, latestArticles?: { __typename?: 'ArticleCollection', items: Array<{ __typename?: 'Article', title?: string | null, slug?: string | null, publishDate?: any | null, sys: { __typename?: 'Sys', id: string }, heroImage?: { __typename?: 'Asset', description?: string | null, title?: string | null, url?: string | null } | null, description?: { __typename?: 'ArticleDescription', json: any, links: { __typename?: 'ArticleDescriptionLinks', entries: { __typename?: 'ArticleDescriptionEntries', block: Array<{ __typename?: 'Address', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Article', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'BlogPost', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Branch', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'OpeningTimes', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Partner', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Person', sys: { __typename?: 'Sys', id: string } } | null> }, assets: { __typename?: 'ArticleDescriptionAssets', block: Array<{ __typename?: 'Asset', url?: string | null, title?: string | null, width?: number | null, height?: number | null, description?: string | null, contentType?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> } | null, newsArticles?: { __typename?: 'ArticleCollection', total: number, items: Array<{ __typename?: 'Article', title?: string | null, slug?: string | null, publishDate?: any | null, sys: { __typename?: 'Sys', id: string }, heroImage?: { __typename?: 'Asset', description?: string | null, title?: string | null, url?: string | null } | null, description?: { __typename?: 'ArticleDescription', json: any, links: { __typename?: 'ArticleDescriptionLinks', entries: { __typename?: 'ArticleDescriptionEntries', block: Array<{ __typename?: 'Address', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Article', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'BlogPost', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Branch', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'OpeningTimes', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Partner', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Person', sys: { __typename?: 'Sys', id: string } } | null> }, assets: { __typename?: 'ArticleDescriptionAssets', block: Array<{ __typename?: 'Asset', url?: string | null, title?: string | null, width?: number | null, height?: number | null, description?: string | null, contentType?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> } | null, mainBranch?: { __typename?: 'BranchCollection', items: Array<{ __typename?: 'Branch', name?: string | null, shortDescription?: string | null, sys: { __typename?: 'Sys', id: string }, mainImage?: { __typename?: 'Asset', url?: string | null } | null, openingTimes?: { __typename?: 'OpeningTimes', mondayTo?: any | null, mondayFrom?: any | null, tuesdayTo?: any | null, tuesdayFrom?: any | null, wednesdayTo?: any | null, wednesdayFrom?: any | null, thursdayTo?: any | null, thursdayFrom?: any | null, fridayTo?: any | null, fridayFrom?: any | null, saturdayFrom?: any | null, saturdayTo?: any | null, sundayTo?: any | null, sundayFrom?: any | null } | null, address?: { __typename?: 'Address', miejscowosc?: string | null, kodPocztowy?: string | null, ulica?: string | null, numer?: string | null, numerTelefonu?: Array<string | null> | null, email?: Array<string | null> | null, lokalizacja?: { __typename?: 'Location', lat?: number | null, lon?: number | null } | null } | null } | null> } | null, branches?: { __typename?: 'BranchCollection', items: Array<{ __typename?: 'Branch', name?: string | null, shortDescription?: string | null, sys: { __typename?: 'Sys', id: string }, mainImage?: { __typename?: 'Asset', url?: string | null } | null, openingTimes?: { __typename?: 'OpeningTimes', mondayTo?: any | null, mondayFrom?: any | null, tuesdayTo?: any | null, tuesdayFrom?: any | null, wednesdayTo?: any | null, wednesdayFrom?: any | null, thursdayTo?: any | null, thursdayFrom?: any | null, fridayTo?: any | null, fridayFrom?: any | null, saturdayFrom?: any | null, saturdayTo?: any | null, sundayTo?: any | null, sundayFrom?: any | null } | null, address?: { __typename?: 'Address', miejscowosc?: string | null, kodPocztowy?: string | null, ulica?: string | null, numer?: string | null, numerTelefonu?: Array<string | null> | null, email?: Array<string | null> | null, lokalizacja?: { __typename?: 'Location', lat?: number | null, lon?: number | null } | null } | null } | null> } | null, partners?: { __typename?: 'PartnerCollection', items: Array<{ __typename?: 'Partner', description?: string | null, name?: string | null, logo?: { __typename?: 'Asset', url?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null } | null } | null> } | null };
+
+export type FetchArticlesQueryVariables = Exact<{
+  articlesLimit: Scalars['Int'];
+  skip: Scalars['Int'];
+}>;
+
+
+export type FetchArticlesQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleCollection', total: number, items: Array<{ __typename?: 'Article', title?: string | null, slug?: string | null, publishDate?: any | null, sys: { __typename?: 'Sys', id: string }, heroImage?: { __typename?: 'Asset', description?: string | null, title?: string | null, url?: string | null } | null, description?: { __typename?: 'ArticleDescription', json: any, links: { __typename?: 'ArticleDescriptionLinks', entries: { __typename?: 'ArticleDescriptionEntries', block: Array<{ __typename?: 'Address', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Article', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'BlogPost', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Branch', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'OpeningTimes', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Partner', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Person', sys: { __typename?: 'Sys', id: string } } | null> }, assets: { __typename?: 'ArticleDescriptionAssets', block: Array<{ __typename?: 'Asset', url?: string | null, title?: string | null, width?: number | null, height?: number | null, description?: string | null, contentType?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, body?: { __typename?: 'ArticleBody', json: any, links: { __typename?: 'ArticleBodyLinks', entries: { __typename?: 'ArticleBodyEntries', block: Array<{ __typename?: 'Address', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Article', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'BlogPost', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Branch', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'OpeningTimes', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Partner', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Person', sys: { __typename?: 'Sys', id: string } } | null> }, assets: { __typename?: 'ArticleBodyAssets', block: Array<{ __typename?: 'Asset', url?: string | null, title?: string | null, width?: number | null, height?: number | null, description?: string | null, contentType?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> } | null };
+
+export type FetchArticleQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+
+export type FetchArticleQuery = { __typename?: 'Query', article?: { __typename?: 'ArticleCollection', items: Array<{ __typename?: 'Article', title?: string | null, slug?: string | null, publishDate?: any | null, sys: { __typename?: 'Sys', id: string }, heroImage?: { __typename?: 'Asset', description?: string | null, title?: string | null, url?: string | null } | null, description?: { __typename?: 'ArticleDescription', json: any, links: { __typename?: 'ArticleDescriptionLinks', entries: { __typename?: 'ArticleDescriptionEntries', block: Array<{ __typename?: 'Address', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Article', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'BlogPost', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Branch', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'OpeningTimes', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Partner', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Person', sys: { __typename?: 'Sys', id: string } } | null> }, assets: { __typename?: 'ArticleDescriptionAssets', block: Array<{ __typename?: 'Asset', url?: string | null, title?: string | null, width?: number | null, height?: number | null, description?: string | null, contentType?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, body?: { __typename?: 'ArticleBody', json: any, links: { __typename?: 'ArticleBodyLinks', entries: { __typename?: 'ArticleBodyEntries', block: Array<{ __typename?: 'Address', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Article', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'BlogPost', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Branch', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'OpeningTimes', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Partner', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Person', sys: { __typename?: 'Sys', id: string } } | null> }, assets: { __typename?: 'ArticleBodyAssets', block: Array<{ __typename?: 'Asset', url?: string | null, title?: string | null, width?: number | null, height?: number | null, description?: string | null, contentType?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> } | null };
+
+export type FetchArticlesSlugsQueryVariables = Exact<{
+  skip: Scalars['Int'];
+}>;
+
+
+export type FetchArticlesSlugsQuery = { __typename?: 'Query', slugs?: { __typename?: 'ArticleCollection', total: number, skip: number, limit: number, items: Array<{ __typename?: 'Article', slug?: string | null } | null> } | null };
+
+export type FetchArticlesTotalQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FetchArticlesTotalQuery = { __typename?: 'Query', articlesTotal?: { __typename?: 'ArticleCollection', total: number } | null };

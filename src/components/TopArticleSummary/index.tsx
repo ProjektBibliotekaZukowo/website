@@ -1,8 +1,10 @@
 import { Flex, Heading, Icon, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 import { Link } from '@chakra-ui/next-js';
+import NextLink from 'next/link';
 import { ChakraNextImage } from 'components/ChakraNextImage';
 import { FetchHomeQuery } from 'generated/types';
 import { BsArrowRight } from 'react-icons/bs';
+import RichTextResponse from 'components/RichTextResponse';
 
 type Article = FetchHomeQuery['latestArticles']['items'][0];
 
@@ -23,11 +25,13 @@ export const TopArticleSummary = ({ article }: ITopArticleSummary) => {
         <Heading as="h3" noOfLines={4}>
           {article.title}
         </Heading>
-        <Text as="p" textAlign="start" noOfLines={5} fontSize="lg">
+        <RichTextResponse richTextResponse={article.description}></RichTextResponse>
+        {/* <Text as="p" textAlign="start" noOfLines={5} fontSize="lg">
           {article.description}
-        </Text>
+        </Text> */}
         <Link
-          href={`/aritcles/${article.slug}`}
+          as={NextLink}
+          href={`/articles/${article.slug}`}
           display="flex"
           alignItems="center"
           whiteSpace="nowrap">

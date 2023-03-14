@@ -25,10 +25,10 @@ export function Logo() {
 
   return (
     <ChakraNextImage
-      src={`${result.data.asset.url}`}
+      src={result.data.asset.url}
       width={199}
       height={42}
-      alt={`${result.data.asset.description}`}
+      alt={result.data.asset.description}
     />
   );
 }
