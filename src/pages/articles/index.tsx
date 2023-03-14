@@ -1,21 +1,59 @@
 import { GetStaticProps } from 'next';
 import React from 'react';
-import { Link, List, ListItem } from '@chakra-ui/react';
+import { Link, List, ListItem, Box } from '@chakra-ui/react';
 import { FetchArticlesQuery } from 'generated/types';
 import { getArticlesPage } from 'lib/api';
 import NextLink from 'next/link';
+import { ArticleBreadcrumb } from 'components/ArticleBreadcrumb';
 
 type PaginationInfo = {
   currentPage: number;
 };
-// TODO Fetch first 10 articles
-// TODO paginate results
+
+const navItems = [
+  {
+    alt: 'Strona Domowa',
+    href: '/',
+    title: 'Strona Domowa',
+    isCurrentPage: false,
+    isTruncated: false,
+  },
+  {
+    alt: 'Artykuły',
+    href: '/articles',
+    title: 'Artykuły',
+    isCurrentPage: true,
+    isTruncated: true,
+  },
+];
+
 export default function ArticlesList({
   articles,
   currentPage,
 }: FetchArticlesQuery & PaginationInfo) {
   return (
-    <>
+    <Box maxWidth={'container.xl'} margin="auto" px="20px">
+      <Box my={3}>
+        <ArticleBreadcrumb
+          navItems={[
+            {
+              alt: 'Strona Domowa',
+              href: '/',
+              title: 'Strona Domowa',
+              isCurrentPage: false,
+              isTruncated: false,
+            },
+
+            {
+              alt: 'Artykuły',
+              href: '/articles',
+              title: 'Artykuły',
+              isCurrentPage: true,
+              isTruncated: true,
+            },
+          ]}
+        />
+      </Box>
       <List>
         {articles.items.map((article) => {
           return (
@@ -28,7 +66,7 @@ export default function ArticlesList({
         })}
       </List>
       Current Page: {currentPage}
-    </>
+    </Box>
   );
 }
 

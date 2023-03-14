@@ -3,6 +3,7 @@ import { ChakraNextImage } from 'components/ChakraNextImage';
 import { Link } from '@chakra-ui/next-js';
 import NextLink from 'next/link';
 import { BsArrowRight } from 'react-icons/bs';
+import RichTextResponse from 'components/RichTextResponse';
 
 interface INewsArticle {
   title?: string;
@@ -26,9 +27,10 @@ export const NewsArticle = ({ title, slug, description, heroImage }: INewsArticl
         <Heading as="h4" noOfLines={4} width="100%">
           {title}
         </Heading>
-        <Text as="p" textAlign="start" noOfLines={5} fontSize="lg" width="100%">
+        <RichTextResponse richTextResponse={description}></RichTextResponse>
+        {/* <Text as="p" textAlign="start" noOfLines={5} fontSize="lg" width="100%">
           {description}
-        </Text>
+        </Text> */}
         <Link
           as={NextLink}
           href={`/articles/${slug}`}

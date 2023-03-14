@@ -15,13 +15,22 @@ interface BreadcrumbProps {
 export const ArticleBreadcrumb: React.FC<BreadcrumbProps> = ({ navItems }) => {
   return (
     <Breadcrumb>
-      {navItems.map((navItem) => (
-        <BreadcrumbItem key={navItem.href} isCurrentPage={navItem.isCurrentPage}>
+      {navItems.map((navItem) => {
+        const breadcrumbLink = navItem.isCurrentPage ? (
+          <BreadcrumbLink href={navItem.href} isTruncated={navItem.isTruncated}>
+            {navItem.title}
+          </BreadcrumbLink>
+        ) : (
           <BreadcrumbLink href={navItem.href} as={NextLink} isTruncated={navItem.isTruncated}>
             {navItem.title}
           </BreadcrumbLink>
-        </BreadcrumbItem>
-      ))}
+        );
+        return (
+          <BreadcrumbItem key={navItem.href} isCurrentPage={navItem.isCurrentPage}>
+            {breadcrumbLink}
+          </BreadcrumbItem>
+        );
+      })}
     </Breadcrumb>
   );
 };

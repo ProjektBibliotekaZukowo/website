@@ -35,56 +35,75 @@ type GetArticlesPageParams = PreviewParams;
 type GetArticleParams = { preview?: boolean; slug: string };
 type GetArticlesSlugsParams = { skip: number };
 
+async function showErrors(cb) {
+  try {
+    return await cb();
+  } catch (e) {
+    console.log(e.networkError.result.errors);
+    throw e;
+  }
+}
+
 export async function logoFetcher(id: string) {
   const client = getClient({ preview: false });
-  return await client.query<FetchAssetQuery, FetchAssetQueryVariables>({
-    query: ASSET_QUERY,
-    variables: {
-      assetId: id,
-    },
+  return await showErrors(async () => {
+    return await client.query<FetchAssetQuery, FetchAssetQueryVariables>({
+      query: ASSET_QUERY,
+      variables: {
+        assetId: id,
+      },
+    });
   });
 }
 
 export async function getHomePage(params: GetHomePageParams) {
   const client = getClient(params);
-  return await client.query<FetchHomeQuery, FetchHomeQueryVariables>({
-    query: HOME_QUERY,
-    variables: {
-      heroImageId: ASSETS.heroImageId,
-      articlesLimit: HOME_PAGE_ARTICLE_LIMIT,
-      newsLimit: HOME_PAGE_NEWS_LIMIT,
-      latestArticlesTagName: LATEST_ARTICLES_TAG_ID,
-      mainBranchTagName: MAIN_BRANCH_TAG,
-    },
+  return await showErrors(async () => {
+    return await client.query<FetchHomeQuery, FetchHomeQueryVariables>({
+      query: HOME_QUERY,
+      variables: {
+        heroImageId: ASSETS.heroImageId,
+        articlesLimit: HOME_PAGE_ARTICLE_LIMIT,
+        newsLimit: HOME_PAGE_NEWS_LIMIT,
+        latestArticlesTagName: LATEST_ARTICLES_TAG_ID,
+        mainBranchTagName: MAIN_BRANCH_TAG,
+      },
+    });
   });
 }
 
 export async function getArticlesPage(params: GetArticlesPageParams) {
   const client = getClient(params);
-  return await client.query<FetchArticlesQuery, FetchArticlesQueryVariables>({
-    query: ARTICLES_HOME_QUERY,
-    variables: {
-      articlesLimit: HOME_PAGE_ARTICLE_LIMIT,
-    },
+  return await showErrors(async () => {
+    return await client.query<FetchArticlesQuery, FetchArticlesQueryVariables>({
+      query: ARTICLES_HOME_QUERY,
+      variables: {
+        articlesLimit: HOME_PAGE_ARTICLE_LIMIT,
+      },
+    });
   });
 }
 
 export async function getArticle(params: GetArticleParams) {
   const client = getClient(params);
-  return await client.query<FetchArticleQuery, FetchArticleQueryVariables>({
-    query: ARTICLE_QUERY,
-    variables: {
-      slug: params.slug,
-    },
+  return await showErrors(async () => {
+    return await client.query<FetchArticleQuery, FetchArticleQueryVariables>({
+      query: ARTICLE_QUERY,
+      variables: {
+        slug: params.slug,
+      },
+    });
   });
 }
 
 export async function getArticlesSlugs(params: GetArticlesSlugsParams) {
   const client = getClient({ preview: false });
-  return await client.query<FetchArticlesSlugsQuery, FetchArticlesSlugsQueryVariables>({
-    query: ARTICLES_SLUGS_QUERY,
-    variables: {
-      skip: params.skip,
-    },
+  return showErrors(async () => {
+    return await client.query<FetchArticlesSlugsQuery, FetchArticlesSlugsQueryVariables>({
+      query: ARTICLES_SLUGS_QUERY,
+      variables: {
+        skip: params.skip,
+      },
+    });
   });
 }

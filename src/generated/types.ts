@@ -181,9 +181,9 @@ export enum AddressOrder {
 export type Article = Entry & {
   __typename?: 'Article';
   author?: Maybe<Person>;
-  body?: Maybe<Scalars['String']>;
+  body?: Maybe<ArticleBody>;
   contentfulMetadata: ContentfulMetadata;
-  description?: Maybe<Scalars['String']>;
+  description?: Maybe<ArticleDescription>;
   heroImage?: Maybe<Asset>;
   linkedFrom?: Maybe<ArticleLinkingCollections>;
   publishDate?: Maybe<Scalars['DateTime']>;
@@ -249,6 +249,31 @@ export type ArticleTitleArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+export type ArticleBody = {
+  __typename?: 'ArticleBody';
+  json: Scalars['JSON'];
+  links: ArticleBodyLinks;
+};
+
+export type ArticleBodyAssets = {
+  __typename?: 'ArticleBodyAssets';
+  block: Array<Maybe<Asset>>;
+  hyperlink: Array<Maybe<Asset>>;
+};
+
+export type ArticleBodyEntries = {
+  __typename?: 'ArticleBodyEntries';
+  block: Array<Maybe<Entry>>;
+  hyperlink: Array<Maybe<Entry>>;
+  inline: Array<Maybe<Entry>>;
+};
+
+export type ArticleBodyLinks = {
+  __typename?: 'ArticleBodyLinks';
+  assets: ArticleBodyAssets;
+  entries: ArticleBodyEntries;
+};
+
 export type ArticleCollection = {
   __typename?: 'ArticleCollection';
   items: Array<Maybe<Article>>;
@@ -257,26 +282,43 @@ export type ArticleCollection = {
   total: Scalars['Int'];
 };
 
+export type ArticleDescription = {
+  __typename?: 'ArticleDescription';
+  json: Scalars['JSON'];
+  links: ArticleDescriptionLinks;
+};
+
+export type ArticleDescriptionAssets = {
+  __typename?: 'ArticleDescriptionAssets';
+  block: Array<Maybe<Asset>>;
+  hyperlink: Array<Maybe<Asset>>;
+};
+
+export type ArticleDescriptionEntries = {
+  __typename?: 'ArticleDescriptionEntries';
+  block: Array<Maybe<Entry>>;
+  hyperlink: Array<Maybe<Entry>>;
+  inline: Array<Maybe<Entry>>;
+};
+
+export type ArticleDescriptionLinks = {
+  __typename?: 'ArticleDescriptionLinks';
+  assets: ArticleDescriptionAssets;
+  entries: ArticleDescriptionEntries;
+};
+
 export type ArticleFilter = {
   AND?: InputMaybe<Array<InputMaybe<ArticleFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ArticleFilter>>>;
   author?: InputMaybe<CfPersonNestedFilter>;
   author_exists?: InputMaybe<Scalars['Boolean']>;
-  body?: InputMaybe<Scalars['String']>;
   body_contains?: InputMaybe<Scalars['String']>;
   body_exists?: InputMaybe<Scalars['Boolean']>;
-  body_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  body_not?: InputMaybe<Scalars['String']>;
   body_not_contains?: InputMaybe<Scalars['String']>;
-  body_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  description?: InputMaybe<Scalars['String']>;
   description_contains?: InputMaybe<Scalars['String']>;
   description_exists?: InputMaybe<Scalars['Boolean']>;
-  description_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  description_not?: InputMaybe<Scalars['String']>;
   description_not_contains?: InputMaybe<Scalars['String']>;
-  description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   heroImage_exists?: InputMaybe<Scalars['Boolean']>;
   publishDate?: InputMaybe<Scalars['DateTime']>;
   publishDate_exists?: InputMaybe<Scalars['Boolean']>;
@@ -2159,6 +2201,10 @@ export type CfPersonNestedFilter = {
   twitter_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
+export type CoreFieldsFragment = { __typename?: 'Article', title?: string | null, slug?: string | null, publishDate?: any | null, sys: { __typename?: 'Sys', id: string }, heroImage?: { __typename?: 'Asset', description?: string | null, title?: string | null, url?: string | null } | null, description?: { __typename?: 'ArticleDescription', json: any, links: { __typename?: 'ArticleDescriptionLinks', entries: { __typename?: 'ArticleDescriptionEntries', block: Array<{ __typename?: 'Address', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Article', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'BlogPost', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Branch', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'OpeningTimes', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Partner', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Person', sys: { __typename?: 'Sys', id: string } } | null> }, assets: { __typename?: 'ArticleDescriptionAssets', block: Array<{ __typename?: 'Asset', url?: string | null, title?: string | null, width?: number | null, height?: number | null, description?: string | null, contentType?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null };
+
+export type CoreBodyFieldsFragment = { __typename?: 'Article', body?: { __typename?: 'ArticleBody', json: any, links: { __typename?: 'ArticleBodyLinks', entries: { __typename?: 'ArticleBodyEntries', block: Array<{ __typename?: 'Address', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Article', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'BlogPost', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Branch', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'OpeningTimes', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Partner', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Person', sys: { __typename?: 'Sys', id: string } } | null> }, assets: { __typename?: 'ArticleBodyAssets', block: Array<{ __typename?: 'Asset', url?: string | null, title?: string | null, width?: number | null, height?: number | null, description?: string | null, contentType?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null };
+
 export type FetchAssetQueryVariables = Exact<{
   assetId: Scalars['String'];
 }>;
@@ -2175,21 +2221,21 @@ export type FetchHomeQueryVariables = Exact<{
 }>;
 
 
-export type FetchHomeQuery = { __typename?: 'Query', heroImage?: { __typename?: 'Asset', title?: string | null, description?: string | null, url?: string | null } | null, latestArticles?: { __typename?: 'ArticleCollection', items: Array<{ __typename?: 'Article', title?: string | null, slug?: string | null, body?: string | null, description?: string | null, publishDate?: any | null, heroImage?: { __typename?: 'Asset', description?: string | null, title?: string | null, url?: string | null } | null } | null> } | null, newsArticles?: { __typename?: 'ArticleCollection', total: number, items: Array<{ __typename?: 'Article', title?: string | null, slug?: string | null, body?: string | null, description?: string | null, publishDate?: any | null, heroImage?: { __typename?: 'Asset', description?: string | null, title?: string | null, url?: string | null } | null } | null> } | null, mainBranch?: { __typename?: 'BranchCollection', items: Array<{ __typename?: 'Branch', name?: string | null, shortDescription?: string | null, sys: { __typename?: 'Sys', id: string }, mainImage?: { __typename?: 'Asset', url?: string | null } | null, openingTimes?: { __typename?: 'OpeningTimes', mondayTo?: any | null, mondayFrom?: any | null, tuesdayTo?: any | null, tuesdayFrom?: any | null, wednesdayTo?: any | null, wednesdayFrom?: any | null, thursdayTo?: any | null, thursdayFrom?: any | null, fridayTo?: any | null, fridayFrom?: any | null, saturdayFrom?: any | null, saturdayTo?: any | null, sundayTo?: any | null, sundayFrom?: any | null } | null, address?: { __typename?: 'Address', miejscowosc?: string | null, kodPocztowy?: string | null, ulica?: string | null, numer?: string | null, numerTelefonu?: Array<string | null> | null, email?: Array<string | null> | null, lokalizacja?: { __typename?: 'Location', lat?: number | null, lon?: number | null } | null } | null } | null> } | null, branches?: { __typename?: 'BranchCollection', items: Array<{ __typename?: 'Branch', name?: string | null, shortDescription?: string | null, sys: { __typename?: 'Sys', id: string }, mainImage?: { __typename?: 'Asset', url?: string | null } | null, openingTimes?: { __typename?: 'OpeningTimes', mondayTo?: any | null, mondayFrom?: any | null, tuesdayTo?: any | null, tuesdayFrom?: any | null, wednesdayTo?: any | null, wednesdayFrom?: any | null, thursdayTo?: any | null, thursdayFrom?: any | null, fridayTo?: any | null, fridayFrom?: any | null, saturdayFrom?: any | null, saturdayTo?: any | null, sundayTo?: any | null, sundayFrom?: any | null } | null, address?: { __typename?: 'Address', miejscowosc?: string | null, kodPocztowy?: string | null, ulica?: string | null, numer?: string | null, numerTelefonu?: Array<string | null> | null, email?: Array<string | null> | null, lokalizacja?: { __typename?: 'Location', lat?: number | null, lon?: number | null } | null } | null } | null> } | null, partners?: { __typename?: 'PartnerCollection', items: Array<{ __typename?: 'Partner', description?: string | null, name?: string | null, logo?: { __typename?: 'Asset', url?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null } | null } | null> } | null };
+export type FetchHomeQuery = { __typename?: 'Query', heroImage?: { __typename?: 'Asset', title?: string | null, description?: string | null, url?: string | null } | null, latestArticles?: { __typename?: 'ArticleCollection', items: Array<{ __typename?: 'Article', title?: string | null, slug?: string | null, publishDate?: any | null, sys: { __typename?: 'Sys', id: string }, heroImage?: { __typename?: 'Asset', description?: string | null, title?: string | null, url?: string | null } | null, description?: { __typename?: 'ArticleDescription', json: any, links: { __typename?: 'ArticleDescriptionLinks', entries: { __typename?: 'ArticleDescriptionEntries', block: Array<{ __typename?: 'Address', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Article', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'BlogPost', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Branch', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'OpeningTimes', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Partner', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Person', sys: { __typename?: 'Sys', id: string } } | null> }, assets: { __typename?: 'ArticleDescriptionAssets', block: Array<{ __typename?: 'Asset', url?: string | null, title?: string | null, width?: number | null, height?: number | null, description?: string | null, contentType?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> } | null, newsArticles?: { __typename?: 'ArticleCollection', total: number, items: Array<{ __typename?: 'Article', title?: string | null, slug?: string | null, publishDate?: any | null, sys: { __typename?: 'Sys', id: string }, heroImage?: { __typename?: 'Asset', description?: string | null, title?: string | null, url?: string | null } | null, description?: { __typename?: 'ArticleDescription', json: any, links: { __typename?: 'ArticleDescriptionLinks', entries: { __typename?: 'ArticleDescriptionEntries', block: Array<{ __typename?: 'Address', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Article', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'BlogPost', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Branch', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'OpeningTimes', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Partner', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Person', sys: { __typename?: 'Sys', id: string } } | null> }, assets: { __typename?: 'ArticleDescriptionAssets', block: Array<{ __typename?: 'Asset', url?: string | null, title?: string | null, width?: number | null, height?: number | null, description?: string | null, contentType?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> } | null, mainBranch?: { __typename?: 'BranchCollection', items: Array<{ __typename?: 'Branch', name?: string | null, shortDescription?: string | null, sys: { __typename?: 'Sys', id: string }, mainImage?: { __typename?: 'Asset', url?: string | null } | null, openingTimes?: { __typename?: 'OpeningTimes', mondayTo?: any | null, mondayFrom?: any | null, tuesdayTo?: any | null, tuesdayFrom?: any | null, wednesdayTo?: any | null, wednesdayFrom?: any | null, thursdayTo?: any | null, thursdayFrom?: any | null, fridayTo?: any | null, fridayFrom?: any | null, saturdayFrom?: any | null, saturdayTo?: any | null, sundayTo?: any | null, sundayFrom?: any | null } | null, address?: { __typename?: 'Address', miejscowosc?: string | null, kodPocztowy?: string | null, ulica?: string | null, numer?: string | null, numerTelefonu?: Array<string | null> | null, email?: Array<string | null> | null, lokalizacja?: { __typename?: 'Location', lat?: number | null, lon?: number | null } | null } | null } | null> } | null, branches?: { __typename?: 'BranchCollection', items: Array<{ __typename?: 'Branch', name?: string | null, shortDescription?: string | null, sys: { __typename?: 'Sys', id: string }, mainImage?: { __typename?: 'Asset', url?: string | null } | null, openingTimes?: { __typename?: 'OpeningTimes', mondayTo?: any | null, mondayFrom?: any | null, tuesdayTo?: any | null, tuesdayFrom?: any | null, wednesdayTo?: any | null, wednesdayFrom?: any | null, thursdayTo?: any | null, thursdayFrom?: any | null, fridayTo?: any | null, fridayFrom?: any | null, saturdayFrom?: any | null, saturdayTo?: any | null, sundayTo?: any | null, sundayFrom?: any | null } | null, address?: { __typename?: 'Address', miejscowosc?: string | null, kodPocztowy?: string | null, ulica?: string | null, numer?: string | null, numerTelefonu?: Array<string | null> | null, email?: Array<string | null> | null, lokalizacja?: { __typename?: 'Location', lat?: number | null, lon?: number | null } | null } | null } | null> } | null, partners?: { __typename?: 'PartnerCollection', items: Array<{ __typename?: 'Partner', description?: string | null, name?: string | null, logo?: { __typename?: 'Asset', url?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null } | null } | null> } | null };
 
 export type FetchArticlesQueryVariables = Exact<{
   articlesLimit: Scalars['Int'];
 }>;
 
 
-export type FetchArticlesQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleCollection', total: number, items: Array<{ __typename?: 'Article', title?: string | null, slug?: string | null, body?: string | null, description?: string | null, publishDate?: any | null, sys: { __typename?: 'Sys', id: string }, heroImage?: { __typename?: 'Asset', description?: string | null, title?: string | null, url?: string | null } | null } | null> } | null };
+export type FetchArticlesQuery = { __typename?: 'Query', articles?: { __typename?: 'ArticleCollection', total: number, items: Array<{ __typename?: 'Article', title?: string | null, slug?: string | null, publishDate?: any | null, sys: { __typename?: 'Sys', id: string }, heroImage?: { __typename?: 'Asset', description?: string | null, title?: string | null, url?: string | null } | null, description?: { __typename?: 'ArticleDescription', json: any, links: { __typename?: 'ArticleDescriptionLinks', entries: { __typename?: 'ArticleDescriptionEntries', block: Array<{ __typename?: 'Address', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Article', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'BlogPost', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Branch', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'OpeningTimes', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Partner', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Person', sys: { __typename?: 'Sys', id: string } } | null> }, assets: { __typename?: 'ArticleDescriptionAssets', block: Array<{ __typename?: 'Asset', url?: string | null, title?: string | null, width?: number | null, height?: number | null, description?: string | null, contentType?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, body?: { __typename?: 'ArticleBody', json: any, links: { __typename?: 'ArticleBodyLinks', entries: { __typename?: 'ArticleBodyEntries', block: Array<{ __typename?: 'Address', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Article', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'BlogPost', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Branch', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'OpeningTimes', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Partner', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Person', sys: { __typename?: 'Sys', id: string } } | null> }, assets: { __typename?: 'ArticleBodyAssets', block: Array<{ __typename?: 'Asset', url?: string | null, title?: string | null, width?: number | null, height?: number | null, description?: string | null, contentType?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> } | null };
 
 export type FetchArticleQueryVariables = Exact<{
   slug: Scalars['String'];
 }>;
 
 
-export type FetchArticleQuery = { __typename?: 'Query', article?: { __typename?: 'ArticleCollection', items: Array<{ __typename?: 'Article', title?: string | null, slug?: string | null, body?: string | null, description?: string | null, publishDate?: any | null, sys: { __typename?: 'Sys', id: string }, heroImage?: { __typename?: 'Asset', description?: string | null, title?: string | null, url?: string | null } | null, author?: { __typename?: 'Person', name?: string | null } | null } | null> } | null };
+export type FetchArticleQuery = { __typename?: 'Query', article?: { __typename?: 'ArticleCollection', items: Array<{ __typename?: 'Article', title?: string | null, slug?: string | null, publishDate?: any | null, sys: { __typename?: 'Sys', id: string }, heroImage?: { __typename?: 'Asset', description?: string | null, title?: string | null, url?: string | null } | null, description?: { __typename?: 'ArticleDescription', json: any, links: { __typename?: 'ArticleDescriptionLinks', entries: { __typename?: 'ArticleDescriptionEntries', block: Array<{ __typename?: 'Address', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Article', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'BlogPost', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Branch', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'OpeningTimes', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Partner', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Person', sys: { __typename?: 'Sys', id: string } } | null> }, assets: { __typename?: 'ArticleDescriptionAssets', block: Array<{ __typename?: 'Asset', url?: string | null, title?: string | null, width?: number | null, height?: number | null, description?: string | null, contentType?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, body?: { __typename?: 'ArticleBody', json: any, links: { __typename?: 'ArticleBodyLinks', entries: { __typename?: 'ArticleBodyEntries', block: Array<{ __typename?: 'Address', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Article', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'BlogPost', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Branch', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'OpeningTimes', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Partner', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Person', sys: { __typename?: 'Sys', id: string } } | null> }, assets: { __typename?: 'ArticleBodyAssets', block: Array<{ __typename?: 'Asset', url?: string | null, title?: string | null, width?: number | null, height?: number | null, description?: string | null, contentType?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> } | null };
 
 export type FetchArticlesSlugsQueryVariables = Exact<{
   skip: Scalars['Int'];

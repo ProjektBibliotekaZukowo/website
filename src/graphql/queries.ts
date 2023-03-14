@@ -1,5 +1,77 @@
 import { gql } from 'graphql-tag';
 
+export const ARTICLE_CORE = gql`
+  fragment CoreFields on Article {
+    sys {
+      id
+    }
+    title
+    slug
+    heroImage {
+      description
+      title
+      url(transform: { width: 576, height: 448 })
+    }
+    description {
+      json
+      links {
+        entries {
+          block {
+            sys {
+              id
+            }
+          }
+        }
+        assets {
+          block {
+            sys {
+              id
+            }
+            url
+            title
+            width
+            height
+            description
+            contentType
+          }
+        }
+      }
+    }
+
+    publishDate
+  }
+`;
+
+export const ARTICLE_BODY_CORE = gql`
+  fragment CoreBodyFields on Article {
+    body {
+      json
+      links {
+        entries {
+          block {
+            sys {
+              id
+            }
+          }
+        }
+        assets {
+          block {
+            sys {
+              id
+            }
+            url
+            title
+            width
+            height
+            description
+            contentType
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const ASSET_QUERY = gql`
   query FetchAsset($assetId: String!) {
     asset(id: $assetId) {
@@ -11,6 +83,7 @@ export const ASSET_QUERY = gql`
 `;
 
 export const HOME_QUERY = gql`
+  ${ARTICLE_CORE}
   query FetchHome(
     $heroImageId: String!
     $articlesLimit: Int!
@@ -29,16 +102,7 @@ export const HOME_QUERY = gql`
       where: { contentfulMetadata: { tags: { id_contains_some: [$latestArticlesTagName] } } }
     ) {
       items {
-        title
-        slug
-        body
-        heroImage {
-          description
-          title
-          url(transform: { width: 576, height: 448 })
-        }
-        description
-        publishDate
+        ...CoreFields
       }
     }
     newsArticles: articleCollection(
@@ -48,16 +112,7 @@ export const HOME_QUERY = gql`
     ) {
       total
       items {
-        title
-        slug
-        body
-        heroImage {
-          description
-          title
-          url(transform: { width: 356, height: 160 })
-        }
-        description
-        publishDate
+        ...CoreFields
       }
     }
     mainBranch: branchCollection(
@@ -163,48 +218,27 @@ export const HOME_QUERY = gql`
 `;
 
 export const ARTICLES_HOME_QUERY = gql`
+  ${ARTICLE_CORE}
+  ${ARTICLE_BODY_CORE}
   query FetchArticles($articlesLimit: Int!) {
     articles: articleCollection(limit: $articlesLimit, order: publishDate_DESC) {
       total
       items {
-        sys {
-          id
-        }
-        title
-        slug
-        body
-        heroImage {
-          description
-          title
-          url(transform: { width: 576, height: 448 })
-        }
-        description
-        publishDate
+        ...CoreFields
+        ...CoreBodyFields
       }
     }
   }
 `;
 
 export const ARTICLE_QUERY = gql`
+  ${ARTICLE_CORE}
+  ${ARTICLE_BODY_CORE}
   query FetchArticle($slug: String!) {
-    article: articleCollection(where: { slug: $slug }, order: publishDate_DESC) {
+    article: articleCollection(where: { slug: $slug }, limit: 1, order: publishDate_DESC) {
       items {
-        sys {
-          id
-        }
-        title
-        slug
-        body
-        heroImage {
-          description
-          title
-          url(transform: { width: 576, height: 448 })
-        }
-        description
-        publishDate
-        author {
-          name
-        }
+        ...CoreFields
+        ...CoreBodyFields
       }
     }
   }

@@ -1,5 +1,6 @@
 import { Box, Heading, Text, VStack } from '@chakra-ui/react';
 import { ArticleBreadcrumb } from 'components/ArticleBreadcrumb';
+import RichTextResponse from 'components/RichTextResponse';
 import { FetchArticleQuery } from 'generated/types';
 import { getArticle, getArticlesSlugs } from 'lib/api';
 import { GetStaticPaths, GetStaticProps } from 'next';
@@ -26,7 +27,7 @@ export default function Article({ article }: FetchArticleQuery) {
       alt: post.title,
       href: `/articles/${post.slug}`,
       title: post.title,
-      isCurrentPage: false,
+      isCurrentPage: true,
       isTruncated: true,
     },
   ];
@@ -37,10 +38,9 @@ export default function Article({ article }: FetchArticleQuery) {
       </Box>
       <Box as="article">
         <Heading as="h1">{post.title}</Heading>
-        <VStack mt={5} spacing={5} textAlign="left">
-          <Text>{post.description}</Text>
-          <Text>{post.body}</Text>
-          <Text>autor: {post?.author?.name || 'nieznany'}</Text>
+        <VStack mt={5} spacing={5} alignItems="flex-start">
+          <RichTextResponse richTextResponse={post.description}></RichTextResponse>
+          <RichTextResponse richTextResponse={post.body}></RichTextResponse>
         </VStack>
       </Box>
     </Box>
@@ -48,18 +48,13 @@ export default function Article({ article }: FetchArticleQuery) {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  try {
-    const { data } = await getArticle({
-      preview: params ? params.preview != undefined : false,
-      slug: params.article as string,
-    });
-    return {
-      props: { ...data },
-    };
-  } catch (e) {
-    console.log(e.networkError.result.errors);
-    throw e;
-  }
+  const { data } = await getArticle({
+    preview: params ? params.preview != undefined : false,
+    slug: params.article as string,
+  });
+  return {
+    props: { ...data },
+  };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
