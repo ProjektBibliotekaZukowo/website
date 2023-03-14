@@ -613,9 +613,9 @@ export enum AssetOrder {
 export type BlogPost = Entry & {
   __typename?: 'BlogPost';
   author?: Maybe<Person>;
-  body?: Maybe<Scalars['String']>;
+  body?: Maybe<BlogPostBody>;
   contentfulMetadata: ContentfulMetadata;
-  description?: Maybe<Scalars['String']>;
+  description?: Maybe<BlogPostDescription>;
   heroImage?: Maybe<Asset>;
   linkedFrom?: Maybe<BlogPostLinkingCollections>;
   publishDate?: Maybe<Scalars['DateTime']>;
@@ -681,6 +681,31 @@ export type BlogPostTitleArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+export type BlogPostBody = {
+  __typename?: 'BlogPostBody';
+  json: Scalars['JSON'];
+  links: BlogPostBodyLinks;
+};
+
+export type BlogPostBodyAssets = {
+  __typename?: 'BlogPostBodyAssets';
+  block: Array<Maybe<Asset>>;
+  hyperlink: Array<Maybe<Asset>>;
+};
+
+export type BlogPostBodyEntries = {
+  __typename?: 'BlogPostBodyEntries';
+  block: Array<Maybe<Entry>>;
+  hyperlink: Array<Maybe<Entry>>;
+  inline: Array<Maybe<Entry>>;
+};
+
+export type BlogPostBodyLinks = {
+  __typename?: 'BlogPostBodyLinks';
+  assets: BlogPostBodyAssets;
+  entries: BlogPostBodyEntries;
+};
+
 export type BlogPostCollection = {
   __typename?: 'BlogPostCollection';
   items: Array<Maybe<BlogPost>>;
@@ -689,26 +714,43 @@ export type BlogPostCollection = {
   total: Scalars['Int'];
 };
 
+export type BlogPostDescription = {
+  __typename?: 'BlogPostDescription';
+  json: Scalars['JSON'];
+  links: BlogPostDescriptionLinks;
+};
+
+export type BlogPostDescriptionAssets = {
+  __typename?: 'BlogPostDescriptionAssets';
+  block: Array<Maybe<Asset>>;
+  hyperlink: Array<Maybe<Asset>>;
+};
+
+export type BlogPostDescriptionEntries = {
+  __typename?: 'BlogPostDescriptionEntries';
+  block: Array<Maybe<Entry>>;
+  hyperlink: Array<Maybe<Entry>>;
+  inline: Array<Maybe<Entry>>;
+};
+
+export type BlogPostDescriptionLinks = {
+  __typename?: 'BlogPostDescriptionLinks';
+  assets: BlogPostDescriptionAssets;
+  entries: BlogPostDescriptionEntries;
+};
+
 export type BlogPostFilter = {
   AND?: InputMaybe<Array<InputMaybe<BlogPostFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<BlogPostFilter>>>;
   author?: InputMaybe<CfPersonNestedFilter>;
   author_exists?: InputMaybe<Scalars['Boolean']>;
-  body?: InputMaybe<Scalars['String']>;
   body_contains?: InputMaybe<Scalars['String']>;
   body_exists?: InputMaybe<Scalars['Boolean']>;
-  body_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  body_not?: InputMaybe<Scalars['String']>;
   body_not_contains?: InputMaybe<Scalars['String']>;
-  body_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  description?: InputMaybe<Scalars['String']>;
   description_contains?: InputMaybe<Scalars['String']>;
   description_exists?: InputMaybe<Scalars['Boolean']>;
-  description_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  description_not?: InputMaybe<Scalars['String']>;
   description_not_contains?: InputMaybe<Scalars['String']>;
-  description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   heroImage_exists?: InputMaybe<Scalars['Boolean']>;
   publishDate?: InputMaybe<Scalars['DateTime']>;
   publishDate_exists?: InputMaybe<Scalars['Boolean']>;
@@ -1520,7 +1562,7 @@ export type Person = Entry & {
   linkedFrom?: Maybe<PersonLinkingCollections>;
   name?: Maybe<Scalars['String']>;
   phone?: Maybe<Scalars['String']>;
-  shortBio?: Maybe<Scalars['String']>;
+  shortBio?: Maybe<PersonShortBio>;
   sys: Sys;
   title?: Maybe<Scalars['String']>;
   twitter?: Maybe<Scalars['String']>;
@@ -1648,13 +1690,9 @@ export type PersonFilter = {
   phone_not?: InputMaybe<Scalars['String']>;
   phone_not_contains?: InputMaybe<Scalars['String']>;
   phone_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  shortBio?: InputMaybe<Scalars['String']>;
   shortBio_contains?: InputMaybe<Scalars['String']>;
   shortBio_exists?: InputMaybe<Scalars['Boolean']>;
-  shortBio_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  shortBio_not?: InputMaybe<Scalars['String']>;
   shortBio_not_contains?: InputMaybe<Scalars['String']>;
-  shortBio_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   sys?: InputMaybe<SysFilter>;
   title?: InputMaybe<Scalars['String']>;
   title_contains?: InputMaybe<Scalars['String']>;
@@ -1729,6 +1767,31 @@ export enum PersonOrder {
   TwitterAsc = 'twitter_ASC',
   TwitterDesc = 'twitter_DESC'
 }
+
+export type PersonShortBio = {
+  __typename?: 'PersonShortBio';
+  json: Scalars['JSON'];
+  links: PersonShortBioLinks;
+};
+
+export type PersonShortBioAssets = {
+  __typename?: 'PersonShortBioAssets';
+  block: Array<Maybe<Asset>>;
+  hyperlink: Array<Maybe<Asset>>;
+};
+
+export type PersonShortBioEntries = {
+  __typename?: 'PersonShortBioEntries';
+  block: Array<Maybe<Entry>>;
+  hyperlink: Array<Maybe<Entry>>;
+  inline: Array<Maybe<Entry>>;
+};
+
+export type PersonShortBioLinks = {
+  __typename?: 'PersonShortBioLinks';
+  assets: PersonShortBioAssets;
+  entries: PersonShortBioEntries;
+};
 
 export type Query = {
   __typename?: 'Query';
@@ -2177,13 +2240,9 @@ export type CfPersonNestedFilter = {
   phone_not?: InputMaybe<Scalars['String']>;
   phone_not_contains?: InputMaybe<Scalars['String']>;
   phone_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  shortBio?: InputMaybe<Scalars['String']>;
   shortBio_contains?: InputMaybe<Scalars['String']>;
   shortBio_exists?: InputMaybe<Scalars['Boolean']>;
-  shortBio_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  shortBio_not?: InputMaybe<Scalars['String']>;
   shortBio_not_contains?: InputMaybe<Scalars['String']>;
-  shortBio_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   sys?: InputMaybe<SysFilter>;
   title?: InputMaybe<Scalars['String']>;
   title_contains?: InputMaybe<Scalars['String']>;
@@ -2249,3 +2308,14 @@ export type FetchArticlesTotalQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type FetchArticlesTotalQuery = { __typename?: 'Query', articlesTotal?: { __typename?: 'ArticleCollection', total: number } | null };
+
+export type CorePageFieldsFragment = { __typename?: 'BlogPost', title?: string | null, slug?: string | null, publishDate?: any | null, sys: { __typename?: 'Sys', id: string }, heroImage?: { __typename?: 'Asset', description?: string | null, title?: string | null, url?: string | null } | null, description?: { __typename?: 'BlogPostDescription', json: any, links: { __typename?: 'BlogPostDescriptionLinks', entries: { __typename?: 'BlogPostDescriptionEntries', block: Array<{ __typename?: 'Address', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Article', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'BlogPost', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Branch', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'OpeningTimes', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Partner', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Person', sys: { __typename?: 'Sys', id: string } } | null> }, assets: { __typename?: 'BlogPostDescriptionAssets', block: Array<{ __typename?: 'Asset', url?: string | null, title?: string | null, width?: number | null, height?: number | null, description?: string | null, contentType?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null };
+
+export type CorePageBodyFieldsFragment = { __typename?: 'BlogPost', body?: { __typename?: 'BlogPostBody', json: any, links: { __typename?: 'BlogPostBodyLinks', entries: { __typename?: 'BlogPostBodyEntries', block: Array<{ __typename?: 'Address', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Article', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'BlogPost', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Branch', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'OpeningTimes', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Partner', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Person', sys: { __typename?: 'Sys', id: string } } | null> }, assets: { __typename?: 'BlogPostBodyAssets', block: Array<{ __typename?: 'Asset', url?: string | null, title?: string | null, width?: number | null, height?: number | null, description?: string | null, contentType?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null };
+
+export type FetchPageQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+
+export type FetchPageQuery = { __typename?: 'Query', page?: { __typename?: 'BlogPostCollection', items: Array<{ __typename?: 'BlogPost', title?: string | null, slug?: string | null, publishDate?: any | null, sys: { __typename?: 'Sys', id: string }, heroImage?: { __typename?: 'Asset', description?: string | null, title?: string | null, url?: string | null } | null, description?: { __typename?: 'BlogPostDescription', json: any, links: { __typename?: 'BlogPostDescriptionLinks', entries: { __typename?: 'BlogPostDescriptionEntries', block: Array<{ __typename?: 'Address', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Article', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'BlogPost', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Branch', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'OpeningTimes', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Partner', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Person', sys: { __typename?: 'Sys', id: string } } | null> }, assets: { __typename?: 'BlogPostDescriptionAssets', block: Array<{ __typename?: 'Asset', url?: string | null, title?: string | null, width?: number | null, height?: number | null, description?: string | null, contentType?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, body?: { __typename?: 'BlogPostBody', json: any, links: { __typename?: 'BlogPostBodyLinks', entries: { __typename?: 'BlogPostBodyEntries', block: Array<{ __typename?: 'Address', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Article', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'BlogPost', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Branch', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'OpeningTimes', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Partner', sys: { __typename?: 'Sys', id: string } } | { __typename?: 'Person', sys: { __typename?: 'Sys', id: string } } | null> }, assets: { __typename?: 'BlogPostBodyAssets', block: Array<{ __typename?: 'Asset', url?: string | null, title?: string | null, width?: number | null, height?: number | null, description?: string | null, contentType?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> } | null };

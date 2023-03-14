@@ -264,3 +264,88 @@ export const TOTAL_NUMBER_OF_ARTICLES = gql`
     }
   }
 `;
+
+export const PAGE_CORE = gql`
+  fragment CorePageFields on BlogPost {
+    sys {
+      id
+    }
+    title
+    slug
+    heroImage {
+      description
+      title
+      url(transform: { width: 576, height: 448 })
+    }
+    description {
+      json
+      links {
+        entries {
+          block {
+            sys {
+              id
+            }
+          }
+        }
+        assets {
+          block {
+            sys {
+              id
+            }
+            url
+            title
+            width
+            height
+            description
+            contentType
+          }
+        }
+      }
+    }
+
+    publishDate
+  }
+`;
+
+export const PAGE_BODY_CORE = gql`
+  fragment CorePageBodyFields on BlogPost {
+    body {
+      json
+      links {
+        entries {
+          block {
+            sys {
+              id
+            }
+          }
+        }
+        assets {
+          block {
+            sys {
+              id
+            }
+            url
+            title
+            width
+            height
+            description
+            contentType
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_PAGE = gql`
+  ${PAGE_CORE}
+  ${PAGE_BODY_CORE}
+  query FetchPage($slug: String!) {
+    page: blogPostCollection(where: { slug: $slug }, limit: 1, order: publishDate_DESC) {
+      items {
+        ...CorePageFields
+        ...CorePageBodyFields
+      }
+    }
+  }
+`;
