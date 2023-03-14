@@ -31,7 +31,7 @@ export const TopArticleSummary = ({ article }: ITopArticleSummary) => {
         </Text> */}
         <Link
           as={NextLink}
-          href={`/articles/${article.slug}`}
+          href={`/aktualnosci/${article.slug}`}
           display="flex"
           alignItems="center"
           whiteSpace="nowrap">

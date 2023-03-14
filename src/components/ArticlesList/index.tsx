@@ -1,5 +1,5 @@
 import { FetchArticlesQuery } from 'generated/types';
-import { Link, List, ListItem, Box } from '@chakra-ui/react';
+import { Link, List, ListItem, Box, Heading } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { ArticleBreadcrumb } from 'components/ArticleBreadcrumb';
 import { ARTICLE_PAGINATION_PAGE_SIZE } from 'lib/constants';
@@ -17,9 +17,9 @@ const navItems = [
     isTruncated: false,
   },
   {
-    alt: 'Artykuły',
-    href: '/articles',
-    title: 'Artykuły',
+    alt: 'Aktualności',
+    href: '/aktualnosci',
+    title: 'Aktualności',
     isCurrentPage: true,
     isTruncated: true,
   },
@@ -38,26 +38,31 @@ FetchArticlesQuery & PaginationInfo) {
       <Box my={3}>
         <ArticleBreadcrumb navItems={navItems} />
       </Box>
-      <List>
-        {articles.items.map((article) => {
-          return (
-            <ListItem key={article.sys.id}>
-              <Link as={NextLink} href={`/articles/${article.slug}`}>
-                {article.title}
-              </Link>
-            </ListItem>
-          );
-        })}
-      </List>
+      <Box as="article">
+        <Heading as="h1" mb={3}>
+          Aktualności
+        </Heading>
+        <List>
+          {articles.items.map((article) => {
+            return (
+              <ListItem key={article.sys.id}>
+                <Link as={NextLink} href={`/aktualnosci/${article.slug}`}>
+                  {article.title}
+                </Link>
+              </ListItem>
+            );
+          })}
+        </List>
+      </Box>
       <List>
         {pagesCollection.map((page) => {
           const link =
             page === 1 ? (
-              <Link as={NextLink} href={`/articles`}>
+              <Link as={NextLink} href={`/aktualnosci`}>
                 {page}
               </Link>
             ) : (
-              <Link as={NextLink} href={`/articles/strona/${page}`}>
+              <Link as={NextLink} href={`/aktualnosci/strona/${page}`}>
                 {page}
               </Link>
             );

@@ -17,23 +17,21 @@ export const NewsArticle = ({ title, slug, description, heroImage }: INewsArticl
     <VStack align="stretch" w="xs" minH="max" role="group" shadow="2xl" verticalAlign="center">
       <ChakraNextImage
         src={heroImage.url}
-        width={356}
-        height={160}
         opacity="0.7"
+        height={150}
         _groupHover={{ opacity: 1 }}
         alt={heroImage.description}
       />
       <VStack p={10} spacing={4} alignItems="start">
-        <Heading as="h4" noOfLines={4} width="100%">
+        <Heading as="h4" noOfLines={4} width="100%" size="md">
           {title}
         </Heading>
-        <RichTextResponse richTextResponse={description}></RichTextResponse>
-        {/* <Text as="p" textAlign="start" noOfLines={5} fontSize="lg" width="100%">
-          {description}
-        </Text> */}
+        <Text noOfLines={5}>
+          <RichTextResponse richTextResponse={description}></RichTextResponse>
+        </Text>
         <Link
           as={NextLink}
-          href={`/articles/${slug}`}
+          href={`/aktualnosci/${slug}`}
           display="flex"
           whiteSpace="nowrap"
           alignItems="center">
