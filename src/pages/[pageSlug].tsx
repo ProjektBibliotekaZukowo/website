@@ -54,11 +54,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: [
-      { params: { pageSlug: 'o-nas' } },
-      { params: { pageSlug: 'aktualnosci' } },
-      { params: { pageSlug: 'kontakt' } },
-    ],
+    paths: [{ params: { pageSlug: 'o-nas' } }, { params: { pageSlug: 'kontakt' } }],
     fallback: false,
   };
 };
