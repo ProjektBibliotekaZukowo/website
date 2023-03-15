@@ -13,6 +13,5 @@ export const Footer = ({ branches }) => {
           <FooterQuickLinks />
         </Flex>
       </Box>
-    </footer>
   );
 };
