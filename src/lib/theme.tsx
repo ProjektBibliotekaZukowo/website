@@ -10,14 +10,6 @@ const globalStyles = {
   address: {
     fontStyle: 'normal',
   },
-
-  html: {
-    minHeight: '100vh'
-  },
-  body: {
-    minHeight: '100vh !important'
-  },
-
 };
 
 const theme = extendTheme({

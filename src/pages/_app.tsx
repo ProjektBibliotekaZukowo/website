@@ -32,7 +32,7 @@ const LibraryApp = ({ Component, pageProps }: AppProps) => {
         <meta name={SITE_NAME} content={SITE_SEO_DESCRIPTION} key="description" />
       </Head>
       <TopNavigation />
-      <Box pt="100px" flex={1} >
+      <Box pt="100px" flex={1}>
         <Component {...otherPageProps} />
       </Box>
       <Box flexShrink={0}>
