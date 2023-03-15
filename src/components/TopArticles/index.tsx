@@ -9,7 +9,7 @@ interface ITopArticles {
 
 export const TopArticles = ({ latestArticles }: ITopArticles) => {
   return (
-    <Box w="6xl" h="md" margin="auto">
+    <Box  margin="auto">
       <Carousel
         elements={latestArticles.items.map((article) => (
           <TopArticleSummary key={article.slug} article={article} />

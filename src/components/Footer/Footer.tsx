@@ -6,7 +6,7 @@ import { FooterQuickLinks } from './FooterQuickLinks';
 
 export const Footer = ({ branches }) => {
   return (
-    <>
+    <footer>
       <Box bgColor="#EBEBEA" py="50px">
         <Flex justify="space-between" flexWrap="wrap" maxWidth={'container.xl'} margin="auto">
           {branches?.items?.length && <FooterSignature branches={branches} />}
@@ -14,6 +14,6 @@ export const Footer = ({ branches }) => {
           <FooterQuickLinks />
         </Flex>
       </Box>
-    </>
+    </footer>
   );
 };

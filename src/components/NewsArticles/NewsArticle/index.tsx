@@ -14,7 +14,7 @@ interface INewsArticle {
 }
 export const NewsArticle = ({ title, slug, description, heroImage }: INewsArticle) => {
   return (
-    <VStack align="stretch" w="xs" minH="max" role="group" shadow="2xl" verticalAlign="center">
+    <VStack align="stretch" w="xs" minH="max" role="group"  boxShadow="0px 0px 20px #00000019" verticalAlign="center" mb={1}>
       <ChakraNextImage
         src={heroImage.url}
         opacity="0.7"
