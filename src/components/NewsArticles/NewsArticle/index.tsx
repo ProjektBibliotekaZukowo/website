@@ -14,7 +14,14 @@ interface INewsArticle {
 }
 export const NewsArticle = ({ title, slug, description, heroImage }: INewsArticle) => {
   return (
-    <VStack align="stretch" w="xs" minH="max" role="group"  boxShadow="0px 0px 20px #00000019" verticalAlign="center" mb={1}>
+    <VStack
+      align="stretch"
+      w="xs"
+      minH="max"
+      role="group"
+      boxShadow="0px 0px 20px #00000019"
+      verticalAlign="center"
+      mb={1}>
       <ChakraNextImage
         src={heroImage.url}
         opacity="0.7"
@@ -26,7 +33,7 @@ export const NewsArticle = ({ title, slug, description, heroImage }: INewsArticl
         <Heading as="h4" noOfLines={4} width="100%" size="md">
           {title}
         </Heading>
-        <Text noOfLines={5}>
+        <Text as="div" noOfLines={5}>
           <RichTextResponse richTextResponse={description}></RichTextResponse>
         </Text>
         <Link
