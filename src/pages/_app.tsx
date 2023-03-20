@@ -18,15 +18,6 @@ const LibraryApp = ({ Component, pageProps }: AppProps) => {
 
   return (
     <ChakraProvider theme={theme}>
-        <style jsx global>{
-            `#__next {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-          `
-        }
-        </style>
       <CSSReset />
       <Head>
         <meta name={SITE_NAME} content={SITE_SEO_DESCRIPTION} key="description" />
@@ -36,7 +27,7 @@ const LibraryApp = ({ Component, pageProps }: AppProps) => {
         <Component {...otherPageProps} />
       </Box>
       <Box flexShrink={0}>
-          <Footer branches={pageProps.branches} />
+        <Footer branches={pageProps.branches} />
       </Box>
     </ChakraProvider>
   );
