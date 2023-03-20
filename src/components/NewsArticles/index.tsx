@@ -1,4 +1,4 @@
-import { Box, Button, Heading, HStack, VStack, Text, Icon } from '@chakra-ui/react';
+import { Box, Button, Heading, HStack, VStack, Text, Icon, Wrap, WrapItem } from '@chakra-ui/react';
 import { FetchHomeQuery } from 'generated/types';
 import { routes, SITE_NEWS_MORE_NEWS, SITE_NEWS_SECTION_TITLE } from 'lib/constants';
 import { Link } from '@chakra-ui/next-js';
@@ -12,16 +12,18 @@ interface INewsArticles {
 
 export const NewsArticles = ({ newsArticles }: INewsArticles) => {
   return (
-    <Box margin="auto">
+    <Box>
       <VStack alignContent="center" alignItems="center" justifyContent="center">
         <Heading as="h2" my={50}>
           {SITE_NEWS_SECTION_TITLE}
         </Heading>
-        <HStack spacing="10" alignItems="stretch">
+        <Wrap width="100%" spacing="5" justify="center">
           {newsArticles.items.map((article) => (
-            <NewsArticle key={article.slug} {...article} />
+            <WrapItem padding={2} key={article.slug}>
+              <NewsArticle {...article} />
+            </WrapItem>
           ))}
-        </HStack>
+        </Wrap>
         <Box>
           <Link as={NextLink} href={routes.AKTUALNOSCI}>
             <Button size="lg" role="group" mt={30} variant="primary">

@@ -23,10 +23,12 @@ const LibraryApp = ({ Component, pageProps }: AppProps) => {
         <meta name={SITE_NAME} content={SITE_SEO_DESCRIPTION} key="description" />
       </Head>
       <TopNavigation />
-      <Box pt="100px">
+      <Box pt="100px" flex={1}>
         <Component {...otherPageProps} />
       </Box>
-      <Footer branches={pageProps.branches} />
+      <Box flexShrink={0}>
+        <Footer branches={pageProps.branches} />
+      </Box>
     </ChakraProvider>
   );
 };

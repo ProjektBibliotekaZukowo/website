@@ -10,6 +10,11 @@ const globalStyles = {
   address: {
     fontStyle: 'normal',
   },
+  '#__next': {
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+  },
 };
 
 const theme = extendTheme({
