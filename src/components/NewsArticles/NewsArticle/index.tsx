@@ -20,9 +20,7 @@ export const NewsArticle = ({ title, slug, description, heroImage }: Article) =>
           {title}
         </Heading>
         <Text noOfLines={5}>
-          <RichTextResponse
-            richTextResponse={description}
-            suppressHydrationWarning></RichTextResponse>
+          <RichTextResponse richTextResponse={description}></RichTextResponse>
         </Text>
         <Link
           as={NextLink}
