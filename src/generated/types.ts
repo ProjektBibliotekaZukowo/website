@@ -146,6 +146,7 @@ export type AddressLinkingCollections = {
 export type AddressLinkingCollectionsBranchCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<AddressLinkingCollectionsBranchCollectionOrder>>>;
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
 };
@@ -157,6 +158,19 @@ export type AddressLinkingCollectionsEntryCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
 };
+
+export enum AddressLinkingCollectionsBranchCollectionOrder {
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
 
 export enum AddressOrder {
   KodPocztowyAsc = 'kodPocztowy_ASC',
@@ -198,6 +212,7 @@ export type Article = Entry & {
 export type ArticleAuthorArgs = {
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
+  where?: InputMaybe<PersonFilter>;
 };
 
 
@@ -272,6 +287,14 @@ export type ArticleBodyLinks = {
   __typename?: 'ArticleBodyLinks';
   assets: ArticleBodyAssets;
   entries: ArticleBodyEntries;
+  resources: ArticleBodyResources;
+};
+
+export type ArticleBodyResources = {
+  __typename?: 'ArticleBodyResources';
+  block: Array<ResourceLink>;
+  hyperlink: Array<ResourceLink>;
+  inline: Array<ResourceLink>;
 };
 
 export type ArticleCollection = {
@@ -305,6 +328,14 @@ export type ArticleDescriptionLinks = {
   __typename?: 'ArticleDescriptionLinks';
   assets: ArticleDescriptionAssets;
   entries: ArticleDescriptionEntries;
+  resources: ArticleDescriptionResources;
+};
+
+export type ArticleDescriptionResources = {
+  __typename?: 'ArticleDescriptionResources';
+  block: Array<ResourceLink>;
+  hyperlink: Array<ResourceLink>;
+  inline: Array<ResourceLink>;
 };
 
 export type ArticleFilter = {
@@ -630,6 +661,7 @@ export type BlogPost = Entry & {
 export type BlogPostAuthorArgs = {
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
+  where?: InputMaybe<PersonFilter>;
 };
 
 
@@ -704,6 +736,14 @@ export type BlogPostBodyLinks = {
   __typename?: 'BlogPostBodyLinks';
   assets: BlogPostBodyAssets;
   entries: BlogPostBodyEntries;
+  resources: BlogPostBodyResources;
+};
+
+export type BlogPostBodyResources = {
+  __typename?: 'BlogPostBodyResources';
+  block: Array<ResourceLink>;
+  hyperlink: Array<ResourceLink>;
+  inline: Array<ResourceLink>;
 };
 
 export type BlogPostCollection = {
@@ -737,6 +777,14 @@ export type BlogPostDescriptionLinks = {
   __typename?: 'BlogPostDescriptionLinks';
   assets: BlogPostDescriptionAssets;
   entries: BlogPostDescriptionEntries;
+  resources: BlogPostDescriptionResources;
+};
+
+export type BlogPostDescriptionResources = {
+  __typename?: 'BlogPostDescriptionResources';
+  block: Array<ResourceLink>;
+  hyperlink: Array<ResourceLink>;
+  inline: Array<ResourceLink>;
 };
 
 export type BlogPostFilter = {
@@ -832,6 +880,7 @@ export type Branch = Entry & {
 export type BranchAddressArgs = {
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
+  where?: InputMaybe<AddressFilter>;
 };
 
 
@@ -873,6 +922,7 @@ export type BranchNameArgs = {
 export type BranchOpeningTimesArgs = {
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
+  where?: InputMaybe<OpeningTimesFilter>;
 };
 
 
@@ -955,6 +1005,14 @@ export type BranchLongDescriptionLinks = {
   __typename?: 'BranchLongDescriptionLinks';
   assets: BranchLongDescriptionAssets;
   entries: BranchLongDescriptionEntries;
+  resources: BranchLongDescriptionResources;
+};
+
+export type BranchLongDescriptionResources = {
+  __typename?: 'BranchLongDescriptionResources';
+  block: Array<ResourceLink>;
+  hyperlink: Array<ResourceLink>;
+  inline: Array<ResourceLink>;
 };
 
 export enum BranchOrder {
@@ -1405,6 +1463,7 @@ export type OpeningTimesLinkingCollections = {
 export type OpeningTimesLinkingCollectionsBranchCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<OpeningTimesLinkingCollectionsBranchCollectionOrder>>>;
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
 };
@@ -1416,6 +1475,19 @@ export type OpeningTimesLinkingCollectionsEntryCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
 };
+
+export enum OpeningTimesLinkingCollectionsBranchCollectionOrder {
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
 
 export enum OpeningTimesOrder {
   FridayFromAsc = 'fridayFrom_ASC',
@@ -1721,6 +1793,7 @@ export type PersonLinkingCollections = {
 export type PersonLinkingCollectionsArticleCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<PersonLinkingCollectionsArticleCollectionOrder>>>;
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
 };
@@ -1729,6 +1802,7 @@ export type PersonLinkingCollectionsArticleCollectionArgs = {
 export type PersonLinkingCollectionsBlogPostCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<PersonLinkingCollectionsBlogPostCollectionOrder>>>;
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
 };
@@ -1740,6 +1814,40 @@ export type PersonLinkingCollectionsEntryCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
 };
+
+export enum PersonLinkingCollectionsArticleCollectionOrder {
+  PublishDateAsc = 'publishDate_ASC',
+  PublishDateDesc = 'publishDate_DESC',
+  SlugAsc = 'slug_ASC',
+  SlugDesc = 'slug_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC'
+}
+
+export enum PersonLinkingCollectionsBlogPostCollectionOrder {
+  PublishDateAsc = 'publishDate_ASC',
+  PublishDateDesc = 'publishDate_DESC',
+  SlugAsc = 'slug_ASC',
+  SlugDesc = 'slug_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC'
+}
 
 export enum PersonOrder {
   CompanyAsc = 'company_ASC',
@@ -1791,10 +1899,19 @@ export type PersonShortBioLinks = {
   __typename?: 'PersonShortBioLinks';
   assets: PersonShortBioAssets;
   entries: PersonShortBioEntries;
+  resources: PersonShortBioResources;
+};
+
+export type PersonShortBioResources = {
+  __typename?: 'PersonShortBioResources';
+  block: Array<ResourceLink>;
+  hyperlink: Array<ResourceLink>;
+  inline: Array<ResourceLink>;
 };
 
 export type Query = {
   __typename?: 'Query';
+  _node?: Maybe<_Node>;
   address?: Maybe<Address>;
   addressCollection?: Maybe<AddressCollection>;
   article?: Maybe<Article>;
@@ -1812,6 +1929,13 @@ export type Query = {
   partnerCollection?: Maybe<PartnerCollection>;
   person?: Maybe<Person>;
   personCollection?: Maybe<PersonCollection>;
+};
+
+
+export type Query_NodeArgs = {
+  id: Scalars['ID'];
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
 };
 
 
@@ -1960,6 +2084,18 @@ export type QueryPersonCollectionArgs = {
   where?: InputMaybe<PersonFilter>;
 };
 
+export type ResourceLink = {
+  __typename?: 'ResourceLink';
+  sys: ResourceSys;
+};
+
+export type ResourceSys = {
+  __typename?: 'ResourceSys';
+  linkType: Scalars['String'];
+  type: Scalars['String'];
+  urn: Scalars['String'];
+};
+
 export type Sys = {
   __typename?: 'Sys';
   environmentId: Scalars['String'];
@@ -2005,6 +2141,10 @@ export type SysFilter = {
   publishedVersion_lte?: InputMaybe<Scalars['Float']>;
   publishedVersion_not?: InputMaybe<Scalars['Float']>;
   publishedVersion_not_in?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
+};
+
+export type _Node = {
+  _id: Scalars['ID'];
 };
 
 export type CfAddressNestedFilter = {
