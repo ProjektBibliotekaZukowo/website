@@ -21,6 +21,7 @@ const LibraryApp = ({ Component, pageProps }: AppProps) => {
       <CSSReset />
       <Head>
         <meta name={SITE_NAME} content={SITE_SEO_DESCRIPTION} key="description" />
+        <meta name="format-detection" content="telephone=no, date=no, email=no, address=no" />
       </Head>
       <TopNavigation />
       <Box pt="100px">

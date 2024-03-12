@@ -1,11 +1,11 @@
-import { Heading, VStack } from '@chakra-ui/react';
-import { FetchHomeQuery } from 'generated/types';
+import { Heading } from '@chakra-ui/react';
+import { BranchCollection } from 'generated/types';
 import { MainBranch } from './MainBranch';
 import { OtherBranches } from './OtherBranches';
 
 interface ILibraryBranches {
-  branches: FetchHomeQuery['branches'];
-  mainBranch: FetchHomeQuery['mainBranch'];
+  branches: BranchCollection;
+  mainBranch: BranchCollection;
 }
 
 export const LibraryBranches = ({ branches, mainBranch }: ILibraryBranches) => {

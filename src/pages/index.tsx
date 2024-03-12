@@ -3,7 +3,7 @@ import { NewsArticles } from 'components/NewsArticles';
 import { OpeningTimes } from 'components/OpeningTimes';
 import { TopArticles } from 'components/TopArticles';
 import { PartnersSection } from 'components/PartnersSection';
-import { FetchHomeQuery } from 'generated/types';
+import { ArticleCollection, BranchCollection, PartnerCollection } from 'generated/types';
 import { getHomePage } from 'lib/api';
 import { GetStaticProps } from 'next';
 import React from 'react';
@@ -15,7 +15,13 @@ export default function Index({
   newsArticles,
   mainBranch,
   partners,
-}: FetchHomeQuery) {
+}: {
+  branches: BranchCollection;
+  latestArticles: ArticleCollection;
+  newsArticles: ArticleCollection;
+  mainBranch: BranchCollection;
+  partners: PartnerCollection;
+}) {
   return (
     <>
       <OpeningTimes branches={branches} />

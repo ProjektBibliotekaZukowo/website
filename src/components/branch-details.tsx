@@ -1,13 +1,7 @@
+import { Branch } from 'generated/types';
 import React from 'react';
 
-type BranchProps = {
-  children?: React.ReactNode;
-  name?: string;
-  shortDescription?: string;
-  key?: number;
-};
-
-export const BranchDetails = (branchItem: BranchProps) => {
+export const BranchDetails = (branchItem: Branch) => {
   return (
     <div className="flex">
       <h3>{branchItem.name}</h3>

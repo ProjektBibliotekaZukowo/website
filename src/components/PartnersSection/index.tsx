@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Center,
@@ -12,17 +12,17 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { ChakraNextImage } from 'components/ChakraNextImage';
-import { FetchHomeQuery } from 'generated/types';
+import { PartnerCollection } from 'generated/types';
 import { BsArrowLeftCircle, BsArrowRightCircle } from 'react-icons/bs';
 
 interface IPartnersSection {
-  partners: FetchHomeQuery['partners'];
+  partners: PartnerCollection;
 }
 
 const numberOfItems = 3;
 
 export const PartnersSection = ({ partners }: IPartnersSection) => {
-  const [slide, setSlide] = React.useState(0);
+  const [slide, setSlide] = useState(0);
 
   const noOfSlides = Math.ceil(partners.items.length / numberOfItems);
   const currentItems = partners.items.slice(slide * numberOfItems, (slide + 1) * numberOfItems);
