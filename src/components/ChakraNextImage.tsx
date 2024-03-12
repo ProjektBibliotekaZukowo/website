@@ -61,7 +61,7 @@
 // ="current"
 import { useState } from 'react';
 
-import NextImage, { ImageProps } from 'next/image';
+import NextImage, { ImageProps } from "next/legacy/image";
 
 import { Skeleton, Box, BoxProps } from '@chakra-ui/react';
 
