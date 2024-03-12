@@ -1,5 +1,5 @@
 import { Box, Button, Heading, HStack, VStack, Text, Icon } from '@chakra-ui/react';
-import { FetchHomeQuery } from 'generated/types';
+import { ArticleCollection } from 'generated/types';
 import { routes, SITE_NEWS_MORE_NEWS, SITE_NEWS_SECTION_TITLE } from 'lib/constants';
 import { Link } from '@chakra-ui/next-js';
 import NextLink from 'next/link';
@@ -7,7 +7,7 @@ import { BsArrowRight } from 'react-icons/bs';
 import { NewsArticle } from './NewsArticle';
 
 interface INewsArticles {
-  newsArticles: FetchHomeQuery['newsArticles'];
+  newsArticles: ArticleCollection;
 }
 
 export const NewsArticles = ({ newsArticles }: INewsArticles) => {

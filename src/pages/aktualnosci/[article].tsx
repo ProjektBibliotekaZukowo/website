@@ -1,5 +1,6 @@
-import { Box, Heading, Text, VStack } from '@chakra-ui/react';
+import { Box, Heading, VStack, Image } from '@chakra-ui/react';
 import { ArticleBreadcrumb } from 'components/ArticleBreadcrumb';
+import { ChakraNextImage } from 'components/ChakraNextImage';
 import RichTextResponse from 'components/RichTextResponse';
 import { FetchArticleQuery } from 'generated/types';
 import { getArticle, getArticlesSlugs } from 'lib/api';
@@ -31,6 +32,7 @@ export default function Article({ article }: FetchArticleQuery) {
       isTruncated: true,
     },
   ];
+
   return (
     <Box maxWidth={'container.xl'} margin="auto" px="20px">
       <Box my={3}>
@@ -41,6 +43,14 @@ export default function Article({ article }: FetchArticleQuery) {
         <VStack mt={5} spacing={5} alignItems="flex-start">
           <RichTextResponse richTextResponse={post.description}></RichTextResponse>
           <RichTextResponse richTextResponse={post.body}></RichTextResponse>
+          <ChakraNextImage
+            src={post.heroImage.url}
+            opacity="0.7"
+            height={400}
+            width={300}
+            _groupHover={{ opacity: 1 }}
+            alt={post.heroImage.description}
+          />
         </VStack>
       </Box>
     </Box>

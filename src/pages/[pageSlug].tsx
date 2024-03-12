@@ -1,4 +1,4 @@
-import { Box, Heading, VStack } from '@chakra-ui/react';
+import { Box, Heading, VStack, Image } from '@chakra-ui/react';
 import { ArticleBreadcrumb } from 'components/ArticleBreadcrumb';
 import RichTextResponse from 'components/RichTextResponse';
 import { FetchPageQuery } from 'generated/types';

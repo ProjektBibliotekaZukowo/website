@@ -4,15 +4,8 @@ import { Link } from '@chakra-ui/next-js';
 import NextLink from 'next/link';
 import { BsArrowRight } from 'react-icons/bs';
 import RichTextResponse from 'components/RichTextResponse';
-
-interface INewsArticle {
-  title?: string;
-  slug?: string;
-  body?: string;
-  description?: any;
-  heroImage?: { description?: string; title?: string; url?: string };
-}
-export const NewsArticle = ({ title, slug, description, heroImage }: INewsArticle) => {
+import { Article } from 'generated/types';
+export const NewsArticle = ({ title, slug, description, heroImage }: Article) => {
   return (
     <VStack align="stretch" w="xs" minH="max" role="group" shadow="2xl" verticalAlign="center">
       <ChakraNextImage
@@ -27,7 +20,9 @@ export const NewsArticle = ({ title, slug, description, heroImage }: INewsArticl
           {title}
         </Heading>
         <Text noOfLines={5}>
-          <RichTextResponse richTextResponse={description}></RichTextResponse>
+          <RichTextResponse
+            richTextResponse={description}
+            suppressHydrationWarning></RichTextResponse>
         </Text>
         <Link
           as={NextLink}
