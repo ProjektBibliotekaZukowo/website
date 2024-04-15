@@ -5,6 +5,7 @@ import NextLink from 'next/link';
 import { BsArrowRight } from 'react-icons/bs';
 import RichTextResponse from 'components/RichTextResponse';
 import { Article } from 'generated/types';
+
 export const NewsArticle = ({ title, slug, description, heroImage }: Article) => {
   return (
     <VStack align="stretch" w="xs" minH="max" role="group" shadow="2xl" verticalAlign="center">
@@ -19,9 +20,11 @@ export const NewsArticle = ({ title, slug, description, heroImage }: Article) =>
         <Heading as="h4" noOfLines={4} width="100%" size="md">
           {title}
         </Heading>
-        <Text noOfLines={5}>
-          <RichTextResponse richTextResponse={description}></RichTextResponse>
-        </Text>
+        <RichTextResponse
+          richTextResponse={description}
+          renderParagraph={(node, children) => (
+            <Text noOfLines={1}>{children}</Text>
+          )}></RichTextResponse>
         <Link
           as={NextLink}
           href={`/aktualnosci/${slug}`}

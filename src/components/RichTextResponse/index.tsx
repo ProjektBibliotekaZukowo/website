@@ -1,11 +1,11 @@
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { Image } from '@chakra-ui/react';
+import { ChakraNextImage } from 'components/ChakraNextImage';
 
 // Create a bespoke renderOptions object to target BLOCKS.EMBEDDED_ENTRY (linked entries e.g. videoEmbed)
 // and BLOCKS.EMBEDDED_ASSET (linked assets e.g. images)
 
-function renderOptions(links) {
+function renderOptions(links, renderParagraph) {
   // create an asset block map
   const assetBlockMap = new Map();
   // loop through the assets and add them to the map
@@ -25,11 +25,7 @@ function renderOptions(links) {
   }
 
   return {
-    // other options...
-
     renderNode: {
-      // other options...
-
       [BLOCKS.EMBEDDED_ENTRY]: (node, children) => {
         // find the entry in the entryBlockMap by ID
         const entry = entryBlockMap.get(node.data.target.sys.id);
@@ -37,6 +33,7 @@ function renderOptions(links) {
         // render the entries as needed by looking at the __typename
         // referenced in the GraphQL query
 
+        console.log('Rendering embeded entry');
         if (entry.__typename === 'VideoEmbed') {
           return (
             <iframe
@@ -55,9 +52,12 @@ function renderOptions(links) {
         // find the asset in the assetBlockMap by ID
         const asset = assetBlockMap.get(node.data.target.sys.id);
 
+        console.log('Rendering image');
         // render the asset accordingly
-        return <Image src={asset.url} alt={asset.description} />;
+        return <ChakraNextImage src={asset.url} alt={asset.description} />;
       },
+
+      [BLOCKS.PARAGRAPH]: renderParagraph,
     },
   };
 }
@@ -65,8 +65,13 @@ function renderOptions(links) {
 // Render richTextResponse.json to the DOM using
 // documentToReactComponents from "@contentful/rich-text-react-renderer"
 
-export default function RichTextResponse({ richTextResponse }) {
+export default function RichTextResponse({ richTextResponse, renderParagraph }) {
   return (
-    <>{documentToReactComponents(richTextResponse.json, renderOptions(richTextResponse.links))}</>
+    <>
+      {documentToReactComponents(
+        richTextResponse.json,
+        renderOptions(richTextResponse.links, renderParagraph)
+      )}
+    </>
   );
 }
