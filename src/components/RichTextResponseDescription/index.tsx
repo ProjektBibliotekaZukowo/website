@@ -9,7 +9,6 @@ export interface IRichTextResponseDescriptionProps {
 function extractTextFromRichText(document: ArticleDescription): string {
   let textContent = '';
 
-  console.log(JSON.stringify({ document }, null, 2));
   // A recursive function to traverse through the document structure
   function traverseNodes(node: any) {
     if (node.nodeType === 'text') {

@@ -3,12 +3,10 @@ import { ChakraNextImage } from 'components/ChakraNextImage';
 import { Link } from '@chakra-ui/next-js';
 import NextLink from 'next/link';
 import { BsArrowRight } from 'react-icons/bs';
-import RichTextResponse from 'components/RichTextResponse';
 import { Article } from 'generated/types';
 import { RichTextResponseDescription } from 'components/RichTextResponseDescription';
 
 export const NewsArticle = ({ title, slug, description, heroImage }: Article) => {
-  console.log(JSON.stringify({ description }, null, 2));
   return (
     <VStack align="stretch" w="xs" minH="max" role="group" shadow="2xl" verticalAlign="center">
       <ChakraNextImage

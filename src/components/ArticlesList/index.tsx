@@ -1,11 +1,13 @@
-import { FetchArticlesQuery } from 'generated/types';
-import { Link, List, ListItem, Box, Heading } from '@chakra-ui/react';
-import NextLink from 'next/link';
+import { ArticleCollection, FetchArticlesQuery } from 'generated/types';
+import { Link, List, ListItem, Box, Heading, Flex } from '@chakra-ui/react';
 import { ArticleBreadcrumb } from 'components/ArticleBreadcrumb';
 import { ARTICLE_PAGINATION_PAGE_SIZE } from 'lib/constants';
+import { NewsArticle } from 'components/NewsArticles/NewsArticle';
+import Pagination from 'components/Pagination';
 
-export type PaginationInfo = {
+export type IArticlesList = {
   currentPage: number;
+  articles: ArticleCollection;
 };
 
 const navItems = [
@@ -24,7 +26,7 @@ const navItems = [
     isTruncated: true,
   },
 ];
-export const ArticlesList: React.FC<FetchArticlesQuery & PaginationInfo> = ({ articles }) => {
+export const ArticlesList: React.FC<IArticlesList> = ({ articles, currentPage }) => {
   const pagesCollection: number[] = [];
   const totalPages = Math.ceil(articles.total / ARTICLE_PAGINATION_PAGE_SIZE);
   for (let i = 0; i < totalPages; i++) {
@@ -39,33 +41,13 @@ export const ArticlesList: React.FC<FetchArticlesQuery & PaginationInfo> = ({ ar
         <Heading as="h1" mb={3}>
           Aktualności
         </Heading>
-        <List>
-          {articles.items.map((article) => {
-            return (
-              <ListItem key={article.sys.id}>
-                <Link as={NextLink} href={`/aktualnosci/${article.slug}`}>
-                  {article.title}
-                </Link>
-              </ListItem>
-            );
-          })}
-        </List>
+        <Flex wrap={'wrap'} justifyContent={'space-between'} mb={5}>
+          {articles.items.map((article) => (
+            <NewsArticle key={article.slug} {...article} />
+          ))}
+        </Flex>
       </Box>
-      <List>
-        {pagesCollection.map((page) => {
-          const link =
-            page === 1 ? (
-              <Link as={NextLink} href={`/aktualnosci`}>
-                {page}
-              </Link>
-            ) : (
-              <Link as={NextLink} href={`/aktualnosci/strona/${page}`}>
-                {page}
-              </Link>
-            );
-          return <ListItem key={page}>{link}</ListItem>;
-        })}
-      </List>
+      <Pagination currentPage={currentPage} totalPages={totalPages} />
     </Box>
   );
 };
