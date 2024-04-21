@@ -1,13 +1,9 @@
-import ArticlesList, { PaginationInfo } from 'components/ArticlesList';
-import { FetchArticlesQuery } from 'generated/types';
+import { ArticlesList, IArticlesList } from 'components/ArticlesList';
 import { getArticlesPage } from 'lib/api';
 import { GetStaticProps } from 'next';
 import React from 'react';
 
-export default function ArticlesIndex({
-  articles,
-  currentPage,
-}: FetchArticlesQuery & PaginationInfo) {
+export default function ArticlesIndex({ articles, currentPage }: IArticlesList) {
   return <ArticlesList articles={articles} currentPage={currentPage} />;
 }
 
