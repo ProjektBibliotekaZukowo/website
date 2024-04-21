@@ -5,7 +5,7 @@ import { ChakraNextImage } from 'components/ChakraNextImage';
 // Create a bespoke renderOptions object to target BLOCKS.EMBEDDED_ENTRY (linked entries e.g. videoEmbed)
 // and BLOCKS.EMBEDDED_ASSET (linked assets e.g. images)
 
-function renderOptions(links, renderParagraph) {
+function renderOptions(links) {
   // create an asset block map
   const assetBlockMap = new Map();
   // loop through the assets and add them to the map
@@ -33,7 +33,6 @@ function renderOptions(links, renderParagraph) {
         // render the entries as needed by looking at the __typename
         // referenced in the GraphQL query
 
-        console.log('Rendering embeded entry');
         if (entry.__typename === 'VideoEmbed') {
           return (
             <iframe
@@ -52,12 +51,9 @@ function renderOptions(links, renderParagraph) {
         // find the asset in the assetBlockMap by ID
         const asset = assetBlockMap.get(node.data.target.sys.id);
 
-        console.log('Rendering image');
         // render the asset accordingly
         return <ChakraNextImage src={asset.url} alt={asset.description} />;
       },
-
-      [BLOCKS.PARAGRAPH]: renderParagraph,
     },
   };
 }
@@ -65,13 +61,8 @@ function renderOptions(links, renderParagraph) {
 // Render richTextResponse.json to the DOM using
 // documentToReactComponents from "@contentful/rich-text-react-renderer"
 
-export default function RichTextResponse({ richTextResponse, renderParagraph }) {
+export default function RichTextResponse({ richTextResponse }) {
   return (
-    <>
-      {documentToReactComponents(
-        richTextResponse.json,
-        renderOptions(richTextResponse.links, renderParagraph)
-      )}
-    </>
+    <>{documentToReactComponents(richTextResponse.json, renderOptions(richTextResponse.links))}</>
   );
 }

@@ -5,8 +5,10 @@ import NextLink from 'next/link';
 import { BsArrowRight } from 'react-icons/bs';
 import RichTextResponse from 'components/RichTextResponse';
 import { Article } from 'generated/types';
+import { RichTextResponseDescription } from 'components/RichTextResponseDescription';
 
 export const NewsArticle = ({ title, slug, description, heroImage }: Article) => {
+  console.log(JSON.stringify({ description }, null, 2));
   return (
     <VStack align="stretch" w="xs" minH="max" role="group" shadow="2xl" verticalAlign="center">
       <ChakraNextImage
@@ -17,14 +19,10 @@ export const NewsArticle = ({ title, slug, description, heroImage }: Article) =>
         alt={heroImage.description}
       />
       <VStack p={10} spacing={4} alignItems="start">
-        <Heading as="h4" noOfLines={4} width="100%" size="md">
+        <Heading as="h4" noOfLines={4} minHeight="6rem" width="100%" size="md">
           {title}
         </Heading>
-        <RichTextResponse
-          richTextResponse={description}
-          renderParagraph={(node, children) => (
-            <Text noOfLines={1}>{children}</Text>
-          )}></RichTextResponse>
+        <RichTextResponseDescription description={description.json}></RichTextResponseDescription>
         <Link
           as={NextLink}
           href={`/aktualnosci/${slug}`}
