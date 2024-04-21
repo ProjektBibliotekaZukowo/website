@@ -24,10 +24,7 @@ const navItems = [
     isTruncated: true,
   },
 ];
-export default function ArticlesList({
-  articles,
-}: // currentPage,
-FetchArticlesQuery & PaginationInfo) {
+export const ArticlesList: React.FC<FetchArticlesQuery & PaginationInfo> = ({ articles }) => {
   const pagesCollection: number[] = [];
   const totalPages = Math.ceil(articles.total / ARTICLE_PAGINATION_PAGE_SIZE);
   for (let i = 0; i < totalPages; i++) {
@@ -71,4 +68,4 @@ FetchArticlesQuery & PaginationInfo) {
       </List>
     </Box>
   );
-}
+};

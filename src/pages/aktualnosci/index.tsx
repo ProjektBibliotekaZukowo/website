@@ -1,4 +1,4 @@
-import ArticlesList, { PaginationInfo } from 'components/ArticlesList';
+import { ArticlesList, PaginationInfo } from 'components/ArticlesList';
 import { FetchArticlesQuery } from 'generated/types';
 import { getArticlesPage } from 'lib/api';
 import { GetStaticProps } from 'next';
