@@ -64,16 +64,26 @@ with Facebook posts) with real emoji characters and strips stray forms from post
 - **Content staff change** lives in synced patterns, which Editors can edit under
   **Stałe treści** in the admin menu:
   - *Godziny otwarcia*: one table, shown in every branch and in the "today" bar
+    (a branch can have its own table instead, see below)
   - *Filie (adresy i mapa)*: branch addresses, contacts and one map of all branches
   - *Partnerzy*: partner logos
   - *Stopka: dane kontaktowe* and *Stopka: dokumenty i linki*
 
   Templates include them with `[bz_wzorzec slug="…"]`, so theme files never depend
   on database IDs. `setup/setup.php` creates them once and never overwrites them.
-- **"Dziś jesteśmy otwarci"** is filled in by `assets/js/opening-hours.js` in the
-  visitor's browser, so cached pages always show the right day. It reads the
-  *Godziny otwarcia* table: the first column must be the Polish day name.
-- **Fonts** are self-hosted (no requests to Google).
+- **Today's opening hours** are worked out in `functions.php` when the page is
+  rendered (no JavaScript): the "Dziś jesteśmy otwarci" bar on the home page
+  (`[bz_dzisiaj]`) shows each branch's hours for today, every branch shows a
+  "Dziś: …" line above its *Godziny otwarcia* toggle, and today's row in the
+  table is highlighted. They are read from each branch's table in *Filie*, whose
+  first column must be the Polish day name; a missing day or hours without a digit
+  mean closed. To give one branch different hours (holiday, stocktaking), open
+  *Filie*, select that branch's *Godziny otwarcia* block, choose "Odłącz" (detach)
+  and edit its copy; the other branches keep the shared table.
+  Pages are rendered fresh on every request. If a page cache is ever added, it
+  must not keep pages across midnight, or the bar shows yesterday's hours.
+- **Fonts** are self-hosted (no requests to Google) and preloaded, so text doesn't
+  reflow when they arrive.
 - **Branches map** (home page and /kontakt/): the *Filie* pattern holds a list of
   branches with their coordinates, which `assets/js/branches-map.js` turns into one
   map with a pin per branch. Each pin links to its branch section by id

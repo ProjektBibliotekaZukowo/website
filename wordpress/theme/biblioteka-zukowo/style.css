@@ -11,6 +11,12 @@ Text Domain: biblioteka-zukowo
 
 /* Only what theme.json can't express lives here. */
 
+/* Keep room for the scrollbar on every page, so the layout doesn't shift
+   sideways between short and long pages (Windows, or macOS set to always show scrollbars). */
+html {
+	scrollbar-gutter: stable;
+}
+
 /* Skip link and focus states (WCAG 2.4.1, 2.4.7). */
 :where(a, button, summary, input, select, textarea):focus-visible {
 	outline: 2px solid var(--wp--preset--color--blue);
@@ -173,19 +179,70 @@ Text Domain: biblioteka-zukowo
 	font-size: var(--wp--preset--font-size--large);
 }
 
-/* "Today we're open" bar; filled in by assets/js/opening-hours.js. */
+/* "Dziś jesteśmy otwarci" bar ([bz_dzisiaj] in functions.php): today's hours of every branch. */
+.bz-today p {
+	margin: 0;
+}
+.bz-today__list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0.5rem 0.75rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.bz-today__list a,
 .bz-today__value {
 	display: inline-block;
 	padding: 0.5rem 1rem;
 	border: 1px solid var(--wp--preset--color--black);
 	border-radius: 6px;
 	background: var(--wp--preset--color--white);
-	font-weight: 800;
-	color: var(--wp--preset--color--blue);
+	color: var(--wp--preset--color--black);
+	font-weight: 600;
 	text-decoration: none;
 }
-.bz-today__value.is-closed {
+.bz-today__list a:hover {
+	border-color: var(--wp--preset--color--blue);
+	text-decoration: underline;
+}
+.bz-today__value,
+.bz-today .is-open,
+.bz-hours-today .is-open {
+	font-weight: 800;
+	color: var(--wp--preset--color--blue);
+}
+.bz-today .is-closed,
+.bz-hours-today .is-closed {
+	font-weight: 800;
 	color: var(--wp--preset--color--red);
+}
+/* Phones: one compact row per branch, name on the left and hours on the right. */
+@media (max-width: 599px) {
+	.bz-today__list {
+		display: grid;
+		width: 100%;
+		gap: 0;
+	}
+	.bz-today__list li + li {
+		border-top: 1px solid var(--wp--preset--color--gray);
+	}
+	.bz-today__list a {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 0.4rem 0;
+		border: 0;
+		border-radius: 0;
+		background: none;
+	}
+}
+
+/* Today's hours above each branch's "Godziny otwarcia" toggle. */
+.bz-hours-today {
+	margin-block-end: 0;
+	font-size: var(--wp--preset--font-size--large);
 }
 
 /* Anchored sections clear the sticky header. */
@@ -320,9 +377,24 @@ Text Domain: biblioteka-zukowo
 address {
 	font-style: normal;
 }
-/* Map of all branches (assets/js/branches-map.js). Without JavaScript the list shows. */
+/* Map of all branches (assets/js/branches-map.js). Without JavaScript the list shows.
+   With JavaScript the map's space is held from the start, so the page below
+   doesn't jump when the map replaces the list. */
 .bz-map.is-ready .bz-map__list {
 	display: none;
+}
+@media (scripting: enabled) {
+	.bz-map[data-branches-map] {
+		min-height: 420px;
+	}
+	.bz-map[data-branches-map] .bz-map__list {
+		display: none;
+	}
+}
+@media (scripting: enabled) and (max-width: 781px) {
+	.bz-map[data-branches-map] {
+		min-height: 340px;
+	}
 }
 .bz-map__canvas {
 	/* Leaflet's panes use z-indexes up to 1000; keep them under the sticky header. */
@@ -372,6 +444,9 @@ address {
 	gap: 0.25rem 1rem;
 	margin: 0.75rem 0 0;
 	font-weight: 600;
+}
+.bz-map .leaflet-popup-content .bz-hours-today {
+	font-size: inherit;
 }
 .bz-map .leaflet-popup-content a {
 	color: var(--wp--preset--color--blue);
@@ -437,6 +512,13 @@ address {
 }
 .bz-view-switch[hidden] {
 	display: none;
+}
+/* With JavaScript, hold its space until news-view.js shows it, so the list doesn't jump. */
+@media (scripting: enabled) {
+	.bz-view-switch[hidden] {
+		display: flex;
+		visibility: hidden;
+	}
 }
 .bz-view-switch button {
 	display: flex;

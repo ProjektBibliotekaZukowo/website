@@ -38,19 +38,14 @@
 		box.appendChild(title);
 
 		if (section) {
-			section.querySelectorAll(':scope > p').forEach(function (p) {
+			section.querySelectorAll(':scope > p:not(.bz-hours-today)').forEach(function (p) {
 				box.appendChild(p.cloneNode(true));
 			});
 		}
 
-		// opening-hours.js has marked today's row by now; no row means closed today.
-		if (document.querySelector('.bz-hours')) {
-			var today = document.querySelector('.bz-hours tr.is-today td:last-child');
-			var hours = document.createElement('p');
-			hours.innerHTML = '<strong>Dziś:</strong> ';
-			hours.appendChild(document.createTextNode(today ? today.textContent.trim() : 'nieczynne'));
-			box.appendChild(hours);
-		}
+		// The branch's "Dziś (…): …" line, rendered by functions.php.
+		var today = section && section.querySelector('.bz-hours-today');
+		if (today) box.appendChild(today.cloneNode(true));
 
 		var links = document.createElement('p');
 		links.className = 'bz-map__links';
