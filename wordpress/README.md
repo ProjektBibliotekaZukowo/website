@@ -11,6 +11,9 @@ wordpress/
 ├── compose.yml                 local environment (WordPress, MariaDB, WP-CLI, screenshots)
 ├── theme/biblioteka-zukowo/    the block theme: theme.json, templates, parts, patterns
 ├── setup/setup.php             idempotent site setup (settings, pages, editable blocks)
+├── setup/clean-content.php     idempotent cleanup of imported content
+├── mu-plugins/bz-smtp.php      sends mail through SMTP_* env (no-op when unset)
+├── Dockerfile, docker/         the production image
 ├── tools/                      screenshot tool for visual comparisons
 └── import/                     WordPress export files (gitignored, contains site content)
 ```
@@ -78,3 +81,28 @@ docker compose run --rm browser validate-blocks.mjs /theme
 # Desktop and mobile screenshots, saved to .context/shots/<folder>/
 docker compose run --rm browser screenshot.mjs /shots/<folder> home=http://localhost:8088/
 ```
+
+## Production image
+
+`Dockerfile` builds the image the cluster runs. Everything except uploads and the
+database comes from it: core, the theme, Polish translations, WP-CLI, the
+(inactive) importer and `bz-smtp.php`. Setup scripts are in `/opt/bz-setup`.
+Every version and download is pinned; bump them in the Dockerfile together with
+`compose.yml`.
+
+GitHub Actions builds every push that touches `wordpress/` and pushes
+`ghcr.io/projektbibliotekazukowo/wordpress:<git sha>`. To deploy, set `image.tag`
+to that SHA in the german-lab repo (`gitops/apps/staging/biblioteka-staging.yaml`);
+Argo CD rolls it out. Plugins and core can't be updated from the admin
+(`DISALLOW_FILE_MODS`): updates mean rebuilding the image.
+
+Run WP-CLI in the running pod. `wp` runs as `www-data` even from a root shell:
+
+```bash
+kubectl -n biblioteka-staging exec deploy/biblioteka-staging -- wp <command>
+```
+
+Runtime settings come from the environment: database and salts from a Secret,
+`WP_HOME`, `DISABLE_WP_CRON` and the rest through `WORDPRESS_CONFIG_EXTRA`,
+`BZ_NOINDEX=1` for the `X-Robots-Tag: noindex, nofollow` header on staging, and
+`SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_FROM` for mail.

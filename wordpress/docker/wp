@@ -1,0 +1,8 @@
+#!/bin/sh
+# WP-CLI as the web server user. `kubectl exec` runs as root, and files WP-CLI writes
+# (imported media, generated thumbnails) must stay writable by Apache.
+set -e
+if [ "$(id -u)" = 0 ]; then
+	exec runuser -u www-data -- php -d memory_limit=1024M /usr/local/lib/wp-cli.phar "$@"
+fi
+exec php -d memory_limit=1024M /usr/local/lib/wp-cli.phar "$@"
