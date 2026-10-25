@@ -14,7 +14,7 @@ wordpress/
 ├── setup/clean-content.php     idempotent cleanup of imported content
 ├── mu-plugins/bz-smtp.php      sends mail through SMTP_* env (no-op when unset)
 ├── Dockerfile, docker/         the production image
-├── tools/                      screenshot tool for visual comparisons
+├── tools/                      screenshots, block validation, accessibility check
 └── import/                     WordPress export files (gitignored, contains site content)
 ```
 
@@ -49,7 +49,11 @@ docker compose run --rm cli wp plugin install wordpress-importer --activate
 docker compose run --rm cli wp import /import/export.xml --authors=skip
 docker compose run --rm cli wp theme activate biblioteka-zukowo
 docker compose run --rm cli wp eval-file /setup/setup.php
+docker compose run --rm cli wp eval-file /setup/clean-content.php
 ```
+
+`clean-content.php` replaces emoji images hotlinked from Facebook (copied along
+with Facebook posts) with real emoji characters and strips stray forms from posts.
 
 ## How the theme works
 
@@ -77,6 +81,9 @@ docker compose run --rm cli wp eval-file /setup/setup.php
 ```bash
 # Blocks the editor would flag as "unexpected or invalid content"
 docker compose run --rm browser validate-blocks.mjs /theme
+
+# Automated WCAG 2.2 A/AA check (axe-core) at desktop and 320px widths
+docker compose run --rm browser a11y.mjs home=http://localhost:8088/ news=http://localhost:8088/aktualnosci/
 
 # Desktop and mobile screenshots, saved to .context/shots/<folder>/
 docker compose run --rm browser screenshot.mjs /shots/<folder> home=http://localhost:8088/
