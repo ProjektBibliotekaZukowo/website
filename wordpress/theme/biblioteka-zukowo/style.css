@@ -513,6 +513,13 @@ address {
 .bz-view-switch[hidden] {
 	display: none;
 }
+/* With JavaScript, hold its space until news-view.js shows it, so the list doesn't jump. */
+@media (scripting: enabled) {
+	.bz-view-switch[hidden] {
+		display: flex;
+		visibility: hidden;
+	}
+}
 .bz-view-switch button {
 	display: flex;
 	align-items: center;
