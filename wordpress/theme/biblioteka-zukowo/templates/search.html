@@ -10,22 +10,37 @@
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:query-title {"type":"search","align":"wide"} /-->
-	<!-- wp:search {"label":"Szukaj","buttonText":"Szukaj","align":"wide"} /-->
+	<!-- wp:group {"align":"wide","layout":{"type":"flex","justifyContent":"space-between"}} -->
+	<div class="wp-block-group alignwide">
+		<!-- wp:query-title {"type":"search","showSearchTerm":false} /-->
+
+		<!-- wp:pattern {"slug":"biblioteka-zukowo/news-view-switch"} /-->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"default"}} -->
+	<div class="wp-block-group alignwide">
+		<!-- wp:search {"label":"Szukaj na stronie","showLabel":false,"placeholder":"Czego szukasz?","buttonText":"Szukaj","buttonPosition":"button-inside","buttonUseIcon":true,"className":"bz-search bz-search--page"} /-->
+
+		<!-- wp:shortcode -->
+		[bz_liczba_wynikow]
+		<!-- /wp:shortcode -->
+	</div>
+	<!-- /wp:group -->
 
 	<!-- wp:heading {"className":"screen-reader-text"} -->
 	<h2 class="wp-block-heading screen-reader-text">Lista wpisów</h2>
 	<!-- /wp:heading -->
 
-	<!-- wp:query {"queryId":3,"query":{"inherit":true},"align":"wide"} -->
-	<div class="wp-block-query alignwide">
+	<!-- wp:query {"queryId":3,"query":{"inherit":true},"className":"bz-news","align":"wide"} -->
+	<div class="wp-block-query alignwide bz-news">
 		<!-- wp:post-template {"style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"layout":{"type":"grid","columnCount":3,"minimumColumnWidth":"16rem"}} -->
 			<!-- wp:pattern {"slug":"biblioteka-zukowo/news-card"} /-->
 		<!-- /wp:post-template -->
 
 		<!-- wp:query-no-results -->
-			<!-- wp:paragraph -->
-			<p>Nie znaleziono wpisów.</p>
+			<!-- wp:paragraph {"className":"bz-no-results"} -->
+			<p class="bz-no-results">Nic nie znaleźliśmy. Spróbuj innego lub krótszego słowa albo zajrzyj do <a href="/aktualnosci/">aktualności</a>.</p>
 			<!-- /wp:paragraph -->
 		<!-- /wp:query-no-results -->
 

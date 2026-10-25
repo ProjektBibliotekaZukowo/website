@@ -80,6 +80,15 @@ with Facebook posts) with real emoji characters and strips stray forms from post
   (`#banino`, …), and its popup copies that section's address and contacts, so staff
   edit them in one place. The map uses Leaflet (bundled in `assets/vendor/leaflet/`,
   loaded only on pages with the map) and OpenStreetMap tiles.
+- **Search** in the header: a slim field on wide screens, a magnifier that opens
+  the field over the bar on narrower ones (core's search block, no plugin).
+- **News list view**: /aktualnosci/ and search results have a grid / list switch
+  (pattern `news-view-switch`, for any query block with the `bz-news` class). The choice is kept in
+  the visitor's browser (localStorage) and applied in `<head>` before the page
+  paints (`functions.php`, `assets/js/news-view.js`), so cached pages work.
+- **Theme version**: bump `Version` in `style.css` when adding a pattern file.
+  WordPress caches the list of theme patterns per version, so a new pattern
+  renders empty until the version changes. The version also busts the CSS/JS cache.
 - **Page width**: pages and articles line up with the 1280px grid like the news
   list. Running text is capped at 768px for readability; columns, groups and
   galleries use the full width.
