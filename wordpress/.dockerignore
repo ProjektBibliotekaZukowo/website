@@ -1,0 +1,7 @@
+# Only what the Dockerfile copies. import/ holds site content and must never be sent.
+*
+!Dockerfile
+!docker/
+!mu-plugins/
+!setup/
+!theme/
