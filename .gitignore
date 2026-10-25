@@ -121,3 +121,6 @@ dist
 .env.local
 .envrc
 contentful-export-log-error.*
+
+# WordPress export files and import logs (contain site content; never commit)
+wordpress/import/

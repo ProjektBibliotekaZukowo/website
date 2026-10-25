@@ -1,0 +1,67 @@
+# Local development copy of bibliotekazukowo.pl. Everything lives in Docker:
+# the database and uploads are named volumes, the theme is mounted from this repo.
+# See README.md. Not used in production.
+name: wp-local
+
+x-db-env: &db-env
+  WORDPRESS_DB_HOST: db
+  WORDPRESS_DB_USER: wordpress
+  WORDPRESS_DB_PASSWORD: wordpress
+  WORDPRESS_DB_NAME: wordpress
+
+services:
+  db:
+    image: mariadb:11.8
+    environment:
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: wordpress
+      MARIADB_PASSWORD: wordpress
+      MARIADB_ROOT_PASSWORD: root
+    volumes:
+      - db:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:7.1.3-php8.3-apache
+    depends_on: [db]
+    ports:
+      - "8088:80"
+    environment:
+      <<: *db-env
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_HOME', 'http://localhost:8088');
+        define('WP_SITEURL', 'http://localhost:8088');
+        define('WP_ENVIRONMENT_TYPE', 'local');
+    volumes:
+      - wp:/var/www/html
+      - ./theme/biblioteka-zukowo:/var/www/html/wp-content/themes/biblioteka-zukowo:ro
+
+  # One-off WP-CLI commands: docker compose run --rm cli wp <command>
+  cli:
+    image: wordpress:cli-2-php8.3
+    profiles: [cli]
+    depends_on: [db, wordpress]
+    user: "33:33"
+    environment:
+      <<: *db-env
+      WP_CLI_PHP_ARGS: -d memory_limit=1024M
+    volumes:
+      - wp:/var/www/html
+      - ./theme/biblioteka-zukowo:/var/www/html/wp-content/themes/biblioteka-zukowo:ro
+      - ./setup:/setup:ro
+      - ./import:/import
+
+  # Browser tools (see README.md):
+  #   docker compose run --rm browser screenshot.mjs /shots/<dir> name=url ...
+  #   docker compose run --rm browser validate-blocks.mjs /theme
+  browser:
+    build:
+      context: tools
+      dockerfile: Dockerfile.screenshot
+    profiles: [tools]
+    volumes:
+      - ../.context/shots:/shots
+      - ./theme/biblioteka-zukowo:/theme:ro
+
+volumes:
+  db:
+  wp:

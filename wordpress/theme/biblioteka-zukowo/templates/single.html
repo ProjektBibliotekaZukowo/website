@@ -1,0 +1,24 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
+<main class="wp-block-group">
+	<!-- wp:pattern {"slug":"biblioteka-zukowo/breadcrumbs-news"} /-->
+
+	<!-- wp:group {"tagName":"article","layout":{"type":"constrained"}} -->
+	<article class="wp-block-group">
+		<!-- wp:post-title {"level":1} /-->
+		<!-- wp:post-date {"format":"j F Y"} /-->
+		<!-- wp:post-content {"layout":{"type":"constrained"}} /-->
+	</article>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|60"}}},"layout":{"type":"flex","justifyContent":"space-between"}} -->
+	<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--60)">
+		<!-- wp:post-navigation-link {"type":"previous","label":"‹ Starsza","showTitle":true,"linkLabel":true} /-->
+		<!-- wp:post-navigation-link {"label":"Nowsza ›","showTitle":true,"linkLabel":true} /-->
+	</div>
+	<!-- /wp:group -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

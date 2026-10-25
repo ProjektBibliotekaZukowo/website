@@ -1,0 +1,6 @@
+# Throwaway browser for screenshots and block validation; nothing is installed on the host.
+FROM mcr.microsoft.com/playwright:v1.56.1-noble
+WORKDIR /tool
+RUN npm init -y >/dev/null && npm i -s playwright@1.56.1
+COPY *.mjs ./
+ENTRYPOINT ["node"]

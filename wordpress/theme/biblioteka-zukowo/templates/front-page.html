@@ -1,0 +1,78 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:template-part {"slug":"today-bar"} /-->
+
+<!-- wp:group {"tagName":"main","style":{"spacing":{"blockGap":"var:preset|spacing|70","padding":{"top":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
+<main class="wp-block-group" style="padding-top:var(--wp--preset--spacing--60)">
+	<!-- wp:group {"tagName":"section","align":"wide","className":"bz-hero","layout":{"type":"default"}} -->
+	<section class="wp-block-group alignwide bz-hero">
+		<!-- wp:shortcode -->
+		[bz_wzorzec slug="powitanie"]
+		<!-- /wp:shortcode -->
+	</section>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"tagName":"section","align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|60"}},"layout":{"type":"default"}} -->
+	<section class="wp-block-group alignwide">
+		<!-- wp:heading {"textAlign":"center"} -->
+		<h2 class="wp-block-heading has-text-align-center">Najnowsze wiadomości</h2>
+		<!-- /wp:heading -->
+
+		<!-- wp:query {"queryId":2,"query":{"perPage":6,"pages":1,"offset":0,"postType":"post","order":"desc","orderBy":"date","inherit":false,"sticky":""}} -->
+		<div class="wp-block-query">
+			<!-- wp:post-template {"style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"layout":{"type":"grid","columnCount":3,"minimumColumnWidth":"16rem"}} -->
+				<!-- wp:pattern {"slug":"biblioteka-zukowo/news-card"} /-->
+			<!-- /wp:post-template -->
+		</div>
+		<!-- /wp:query -->
+
+		<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+		<div class="wp-block-buttons">
+			<!-- wp:button {"className":"bz-more"} -->
+			<div class="wp-block-button bz-more"><a class="wp-block-button__link wp-element-button" href="/aktualnosci/">Więcej aktualności</a></div>
+			<!-- /wp:button -->
+		</div>
+		<!-- /wp:buttons -->
+	</section>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"tagName":"section","align":"full","backgroundColor":"gray-light","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"},"blockGap":"var:preset|spacing|50"}},"layout":{"type":"constrained"}} -->
+	<section class="wp-block-group alignfull has-gray-light-background-color has-background" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)">
+		<!-- wp:heading {"textAlign":"center","align":"wide"} -->
+		<h2 class="wp-block-heading alignwide has-text-align-center">Biblioteka w liczbach</h2>
+		<!-- /wp:heading -->
+		<!-- wp:group {"align":"wide","layout":{"type":"default"}} -->
+		<div class="wp-block-group alignwide">
+			<!-- wp:shortcode -->
+			[bz_wzorzec slug="liczby"]
+			<!-- /wp:shortcode -->
+		</div>
+		<!-- /wp:group -->
+	</section>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"tagName":"section","align":"wide","anchor":"filie","style":{"spacing":{"blockGap":"var:preset|spacing|60"}},"layout":{"type":"default"}} -->
+	<section id="filie" class="wp-block-group alignwide">
+		<!-- wp:heading {"textAlign":"center"} -->
+		<h2 class="wp-block-heading has-text-align-center">Filie Biblioteki Samorządowej w Żukowie</h2>
+		<!-- /wp:heading -->
+		<!-- wp:shortcode -->
+		[bz_wzorzec slug="filie"]
+		<!-- /wp:shortcode -->
+	</section>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"tagName":"section","align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|60"}},"layout":{"type":"default"}} -->
+	<section class="wp-block-group alignwide">
+		<!-- wp:heading {"textAlign":"center"} -->
+		<h2 class="wp-block-heading has-text-align-center">Partnerzy</h2>
+		<!-- /wp:heading -->
+		<!-- wp:shortcode -->
+		[bz_wzorzec slug="partnerzy"]
+		<!-- /wp:shortcode -->
+	</section>
+	<!-- /wp:group -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
