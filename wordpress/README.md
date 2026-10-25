@@ -64,7 +64,7 @@ with Facebook posts) with real emoji characters and strips stray forms from post
 - **Content staff change** lives in synced patterns, which Editors can edit under
   **Stałe treści** in the admin menu:
   - *Godziny otwarcia*: one table, shown in every branch and in the "today" bar
-  - *Filie (adresy i mapy)*: branch addresses, contacts and maps
+  - *Filie (adresy i mapa)*: branch addresses, contacts and one map of all branches
   - *Partnerzy*: partner logos
   - *Stopka: dane kontaktowe* and *Stopka: dokumenty i linki*
 
@@ -74,6 +74,15 @@ with Facebook posts) with real emoji characters and strips stray forms from post
   visitor's browser, so cached pages always show the right day. It reads the
   *Godziny otwarcia* table: the first column must be the Polish day name.
 - **Fonts** are self-hosted (no requests to Google).
+- **Branches map** (home page and /kontakt/): the *Filie* pattern holds a list of
+  branches with their coordinates, which `assets/js/branches-map.js` turns into one
+  map with a pin per branch. Each pin links to its branch section by id
+  (`#banino`, …), and its popup copies that section's address and contacts, so staff
+  edit them in one place. The map uses Leaflet (bundled in `assets/vendor/leaflet/`,
+  loaded only on pages with the map) and OpenStreetMap tiles.
+- **Page width**: pages and articles line up with the 1280px grid like the news
+  list. Running text is capped at 768px for readability; columns, groups and
+  galleries use the full width.
 - **No plugins** are needed.
 
 ## Checks

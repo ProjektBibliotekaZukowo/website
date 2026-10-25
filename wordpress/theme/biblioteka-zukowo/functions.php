@@ -34,6 +34,29 @@ add_action(
 );
 
 /**
+ * The branches map (Leaflet, bundled in assets/vendor) loads only on pages that
+ * show it. Block themes render the page before wp_head, so enqueuing here works.
+ */
+add_filter(
+	'render_block_core/html',
+	function ( $content ) {
+		if ( str_contains( $content, 'data-branches-map' ) ) {
+			$version = wp_get_theme()->get( 'Version' );
+			wp_enqueue_style( 'leaflet', get_theme_file_uri( 'assets/vendor/leaflet/leaflet.css' ), array(), '1.9.4' );
+			wp_enqueue_script( 'leaflet', get_theme_file_uri( 'assets/vendor/leaflet/leaflet.js' ), array(), '1.9.4', array( 'strategy' => 'defer' ) );
+			wp_enqueue_script(
+				'biblioteka-zukowo-branches-map',
+				get_theme_file_uri( 'assets/js/branches-map.js' ),
+				array( 'leaflet', 'biblioteka-zukowo-opening-hours' ),
+				$version,
+				array( 'strategy' => 'defer' )
+			);
+		}
+		return $content;
+	}
+);
+
+/**
  * [bz_wzorzec slug="godziny-otwarcia"] renders the synced pattern with that slug.
  */
 add_shortcode(

@@ -14,6 +14,7 @@ require_once ABSPATH . 'wp-admin/includes/image.php';
 
 $branches = array(
 	array(
+		'id'      => 'zukowo',
 		'name'    => 'Biblioteka główna – Żukowo',
 		'street'  => 'ul. 3 Maja 9B',
 		'city'    => '83-330 Żukowo',
@@ -24,6 +25,7 @@ $branches = array(
 		'is_main' => true,
 	),
 	array(
+		'id'     => 'banino',
 		'name'   => 'Filia w Baninie',
 		'street' => 'ul. Lotnicza 29 (budynek OSP)',
 		'city'   => '80-297 Banino',
@@ -33,6 +35,7 @@ $branches = array(
 		'lon'    => 18.4061695,
 	),
 	array(
+		'id'     => 'chwaszczyno',
 		'name'   => 'Filia w Chwaszczynie',
 		'street' => 'ul. Żeromskiego 9 (Strefa Kultury)',
 		'city'   => '80-209 Chwaszczyno',
@@ -42,6 +45,7 @@ $branches = array(
 		'lon'    => 18.4210256,
 	),
 	array(
+		'id'     => 'lezno',
 		'name'   => 'Filia w Leźnie',
 		'street' => 'ul. św. Floriana 12 (budynek OSP)',
 		'city'   => '80-298 Leźno',
@@ -51,6 +55,7 @@ $branches = array(
 		'lon'    => 18.4377054,
 	),
 	array(
+		'id'     => 'niestepowo',
 		'name'   => 'Filia w Niestępowie',
 		'street' => 'ul. Raduńska 14a (nad sklepem spożywczym)',
 		'city'   => '83-331 Przyjaźń',
@@ -136,15 +141,24 @@ function bz_contact_links( $branch ) {
 	return implode( '<br>', $links );
 }
 
-function bz_map( $branch, $height ) {
-	$lat  = $branch['lat'];
-	$lon  = $branch['lon'];
-	$bbox = sprintf( '%F,%F,%F,%F', $lon - 0.006, $lat - 0.0025, $lon + 0.006, $lat + 0.0025 );
-	$src  = 'https://www.openstreetmap.org/export/embed.html?bbox=' . rawurlencode( $bbox ) . '&amp;layer=mapnik&amp;marker=' . rawurlencode( "$lat,$lon" );
-	$big  = sprintf( 'https://www.openstreetmap.org/?mlat=%1$F&amp;mlon=%2$F#map=17/%1$F/%2$F', $lat, $lon );
-
-	return "<!-- wp:html -->\n<div class=\"bz-map\"><iframe title=\"Mapa: " . esc_attr( $branch['name'] ) . "\" src=\"$src\" height=\"$height\" loading=\"lazy\"></iframe></div>\n<!-- /wp:html -->\n"
-		. "<!-- wp:paragraph {\"fontSize\":\"small\"} -->\n<p class=\"has-small-font-size\"><a href=\"$big\">Zobacz większą mapę<span class=\"screen-reader-text\"> – " . esc_html( $branch['name'] ) . "</span></a></p>\n<!-- /wp:paragraph -->\n";
+/**
+ * One map with a pin per branch. The list is the fallback without JavaScript;
+ * assets/js/branches-map.js turns it into the map and fills each pin's popup
+ * from the branch section the link points to.
+ */
+function bz_branches_map( $branches ) {
+	$items = '';
+	foreach ( $branches as $branch ) {
+		$items .= sprintf(
+			'<li data-lat="%F" data-lon="%F"%s><a href="#%s">%s</a></li>',
+			$branch['lat'],
+			$branch['lon'],
+			empty( $branch['is_main'] ) ? '' : ' data-main',
+			esc_attr( $branch['id'] ),
+			esc_html( $branch['name'] )
+		);
+	}
+	return "<!-- wp:html -->\n<div class=\"bz-map\" data-branches-map><ul class=\"bz-map__list\">$items</ul></div>\n<!-- /wp:html -->\n";
 }
 
 function bz_branch_heading( $branch ) {
@@ -157,6 +171,74 @@ function bz_branch_details( $branch, $hours_ref ) {
 		. "<!-- wp:details {\"className\":\"bz-hours-toggle\"} -->\n<details class=\"wp-block-details bz-hours-toggle\"><summary>Godziny otwarcia</summary>"
 		. "<!-- wp:block {\"ref\":$hours_ref} /-->"
 		. "</details>\n<!-- /wp:details -->\n";
+}
+
+/**
+ * Sites set up before the shared map have a small map in every branch section.
+ * Replaces the first one with the map of all branches, drops the rest with their
+ * "Zobacz większą mapę" links, and gives each branch section the id its pin links
+ * to. Works on the parsed blocks, so other edits made by staff are kept.
+ */
+function bz_migrate_branches_map( $pattern_id, $branches ) {
+	$pattern = get_post( $pattern_id );
+	if ( ! $pattern || ! str_contains( $pattern->post_content, 'openstreetmap.org/export/embed' ) ) {
+		return;
+	}
+
+	$ids = array_column( $branches, 'id', 'name' );
+	$map = parse_blocks( bz_branches_map( $branches ) )[0];
+
+	$walk = function ( $blocks ) use ( &$walk, &$map, $ids ) {
+		$out = array();
+		foreach ( $blocks as $block ) {
+			$name = $block['blockName'];
+			if ( 'core/html' === $name && str_contains( $block['innerHTML'], 'class="bz-map"' ) ) {
+				$out[] = $map;
+				$map   = null;
+				continue;
+			}
+			if ( 'core/paragraph' === $name && str_contains( $block['innerHTML'], 'Zobacz większą mapę' ) ) {
+				$out[] = null;
+				continue;
+			}
+
+			$block['innerBlocks'] = $walk( $block['innerBlocks'] );
+			$kept                 = array();
+			$i                    = 0;
+			foreach ( $block['innerContent'] as $chunk ) {
+				if ( is_string( $chunk ) ) {
+					$kept[] = $chunk;
+				} elseif ( null !== $block['innerBlocks'][ $i++ ] ) {
+					$kept[] = null;
+				} elseif ( $kept && '' === trim( end( $kept ) ) ) {
+					array_pop( $kept );
+				}
+			}
+			$block['innerContent'] = $kept;
+			$block['innerBlocks']  = array_values( array_filter( $block['innerBlocks'] ) );
+
+			// A branch section is a column or card whose first heading is a branch name.
+			$heading = $block['innerBlocks'][0] ?? null;
+			$label   = $heading && 'core/heading' === $heading['blockName'] ? trim( wp_strip_all_tags( $heading['innerHTML'] ) ) : '';
+			if ( isset( $ids[ $label ] ) && in_array( $name, array( 'core/column', 'core/group' ), true ) && ! str_contains( $block['innerContent'][0], ' id="' ) ) {
+				$block['innerContent'][0] = preg_replace( '/<div /', '<div id="' . esc_attr( $ids[ $label ] ) . '" ', $block['innerContent'][0], 1 );
+			}
+			$out[] = $block;
+		}
+		return $out;
+	};
+
+	// Removed blocks come back as null so their place in innerContent can be dropped.
+	$blocks = array_values( array_filter( $walk( parse_blocks( $pattern->post_content ) ) ) );
+	bz_log( 'Replacing the branch maps with one map of all branches (old version kept as a revision)' );
+	wp_save_post_revision( $pattern_id );
+	wp_update_post(
+		array(
+			'ID'           => $pattern_id,
+			'post_title'   => 'Filie (adresy i mapa)',
+			'post_content' => serialize_blocks( $blocks ),
+		)
+	);
 }
 
 // --- Settings -----------------------------------------------------------------
@@ -306,18 +388,19 @@ $hours_ref = bz_ensure_pattern(
 
 $main   = $branches[0];
 $filie  = "<!-- wp:columns {\"verticalAlignment\":\"center\",\"style\":{\"spacing\":{\"blockGap\":{\"left\":\"var:preset|spacing|60\"}}}} -->\n<div class=\"wp-block-columns are-vertically-aligned-center\">";
-$filie .= "<!-- wp:column {\"verticalAlignment\":\"center\"} -->\n<div class=\"wp-block-column is-vertically-aligned-center\">" . bz_branch_heading( $main ) . bz_branch_details( $main, $hours_ref ) . "</div>\n<!-- /wp:column -->\n";
-$filie .= "<!-- wp:column {\"verticalAlignment\":\"center\"} -->\n<div class=\"wp-block-column is-vertically-aligned-center\">" . bz_map( $main, 312 ) . "</div>\n<!-- /wp:column -->\n";
+$filie .= "<!-- wp:column {\"verticalAlignment\":\"center\"} -->\n<div id=\"{$main['id']}\" class=\"wp-block-column is-vertically-aligned-center\">" . bz_branch_heading( $main ) . bz_branch_details( $main, $hours_ref ) . "</div>\n<!-- /wp:column -->\n";
+$filie .= "<!-- wp:column {\"verticalAlignment\":\"center\"} -->\n<div class=\"wp-block-column is-vertically-aligned-center\">" . bz_branches_map( $branches ) . "</div>\n<!-- /wp:column -->\n";
 $filie .= "</div>\n<!-- /wp:columns -->\n";
 $filie .= "<!-- wp:group {\"style\":{\"spacing\":{\"blockGap\":\"var:preset|spacing|50\",\"margin\":{\"top\":\"var:preset|spacing|60\"}}},\"layout\":{\"type\":\"grid\",\"columnCount\":2,\"minimumColumnWidth\":\"20rem\"}} -->\n<div class=\"wp-block-group\" style=\"margin-top:var(--wp--preset--spacing--60)\">";
 foreach ( array_slice( $branches, 1 ) as $branch ) {
 	$filie .= "<!-- wp:group {\"className\":\"bz-branch\",\"style\":{\"spacing\":{\"padding\":{\"top\":\"var:preset|spacing|40\",\"bottom\":\"var:preset|spacing|50\",\"left\":\"var:preset|spacing|40\",\"right\":\"var:preset|spacing|40\"}}},\"layout\":{\"type\":\"flex\",\"orientation\":\"vertical\",\"justifyContent\":\"center\"}} -->\n"
-		. "<div class=\"wp-block-group bz-branch\" style=\"padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--40)\">"
-		. bz_branch_heading( $branch ) . bz_map( $branch, 165 ) . bz_branch_details( $branch, $hours_ref )
+		. "<div id=\"{$branch['id']}\" class=\"wp-block-group bz-branch\" style=\"padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--40)\">"
+		. bz_branch_heading( $branch ) . bz_branch_details( $branch, $hours_ref )
 		. "</div>\n<!-- /wp:group -->\n";
 }
 $filie .= "</div>\n<!-- /wp:group -->";
-$filie_ref = bz_ensure_pattern( 'filie', 'Filie (adresy i mapy)', $filie );
+$filie_ref = bz_ensure_pattern( 'filie', 'Filie (adresy i mapa)', $filie );
+bz_migrate_branches_map( $filie_ref, $branches );
 
 $gallery = '';
 foreach ( $partners as $fragment => $name ) {
