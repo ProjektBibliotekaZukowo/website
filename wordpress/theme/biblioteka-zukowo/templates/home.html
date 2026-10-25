@@ -10,16 +10,22 @@
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:heading {"level":1,"align":"wide"} -->
-	<h1 class="wp-block-heading alignwide">Aktualności</h1>
-	<!-- /wp:heading -->
+	<!-- wp:group {"align":"wide","layout":{"type":"flex","justifyContent":"space-between"}} -->
+	<div class="wp-block-group alignwide">
+		<!-- wp:heading {"level":1} -->
+		<h1 class="wp-block-heading">Aktualności</h1>
+		<!-- /wp:heading -->
+
+		<!-- wp:pattern {"slug":"biblioteka-zukowo/news-view-switch"} /-->
+	</div>
+	<!-- /wp:group -->
 
 	<!-- wp:heading {"className":"screen-reader-text"} -->
 	<h2 class="wp-block-heading screen-reader-text">Lista wpisów</h2>
 	<!-- /wp:heading -->
 
-	<!-- wp:query {"queryId":3,"query":{"inherit":true},"align":"wide"} -->
-	<div class="wp-block-query alignwide">
+	<!-- wp:query {"queryId":3,"query":{"inherit":true},"className":"bz-news","align":"wide"} -->
+	<div class="wp-block-query alignwide bz-news">
 		<!-- wp:post-template {"style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"layout":{"type":"grid","columnCount":3,"minimumColumnWidth":"16rem"}} -->
 			<!-- wp:pattern {"slug":"biblioteka-zukowo/news-card"} /-->
 		<!-- /wp:post-template -->

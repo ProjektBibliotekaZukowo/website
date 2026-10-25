@@ -57,6 +57,83 @@ add_filter(
 );
 
 /**
+ * Grid / list switch on the news list. The visitor's choice is applied in <head>,
+ * before the first paint, so cached pages don't flash the grid first; the
+ * buttons themselves (assets/js/news-view.js) load only where the switch is.
+ */
+add_action(
+	'wp_head',
+	function () {
+		wp_print_inline_script_tag(
+			"try{if(localStorage.getItem('bz-news-view')==='list')document.documentElement.setAttribute('data-bz-news-view','list')}catch(e){}"
+		);
+	},
+	1
+);
+
+add_filter(
+	'render_block_core/html',
+	function ( $content ) {
+		if ( str_contains( $content, 'data-bz-view-switch' ) ) {
+			wp_enqueue_script(
+				'biblioteka-zukowo-news-view',
+				get_theme_file_uri( 'assets/js/news-view.js' ),
+				array(),
+				wp_get_theme()->get( 'Version' ),
+				array( 'strategy' => 'defer' )
+			);
+		}
+		return $content;
+	}
+);
+
+/**
+ * "?s=otwarcie+" searches for "otwarcie", not "otwarcie " (the title and the
+ * field would show the stray space).
+ */
+add_filter(
+	'request',
+	function ( $query_vars ) {
+		if ( isset( $query_vars['s'] ) && is_string( $query_vars['s'] ) ) {
+			$query_vars['s'] = trim( $query_vars['s'] );
+		}
+		return $query_vars;
+	}
+);
+
+/**
+ * [bz_liczba_wynikow] on the search page: "2 wyniki dla „otwarcie”".
+ * Nothing when there are no results; the template has its own message then.
+ */
+add_shortcode(
+	'bz_liczba_wynikow',
+	function () {
+		global $wp_query;
+		$count = (int) $wp_query->found_posts;
+		if ( ! is_search() || 0 === $count ) {
+			return '';
+		}
+
+		$tens = $count % 100;
+		$ones = $count % 10;
+		if ( 1 === $count ) {
+			$noun = 'wynik';
+		} elseif ( $ones >= 2 && $ones <= 4 && ( $tens < 12 || $tens > 14 ) ) {
+			$noun = 'wyniki';
+		} else {
+			$noun = 'wyników';
+		}
+
+		return sprintf(
+			'<p class="bz-results-count">%s %s dla „<strong>%s</strong>”</p>',
+			number_format_i18n( $count ),
+			$noun,
+			get_search_query()
+		);
+	}
+);
+
+/**
  * [bz_wzorzec slug="godziny-otwarcia"] renders the synced pattern with that slug.
  */
 add_shortcode(
