@@ -23,14 +23,24 @@ add_action(
 	function () {
 		$version = wp_get_theme()->get( 'Version' );
 		wp_enqueue_style( 'biblioteka-zukowo', get_stylesheet_uri(), array(), $version );
-		wp_enqueue_script(
-			'biblioteka-zukowo-opening-hours',
-			get_theme_file_uri( 'assets/js/opening-hours.js' ),
-			array(),
-			$version,
-			array( 'strategy' => 'defer' )
-		);
 	}
+);
+
+/**
+ * Montserrat is used for all text, so fetch it with the page instead of after
+ * the CSS; otherwise text first renders in the fallback font and then reflows.
+ */
+add_action(
+	'wp_head',
+	function () {
+		foreach ( array( 'latin', 'latin-ext' ) as $subset ) {
+			printf(
+				'<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n",
+				esc_url( get_theme_file_uri( "assets/fonts/montserrat-$subset-wght-normal.woff2" ) )
+			);
+		}
+	},
+	1
 );
 
 /**
@@ -47,7 +57,7 @@ add_filter(
 			wp_enqueue_script(
 				'biblioteka-zukowo-branches-map',
 				get_theme_file_uri( 'assets/js/branches-map.js' ),
-				array( 'leaflet', 'biblioteka-zukowo-opening-hours' ),
+				array( 'leaflet' ),
 				$version,
 				array( 'strategy' => 'defer' )
 			);
@@ -174,6 +184,208 @@ add_action(
 			'',
 			'dashicons-clock',
 			21
+		);
+	}
+);
+
+/*
+ * Opening hours. Staff edit one table, the synced pattern "Godziny otwarcia"
+ * (first column: Polish day name), which every branch in "Filie" shows. A branch
+ * with different hours gets its own table instead (detach the pattern in that
+ * branch and edit it). Today's hours are worked out here, when the page is
+ * rendered, so they show without JavaScript and the page doesn't change after
+ * loading. Pages are rendered fresh on every request; a page cache added later
+ * must not keep pages across midnight.
+ */
+
+/**
+ * Today's weekday in Polish, in the site's time zone (Europe/Warsaw).
+ */
+function bz_today() {
+	$days = array( 'niedziela', 'poniedziałek', 'wtorek', 'środa', 'czwartek', 'piątek', 'sobota' );
+	return $days[ (int) wp_date( 'w' ) ];
+}
+
+/**
+ * The cells of one table row as plain text; the first is lowercased and loses a trailing colon.
+ */
+function bz_row_cells( $row ) {
+	preg_match_all( '#<t[dh]\b[^>]*>(.*?)</t[dh]>#is', $row, $matches );
+	$cells = array_map(
+		fn ( $cell ) => trim( html_entity_decode( wp_strip_all_tags( $cell ), ENT_QUOTES, 'UTF-8' ) ),
+		$matches[1]
+	);
+	if ( $cells ) {
+		$cells[0] = mb_strtolower( preg_replace( '/[\s:]+$/u', '', $cells[0] ) );
+	}
+	return $cells;
+}
+
+/**
+ * Today's hours from the first opening-hours table in $html, or null when it has no row for today.
+ */
+function bz_hours_today( $html ) {
+	preg_match_all( '#<tr\b[^>]*>.*?</tr>#is', $html, $rows );
+	foreach ( $rows[0] as $row ) {
+		$cells = bz_row_cells( $row );
+		if ( count( $cells ) >= 2 && bz_today() === $cells[0] ) {
+			return $cells[1];
+		}
+	}
+	return null;
+}
+
+/**
+ * Hours without a digit ("dzień prac wewnętrznych") or no row at all mean closed.
+ */
+function bz_is_open( $hours ) {
+	return null !== $hours && preg_match( '/\d/', $hours );
+}
+
+/**
+ * Today's hours as shown: the table's own words, or "nieczynne" when there are none.
+ */
+function bz_hours_label( $hours ) {
+	return null === $hours || '' === $hours ? 'nieczynne' : $hours;
+}
+
+/**
+ * Marks today's row in every opening-hours table.
+ */
+add_filter(
+	'render_block_core/table',
+	function ( $content ) {
+		if ( ! str_contains( $content, 'bz-hours' ) ) {
+			return $content;
+		}
+		return preg_replace_callback(
+			'#<tr\b[^>]*>.*?</tr>#is',
+			function ( $match ) {
+				$cells = bz_row_cells( $match[0] );
+				if ( ! $cells || bz_today() !== $cells[0] ) {
+					return $match[0];
+				}
+				$row = new WP_HTML_Tag_Processor( $match[0] );
+				$row->next_tag( 'tr' );
+				$row->add_class( 'is-today' );
+				return $row->get_updated_html();
+			},
+			$content
+		);
+	}
+);
+
+/**
+ * Shows today's hours above each branch's "Godziny otwarcia" toggle, read from
+ * the table inside it, so nobody has to open the toggle to see them.
+ */
+add_filter(
+	'render_block_core/details',
+	function ( $content, $block ) {
+		if ( ! str_contains( $block['attrs']['className'] ?? '', 'bz-hours-toggle' ) ) {
+			return $content;
+		}
+		$hours = bz_hours_today( $content );
+		return sprintf(
+			'<p class="bz-hours-today">Dziś (%s): <strong class="%s">%s</strong></p>',
+			esc_html( bz_today() ),
+			bz_is_open( $hours ) ? 'is-open' : 'is-closed',
+			esc_html( bz_hours_label( $hours ) )
+		) . $content;
+	},
+	10,
+	2
+);
+
+/**
+ * Today's hours of every branch in the "Filie" pattern. A branch is a column or
+ * card with an id (the map's pins link to it) whose first block is a heading.
+ *
+ * @return array<int, array{id: string, name: string, hours: ?string}>
+ */
+function bz_branches_today() {
+	static $branches = null;
+	if ( null !== $branches ) {
+		return $branches;
+	}
+	$branches = array();
+
+	$pattern = get_page_by_path( 'filie', OBJECT, 'wp_block' );
+	if ( ! $pattern || 'publish' !== $pattern->post_status ) {
+		return $branches;
+	}
+
+	// Short names for the "today" bar; a branch added later shows its heading.
+	$short_names = array(
+		'zukowo'      => 'Żukowo',
+		'banino'      => 'Banino',
+		'chwaszczyno' => 'Chwaszczyno',
+		'lezno'       => 'Leźno',
+		'niestepowo'  => 'Niestępowo',
+	);
+
+	$walk = function ( $blocks ) use ( &$walk, &$branches, $short_names ) {
+		foreach ( $blocks as $block ) {
+			$heading = $block['innerBlocks'][0] ?? null;
+			if ( $heading && 'core/heading' === $heading['blockName'] && in_array( $block['blockName'], array( 'core/column', 'core/group' ), true ) ) {
+				$tag = new WP_HTML_Tag_Processor( $block['innerHTML'] );
+				$id  = $tag->next_tag() ? $tag->get_attribute( 'id' ) : null;
+				if ( is_string( $id ) && '' !== $id ) {
+					$branches[] = array(
+						'id'    => $id,
+						'name'  => $short_names[ $id ] ?? trim( wp_strip_all_tags( $heading['innerHTML'] ) ),
+						'hours' => bz_hours_today( render_block( $block ) ),
+					);
+					continue;
+				}
+			}
+			$walk( $block['innerBlocks'] );
+		}
+	};
+	$walk( parse_blocks( $pattern->post_content ) );
+
+	return $branches;
+}
+
+/**
+ * [bz_dzisiaj]: the "Dziś jesteśmy otwarci" bar, with today's hours of every
+ * branch, each linking to its section further down the page.
+ */
+add_shortcode(
+	'bz_dzisiaj',
+	function () {
+		$branches = bz_branches_today();
+		$open     = array_filter( $branches, fn ( $branch ) => bz_is_open( $branch['hours'] ) );
+
+		if ( ! $branches ) {
+			return '<p class="bz-today__label has-large-font-size">Godziny otwarcia wszystkich filii:</p><p><a class="bz-today__value" href="/kontakt/">zobacz godziny otwarcia</a></p>';
+		}
+		if ( ! $open ) {
+			// "Dziś (środa) wszystkie filie są nieczynne (dzień prac wewnętrznych)."
+			$reasons = array_unique( array_map( fn ( $branch ) => bz_hours_label( $branch['hours'] ), $branches ) );
+			$reason  = 1 === count( $reasons ) && 'nieczynne' !== $reasons[0] ? ' (' . $reasons[0] . ')' : '';
+			return sprintf(
+				'<p class="bz-today__label has-large-font-size">Dziś (%s) wszystkie filie są nieczynne%s.</p><p><a href="#filie">Godziny otwarcia filii</a></p>',
+				esc_html( bz_today() ),
+				esc_html( $reason )
+			);
+		}
+
+		$items = '';
+		foreach ( $branches as $branch ) {
+			$is_open = bz_is_open( $branch['hours'] );
+			$items  .= sprintf(
+				'<li><a href="#%s">%s: <strong class="%s">%s</strong></a></li>',
+				esc_attr( $branch['id'] ),
+				esc_html( $branch['name'] ),
+				$is_open ? 'is-open' : 'is-closed',
+				esc_html( bz_hours_label( $branch['hours'] ) )
+			);
+		}
+		return sprintf(
+			'<p class="bz-today__label has-large-font-size">Dziś (%s) jesteśmy otwarci:</p><ul class="bz-today__list">%s</ul>',
+			esc_html( bz_today() ),
+			$items
 		);
 	}
 );
