@@ -20,49 +20,54 @@ $branches = array(
 		'city'    => '83-330 Żukowo',
 		'phones'  => array( '+48 58 681 77 63' ),
 		'emails'  => array( 'info@bibliotekazukowo.pl', 'bibpubzukowo@wp.pl' ),
+		'catalog' => 'https://xn--szukamksiki-4kb16m.pl/SkNewWeb/bstart/523002332',
 		'lat'     => 54.3404707,
 		'lon'     => 18.3636395,
 		'is_main' => true,
 	),
 	array(
-		'id'     => 'banino',
-		'name'   => 'Filia w Baninie',
-		'street' => 'ul. Lotnicza 29 (budynek OSP)',
-		'city'   => '80-297 Banino',
-		'phones' => array( '+48 58 694 15 68' ),
-		'emails' => array( 'banino@bibliotekazukowo.pl' ),
-		'lat'    => 54.3921375,
-		'lon'    => 18.4061695,
+		'id'      => 'banino',
+		'name'    => 'Filia w Baninie',
+		'street'  => 'ul. Lotnicza 29 (budynek OSP)',
+		'city'    => '80-297 Banino',
+		'phones'  => array( '+48 58 694 15 68' ),
+		'emails'  => array( 'banino@bibliotekazukowo.pl' ),
+		'catalog' => 'https://xn--szukamksiki-4kb16m.pl/SkNewWeb/bstart/523002342',
+		'lat'     => 54.3921375,
+		'lon'     => 18.4061695,
 	),
 	array(
-		'id'     => 'chwaszczyno',
-		'name'   => 'Filia w Chwaszczynie',
-		'street' => 'ul. Żeromskiego 9 (Strefa Kultury)',
-		'city'   => '80-209 Chwaszczyno',
-		'phones' => array( '+48 502 837 774' ),
-		'emails' => array( 'chwaszczyno@bibliotekazukowo.pl' ),
-		'lat'    => 54.4412547,
-		'lon'    => 18.4210256,
+		'id'      => 'chwaszczyno',
+		'name'    => 'Filia w Chwaszczynie',
+		'street'  => 'ul. Żeromskiego 9 (Strefa Kultury)',
+		'city'    => '80-209 Chwaszczyno',
+		'phones'  => array( '+48 502 837 774' ),
+		'emails'  => array( 'chwaszczyno@bibliotekazukowo.pl' ),
+		'catalog' => 'https://xn--szukamksiki-4kb16m.pl/SkNewWeb/bstart/523002343',
+		'lat'     => 54.4412547,
+		'lon'     => 18.4210256,
 	),
 	array(
-		'id'     => 'lezno',
-		'name'   => 'Filia w Leźnie',
-		'street' => 'ul. św. Floriana 12 (budynek OSP)',
-		'city'   => '80-298 Leźno',
-		'phones' => array( '+48 58 355 07 30' ),
-		'emails' => array( 'lezno@bibliotekazukowo.pl' ),
-		'lat'    => 54.3473070,
-		'lon'    => 18.4377054,
+		'id'      => 'lezno',
+		'name'    => 'Filia w Leźnie',
+		'street'  => 'ul. św. Floriana 12 (budynek OSP)',
+		'city'    => '80-298 Leźno',
+		'phones'  => array( '+48 58 355 07 30' ),
+		'emails'  => array( 'lezno@bibliotekazukowo.pl' ),
+		'catalog' => 'https://xn--szukamksiki-4kb16m.pl/SkNewWeb/bstart/523002344',
+		'lat'     => 54.3473070,
+		'lon'     => 18.4377054,
 	),
 	array(
-		'id'     => 'niestepowo',
-		'name'   => 'Filia w Niestępowie',
-		'street' => 'ul. Raduńska 14a (nad sklepem spożywczym)',
-		'city'   => '83-331 Przyjaźń',
-		'phones' => array( '+48 58 355 07 45' ),
-		'emails' => array( 'niestepowo@bibliotekazukowo.pl' ),
-		'lat'    => 54.3254207,
-		'lon'    => 18.4140584,
+		'id'      => 'niestepowo',
+		'name'    => 'Filia w Niestępowie',
+		'street'  => 'ul. Raduńska 14a (nad sklepem spożywczym)',
+		'city'    => '83-331 Przyjaźń',
+		'phones'  => array( '+48 58 355 07 45' ),
+		'emails'  => array( 'niestepowo@bibliotekazukowo.pl' ),
+		'catalog' => 'https://xn--szukamksiki-4kb16m.pl/SkNewWeb/bstart/523002345',
+		'lat'     => 54.3254207,
+		'lon'     => 18.4140584,
 	),
 );
 
@@ -97,7 +102,7 @@ function bz_find_attachment( $fragment ) {
 	);
 }
 
-function bz_ensure_page( $slug, $title ) {
+function bz_ensure_page( $slug, $title, $content = '' ) {
 	$page = get_page_by_path( $slug );
 	if ( $page ) {
 		return $page->ID;
@@ -105,10 +110,11 @@ function bz_ensure_page( $slug, $title ) {
 	bz_log( "Creating page /$slug/" );
 	return wp_insert_post(
 		array(
-			'post_type'   => 'page',
-			'post_status' => 'publish',
-			'post_name'   => $slug,
-			'post_title'  => $title,
+			'post_type'    => 'page',
+			'post_status'  => 'publish',
+			'post_name'    => $slug,
+			'post_title'   => $title,
+			'post_content' => $content,
 		)
 	);
 }
@@ -165,9 +171,15 @@ function bz_branch_heading( $branch ) {
 	return "<!-- wp:heading {\"level\":3} -->\n<h3 class=\"wp-block-heading\">" . esc_html( $branch['name'] ) . "</h3>\n<!-- /wp:heading -->\n";
 }
 
+// The branch's own catalog on szukamksiążki.pl.
+function bz_branch_catalog( $branch ) {
+	return "<!-- wp:paragraph {\"className\":\"bz-more\"} -->\n<p class=\"bz-more\"><a href=\"" . esc_url( $branch['catalog'] ) . "\">Katalog online</a></p>\n<!-- /wp:paragraph -->\n";
+}
+
 function bz_branch_details( $branch, $hours_ref ) {
 	return "<!-- wp:paragraph -->\n<p>" . esc_html( $branch['street'] ) . '<br>' . esc_html( $branch['city'] ) . "</p>\n<!-- /wp:paragraph -->\n"
 		. "<!-- wp:paragraph -->\n<p>" . bz_contact_links( $branch ) . "</p>\n<!-- /wp:paragraph -->\n"
+		. bz_branch_catalog( $branch )
 		. "<!-- wp:details {\"className\":\"bz-hours-toggle\"} -->\n<details class=\"wp-block-details bz-hours-toggle\"><summary>Godziny otwarcia</summary>"
 		. "<!-- wp:block {\"ref\":$hours_ref} /-->"
 		. "</details>\n<!-- /wp:details -->\n";
@@ -237,6 +249,71 @@ function bz_migrate_branches_map( $pattern_id, $branches ) {
 			'ID'           => $pattern_id,
 			'post_title'   => 'Filie (adresy i mapa)',
 			'post_content' => serialize_blocks( $blocks ),
+		)
+	);
+}
+
+/**
+ * Sites set up before the catalog links have none in the branch sections. Adds
+ * each branch's "Katalog online" link above its opening hours toggle (or at the
+ * end of the section). Works on the parsed blocks, so other edits are kept.
+ */
+function bz_add_catalog_links( $pattern_id, $branches ) {
+	$pattern = get_post( $pattern_id );
+	if ( ! $pattern || str_contains( $pattern->post_content, '/SkNewWeb/' ) ) {
+		return;
+	}
+
+	$by_id = array_column( $branches, null, 'id' );
+	$added = 0;
+
+	$walk = function ( $blocks ) use ( &$walk, &$added, $by_id ) {
+		foreach ( $blocks as &$block ) {
+			$tag = new WP_HTML_Tag_Processor( $block['innerHTML'] );
+			$id  = $tag->next_tag() ? $tag->get_attribute( 'id' ) : null;
+			if ( ! is_string( $id ) || ! isset( $by_id[ $id ] ) || ! in_array( $block['blockName'], array( 'core/column', 'core/group' ), true ) ) {
+				$block['innerBlocks'] = $walk( $block['innerBlocks'] );
+				continue;
+			}
+
+			$at = count( $block['innerBlocks'] );
+			foreach ( $block['innerBlocks'] as $i => $inner ) {
+				if ( 'core/details' === $inner['blockName'] && str_contains( $inner['attrs']['className'] ?? '', 'bz-hours-toggle' ) ) {
+					$at = $i;
+					break;
+				}
+			}
+			array_splice( $block['innerBlocks'], $at, 0, array( parse_blocks( bz_branch_catalog( $by_id[ $id ] ) )[0] ) );
+
+			// Put its placeholder in innerContent before the $at-th child's, or after the last child.
+			$seen = 0;
+			$pos  = null;
+			foreach ( $block['innerContent'] as $k => $chunk ) {
+				if ( null === $chunk ) {
+					if ( $seen++ === $at ) {
+						$pos = $k;
+						break;
+					}
+					$pos = $k + 1;
+				}
+			}
+			$pos = $pos ?? 1;
+			array_splice( $block['innerContent'], $pos, 0, $seen > $at ? array( null, "\n" ) : array( "\n", null ) );
+			++$added;
+		}
+		return $blocks;
+	};
+
+	$blocks = $walk( parse_blocks( $pattern->post_content ) );
+	if ( ! $added ) {
+		return;
+	}
+	bz_log( "Adding catalog links to $added branch sections (old version kept as a revision)" );
+	wp_save_post_revision( $pattern_id );
+	wp_update_post(
+		array(
+			'ID'           => $pattern_id,
+			'post_content' => wp_slash( serialize_blocks( $blocks ) ),
 		)
 	);
 }
@@ -401,6 +478,7 @@ foreach ( array_slice( $branches, 1 ) as $branch ) {
 $filie .= "</div>\n<!-- /wp:group -->";
 $filie_ref = bz_ensure_pattern( 'filie', 'Filie (adresy i mapa)', $filie );
 bz_migrate_branches_map( $filie_ref, $branches );
+bz_add_catalog_links( $filie_ref, $branches );
 
 $gallery = '';
 foreach ( $partners as $fragment => $name ) {
@@ -463,6 +541,28 @@ if ( $contact && ! has_block( 'core/block', $contact ) ) {
 		)
 	);
 }
+
+// Links to every branch's catalog, linked from the main menu. Created once;
+// after that it's an ordinary page staff can edit.
+$catalogs = '';
+foreach ( $branches as $branch ) {
+	$catalogs .= '<!-- wp:list-item --><li><a href="' . esc_url( $branch['catalog'] ) . '">' . esc_html( $branch['name'] ) . "</a></li><!-- /wp:list-item -->\n";
+}
+bz_ensure_page(
+	'katalog-online',
+	'Katalog online',
+	'<!-- wp:paragraph -->
+<p>Każda nasza placówka ma własny katalog w serwisie SzukamKsiążki.pl. Wybierz placówkę, aby sprawdzić, czy książka jest w jej zbiorach.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"fontSize":"large"} -->
+<ul class="wp-block-list has-large-font-size">' . $catalogs . '</ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>Adresy i godziny otwarcia placówek są na stronie <a href="/kontakt/">Kontakt</a>.</p>
+<!-- /wp:paragraph -->'
+);
 
 flush_rewrite_rules();
 WP_CLI::success( 'Setup done.' );
