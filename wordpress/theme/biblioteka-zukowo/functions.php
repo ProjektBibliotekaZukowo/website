@@ -44,6 +44,38 @@ add_action(
 );
 
 /**
+ * Favicon: the "O" from the logo, kept in assets/icons so it ships with the
+ * theme instead of living in the database. The SVG turns light in dark mode;
+ * the .ico is for older browsers and plain /favicon.ico requests. A Site Icon
+ * set in the admin takes over from these.
+ */
+function bz_favicon_links() {
+	if ( has_site_icon() ) {
+		return;
+	}
+	$version = wp_get_theme()->get( 'Version' );
+	$icon    = fn( $file ) => esc_url( add_query_arg( 'ver', $version, get_theme_file_uri( "assets/icons/$file" ) ) );
+	printf( '<link rel="icon" href="%s" sizes="48x48">' . "\n", $icon( 'favicon.ico' ) );
+	printf( '<link rel="icon" href="%s" type="image/svg+xml">' . "\n", $icon( 'favicon.svg' ) );
+	printf( '<link rel="apple-touch-icon" href="%s">' . "\n", $icon( 'apple-touch-icon.png' ) );
+}
+add_action( 'wp_head', 'bz_favicon_links' );
+add_action( 'admin_head', 'bz_favicon_links' );
+add_action( 'login_head', 'bz_favicon_links' );
+
+// Without a Site Icon, core answers /favicon.ico with the WordPress logo.
+add_action(
+	'do_favicon',
+	function () {
+		if ( ! has_site_icon() ) {
+			wp_safe_redirect( get_theme_file_uri( 'assets/icons/favicon.ico' ) );
+			exit;
+		}
+	},
+	9
+);
+
+/**
  * The branches map (Leaflet, bundled in assets/vendor) loads only on pages that
  * show it. Block themes render the page before wp_head, so enqueuing here works.
  */
