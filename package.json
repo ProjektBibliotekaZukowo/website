@@ -46,7 +46,6 @@
     "@graphql-codegen/typescript": "3.0.2",
     "@graphql-codegen/typescript-operations": "3.0.2",
     "@graphql-codegen/typescript-react-apollo": "^3.2.2",
-    "@netlify/plugin-nextjs": "^4.3.2",
     "@types/classnames": "^2.3.1",
     "@types/lodash": "^4.14.171",
     "@types/node": "20.11.26",
