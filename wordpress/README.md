@@ -90,6 +90,9 @@ with Facebook posts) with real emoji characters and strips stray forms from post
   (`#banino`, …), and its popup copies that section's address and contacts, so staff
   edit them in one place. The map uses Leaflet (bundled in `assets/vendor/leaflet/`,
   loaded only on pages with the map) and OpenStreetMap tiles.
+- **Catalogs**: every branch has its own catalog on szukamksiążki.pl. Each branch
+  section in *Filie* has a "Katalog online" link to it, and the /katalog-online/
+  page (in the main menu) lists all of them. Both are content, edited in the admin.
 - **Search** in the header: a slim field on wide screens, a magnifier that opens
   the field over the bar on narrower ones (core's search block, no plugin).
 - **News list view**: /aktualnosci/ and search results have a grid / list switch
