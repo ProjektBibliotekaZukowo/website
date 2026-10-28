@@ -1,4 +1,4 @@
-# bibliotekazukowo.pl on WordPress
+# Biblioteka Dostępna Cyfrowo on WordPress
 
 The library's site runs on WordPress. This folder holds everything that is ours:
 the theme, a setup script and the local development environment. Content
