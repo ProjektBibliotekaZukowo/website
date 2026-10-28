@@ -1,4 +1,4 @@
-# bibliotekazukowo.pl
+# Biblioteka Dostpena Cyfrowo 
 
 The library's website runs on WordPress. Everything in this repo lives in
 [`wordpress/`](wordpress/): the block theme, the setup scripts, the local Docker
