@@ -6,3 +6,7 @@ environment and the production image. Start with [`wordpress/README.md`](wordpre
 
 The earlier Next.js + Contentful frontend has been retired; it is in git history
 up to commit `36d0036`.
+
+## Credits
+
+- Design: [Radosław Śmigielski](https://www.linkedin.com/in/rados%C5%82aw-%C5%9Bmigielski-895a73302/)
